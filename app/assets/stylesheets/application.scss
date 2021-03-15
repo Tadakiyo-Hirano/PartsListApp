@@ -1,0 +1,52 @@
+@import 'bootstrap/scss/bootstrap';
+
+body {
+  font-family: "游ゴシック体", YuGothic, "游ゴシック Medium", "Yu Gothic Medium", "游ゴシック", "Yu Gothic", sans-serif;
+}
+
+h1, h2, h3 {
+  text-align: center;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #47619c;
+  border-color: #47619c;
+}
+
+.btn-primary.disabled, .btn-primary:disabled {
+  color: #fff;
+  background-color: #758cbf;
+  border-color: #758cbf;
+}
+
+.btn-primary:hover {
+  color: #fff;
+  background-color: #758cbf;
+  border-color: #758cbf;
+}
+
+.field {
+  margin-bottom: 10px;
+}
+
+/* Category */
+
+.new-category-btn {
+  margin-bottom: 10px;
+}
+
+/* デバッグ */
+
+.debug_dump {
+  padding: 0.5em 1em;
+  margin: 2em 0;
+  border: double 5px #47619c;
+  clear: both;
+  float: left;
+  width: 100%;
+  margin-top: 45px;
+  -moz-box-sizing:    border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing:         border-box;
+}
