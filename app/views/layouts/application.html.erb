@@ -11,6 +11,23 @@
   </head>
 
   <body>
-    <%= yield %>
+    <div class="container-sm">
+      <div class="flash_messages">
+        <% flash.each do |key, value| %>
+          <p class="alert alert-<%= key %>">
+            <%= value %>
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+          </p>
+        <% end %>
+      </div>
+
+      <div class="container">
+        <%= yield %>
+      </div>
+
+      <div>
+        <%= debug(params) if Rails.env.development? %>
+      </div>
+    </div>
   </body>
 </html>
