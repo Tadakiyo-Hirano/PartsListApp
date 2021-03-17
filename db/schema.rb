@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(version: 2021_03_15_020725) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name", default: "", null: false
+    t.integer "row_order"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["name"], name: "index_categories_on_name", unique: true

@@ -1,3 +1,4 @@
+@import 'categories';
 @import 'bootstrap/scss/bootstrap';
 
 body {
@@ -30,10 +31,16 @@ h1, h2, h3 {
   margin-bottom: 10px;
 }
 
-/* Category */
+.center {
+  text-align: center;
+}
 
-.new-category-btn {
-  margin-bottom: 10px;
+.w-100px {
+  width: 100px;
+}
+
+.w-460px {
+  width: 460px;
 }
 
 /* デバッグ */
@@ -49,4 +56,10 @@ h1, h2, h3 {
   -moz-box-sizing:    border-box;
   -webkit-box-sizing: border-box;
   box-sizing:         border-box;
+}
+
+.table-sortable {
+  tr.item {
+    cursor: row-resize;
+  }
 }

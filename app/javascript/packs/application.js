@@ -3,11 +3,15 @@
 // a relevant structure within app/javascript and only use these pack files to reference
 // that code so it'll be compiled.
 
-import 'bootstrap';
 import Rails from "@rails/ujs"
 import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
+
+import 'bootstrap';
+import 'jquery-ui';
+
+import './table_sort.js';
 
 Rails.start()
 Turbolinks.start()
