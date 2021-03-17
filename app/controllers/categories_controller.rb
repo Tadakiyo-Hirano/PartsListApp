@@ -1,8 +1,16 @@
 class CategoriesController < ApplicationController
+  protect_from_forgery :except => [:sort]
   before_action :set_category, only: %i(show edit update)
 
   def index
-    @categories = Category.all
+    @categories = Category.rank(:row_order)
+    @heading_number = 0
+  end
+
+  def sort
+    category = Category.find(params[:category_id])
+    category.update(category_params)
+    render body: nil
   end
 
   def show
@@ -57,6 +65,6 @@ class CategoriesController < ApplicationController
     end
 
     def category_params
-      params.require(:category).permit(:name)
+      params.require(:category).permit(:name, :row_order_position)
     end
 end

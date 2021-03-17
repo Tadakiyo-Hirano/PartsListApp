@@ -3,27 +3,29 @@
   <%= form_tag({ controller: :categories, action: :destroy_all }, method: 'delete') do %>
     <div class="new-category-btn">
       <%= link_to '新規', new_category_path, class: "btn btn-sm btn-primary" %>
-      <%= submit_tag '削除', class: "btn btn-sm btn-danger" %>
+      <%= submit_tag '削除', class: "btn btn-sm btn-danger", data: { disable_with: '送信中', confirm: '選択したカテゴリーを削除しますか？' } %>
     </div>
 
-    <table class="table table-sm">
+    <table class="table table-sm table-sortable">
       <thead>
-        <tr class="bg-light">
+        <tr w-auto class="bg-light">
           <th></th>
-          <th><%= Category.human_attribute_name :id %></th>
+          <th>No.</th>
           <th><%= Category.human_attribute_name :name %></th>
         </tr>
       </thead>
 
       <tbody>
         <% @categories.each do |category| %>
-            <tr>
-              <td><%= check_box_tag 'categories[]',category.id %></td>
-              <td><%= category.id %></td>
-              <td><%= link_to category.name, category_path(category) %></td>
-            </tr>
+          <tr id="category-<%= category.id %>" class="item" data-model_name="<%= category.class.name.underscore %>" data-update_url="<%= category_sort_path(category) %>" data-method="post">
+            <td class="w-100px"><%= check_box_tag 'categories[]',category.id %></td>
+            <td class="w-100px"><%= @heading_number += 1 %></td>
+            <td class="w-460px"><%= category.name %></td>
+          </tr>
         <% end %>
       </tbody>
     </table>
   <% end %>
 </div>
+
+<!-- <= javascript_pack_tag 'table_sort.js' %> -->
