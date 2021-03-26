@@ -3,6 +3,19 @@ class CategoriesController < ApplicationController
   before_action :set_category, only: %i(show edit update)
 
   def index
+    @check
+    # @category = Category.new
+    @categories = Category.rank(:row_order)
+    @heading_number = 0
+
+    if params[:id].present?
+      set_category
+    else
+      @category = Category.new
+    end
+  end
+
+  def index_sort
     @categories = Category.rank(:row_order)
     @heading_number = 0
   end
@@ -17,7 +30,7 @@ class CategoriesController < ApplicationController
   end
   
   def new
-    @category = Category.new
+    # @category = Category.new
   end
 
   def create
@@ -26,7 +39,8 @@ class CategoriesController < ApplicationController
       flash[:success] = "カテゴリー【#{@category.name}】を登録しました。"
       redirect_to categories_url
     else
-      render :new
+      flash[:danger] = @category.errors.full_messages.join
+      redirect_to categories_url
     end
   end
 
@@ -34,11 +48,18 @@ class CategoriesController < ApplicationController
   end
 
   def update
-    if @category.update!(category_params)
-      flash[:success] = "カテゴリー【#{@category.name}】を更新しました。"
+    @category_updated_at = @category.updated_at
+    if @category.update(category_params)
+      if @category_updated_at != @category.updated_at
+        @check = "aaa"
+        flash[:success] = "カテゴリー【#{@category.name}】を更新しました。"
+      else
+        flash[:info] = "変更はありません。"
+      end
       redirect_to categories_url
     else
-      render :edit
+      flash[:danger] = @category.errors.full_messages.join
+      redirect_to categories_url(id: params[:id])
     end
   end
 

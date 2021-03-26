@@ -1,9 +1,16 @@
-<div>
-  <h3>カテゴリー登録･編集</h3>
-  <%= form_tag({ controller: :categories, action: :destroy_all }, method: 'delete') do %>
+<div class="row">
+  <div class="col-md-6 offset-md-3">
+    <h3>カテゴリー登録･編集<%= @check %></h3>
     <div class="new-category-btn">
-      <%= link_to '新規', new_category_path, class: "btn btn-sm btn-primary" %>
-      <%= submit_tag '削除', class: "btn btn-sm btn-danger", data: { disable_with: '送信中', confirm: '選択したカテゴリーを削除しますか？' } %>
+      <div class="new-category-item-left" data-toggle="modal" data-target="#new-category-modal">
+        <%= new_category_btn %>
+      </div>
+      <div class="new-category-item-left">
+        <%= delete_category_btn %>
+      </div>
+      <div class="new-category-item-right">
+        <%= link_to '並べ替え', index_sort_categories_path, class: "btn btn-sm btn-navy", data: {"turbolinks" => false} %>
+      </div>
     </div>
 
     <table class="table table-sm table-sortable">
@@ -12,20 +19,49 @@
           <th></th>
           <th>No.</th>
           <th><%= Category.human_attribute_name :name %></th>
+          <th></th>
         </tr>
       </thead>
 
       <tbody>
-        <% @categories.each do |category| %>
-          <tr id="category-<%= category.id %>" class="item" data-model_name="<%= category.class.name.underscore %>" data-update_url="<%= category_sort_path(category) %>" data-method="post">
-            <td class="w-100px"><%= check_box_tag 'categories[]',category.id %></td>
-            <td class="w-100px"><%= @heading_number += 1 %></td>
-            <td class="w-460px"><%= category.name %></td>
-          </tr>
+        <% unless params[:id] %>
+          <%= form_tag({ controller: :categories, action: :destroy_all }, id: "delete-category", method: 'delete') do %>
+            <% @categories.each do |category| %>
+              <tr>
+                <td><%= check_box_tag 'categories[]',category.id %></td>
+                  <td class="table-number"><%= @heading_number += 1 %>&emsp;</td>
+                  <td><%= category.name %></td>
+                <td>
+                  <%= link_to categories_path(id: category), local: true, method: :get do %>
+                    <i class="far fa-edit"></i>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          <% end %>
+        <% else %>
+          <% @categories.each do |category| %>
+            <tr>
+              <td><%= check_box_tag '', 'true', false, disabled: true %></td>
+                <td class="table-number"><%= @heading_number += 1 %>&emsp;</td>
+                <td><%= edit_category_form(category) %></td>
+              <td>
+                <% if @category.id == category.id %>
+                  <%= link_to categories_path do %>
+                    <i class="far fa-window-close"></i>
+                  <% end %>
+                <% else %>
+                  <%= link_to categories_path(id: category), local: true, method: :get do %>
+                    <i class="far fa-edit"></i>
+                  <% end %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
         <% end %>
       </tbody>
     </table>
-  <% end %>
+  </div>
 </div>
 
-<!-- <= javascript_pack_tag 'table_sort.js' %> -->
+<%= render 'new' %>
