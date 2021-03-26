@@ -1,3 +1,25 @@
 .new-category-btn {
   margin-bottom: 10px;
+  display: flex;
+}
+
+.new-category-item-left {
+  display: inline-block;
+  margin-right: 3px;
+}
+
+.new-category-item-right {
+  display: inline-block;
+  margin-left: auto;
+}
+
+@media screen and (max-width: 460px){
+  .new-category-item-right {
+    display: none;
+  }
+}
+
+.table-number {
+  text-align: right;
+  width: 30px;
 }
