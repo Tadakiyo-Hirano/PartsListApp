@@ -3,8 +3,6 @@ class CategoriesController < ApplicationController
   before_action :set_category, only: %i(show edit update)
 
   def index
-    @check
-    # @category = Category.new
     @categories = Category.rank(:row_order)
     @heading_number = 0
 
@@ -30,7 +28,6 @@ class CategoriesController < ApplicationController
   end
   
   def new
-    # @category = Category.new
   end
 
   def create

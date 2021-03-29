@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :categories do
+  resources :categories, except: :destroy do
     post :sort
     collection do
       get :index_sort
