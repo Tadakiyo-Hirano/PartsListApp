@@ -13,3 +13,11 @@
 end
 
 puts 'sample category created!'
+
+10.times do |n|
+  Brand.create!(
+    name: "sample brand#{n +1}"
+  )
+end
+
+puts 'sample brand created!'

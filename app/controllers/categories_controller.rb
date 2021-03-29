@@ -1,10 +1,8 @@
 class CategoriesController < ApplicationController
-  protect_from_forgery :except => [:sort]
-  before_action :set_category, only: %i(show edit update)
+  protect_from_forgery except: :sort
+  before_action :set_category, only: %i(edit update)
 
   def index
-    @check
-    # @category = Category.new
     @categories = Category.rank(:row_order)
     @heading_number = 0
 
@@ -26,11 +24,7 @@ class CategoriesController < ApplicationController
     render body: nil
   end
 
-  def show
-  end
-  
   def new
-    # @category = Category.new
   end
 
   def create
@@ -51,7 +45,6 @@ class CategoriesController < ApplicationController
     @category_updated_at = @category.updated_at
     if @category.update(category_params)
       if @category_updated_at != @category.updated_at
-        @check = "aaa"
         flash[:success] = "カテゴリー【#{@category.name}】を更新しました。"
       else
         flash[:info] = "変更はありません。"
@@ -62,9 +55,6 @@ class CategoriesController < ApplicationController
       redirect_to categories_url(id: params[:id])
     end
   end
-
-  # def destroy
-  # end
 
   def destroy_all
     @categories = Category.where(id: params[:categories])
