@@ -1,0 +1,28 @@
+<div class="col-md-6 offset-md-3">
+  <h3>ブランド並べ替え</h3>
+  <div class="new-brand-btn">
+    <div class="new-brand-item-right">
+      <%= link_to '戻る', brands_path, class: "btn btn-sm btn-secondary", data: { "turbolinks": false } %>
+    </div>
+  </div>
+
+  <table class="table table-sm table-sortable">
+    <thead>
+      <tr w-auto class="bg-light">
+        <th></th>
+        <th>No.</th>
+        <th><%= Brand.human_attribute_name :name %></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @brands.each do |brand| %>
+        <tr id="brand-<%= brand.id %>" class="item" data-model_name="<%= brand.class.name.underscore %>" data-update_url="<%= brand_sort_path(brand) %>" data-method="post">
+          <td class="w-100px"></td>
+          <td class="w-100px"><%= @heading_number += 1 %></td>
+          <td class="w-360px"><%= brand.name %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
