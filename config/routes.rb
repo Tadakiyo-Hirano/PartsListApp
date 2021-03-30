@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'products/index'
   resources :categories, except: :destroy do
     post :sort
     collection do
