@@ -21,3 +21,14 @@ puts 'sample category created!'
 end
 
 puts 'sample brand created!'
+
+
+20.times do |n|
+  Product.create!(
+    model: "#{rand(340..570)}XP",
+    category_id: rand(Category.find(1).id..Category.find(10).id),
+    brand_id: rand(Brand.find(1).id..Brand.find(10).id)
+  )
+end
+
+puts 'sample product created!'
