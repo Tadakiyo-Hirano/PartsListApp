@@ -1,2 +1,32 @@
-<h1>Products#index</h1>
-<p>Find me in app/views/products/index.html.erb</p>
+<div class="row">
+  <div class="col-md-6 offset-md-3">
+    <h3>パーツカタログ登録･編集</h3>
+  <div class="new-product-btn">
+    <div class="new-product-item-left" data-toggle="modal" data-target="#new-product-modal">
+      <%= link_to '新規', new_product_path, remote: true, class: "btn btn-sm btn-navy" %>
+    </div>
+  </div>
+
+  <table class="table table-sm">
+    <thead>
+      <tr>
+        <th><%= Product.human_attribute_name :model %></th>
+        <th>パーツカタログ</th>
+        <th><%= Category.human_attribute_name :name %></th>
+        <th><%= Brand.human_attribute_name :name %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @products.each do |product| %>
+        <tr>
+          <td><%= product.model %></td>
+          <td></td>
+          <td><%= Category.find(product.category_id).name %></td>
+          <td><%= Brand.find(product.brand_id).name %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= render 'new' %>
