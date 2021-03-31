@@ -18,9 +18,12 @@
 
             <div class="field">
               <%= f.label :category_id, '機種' %>
-              <%= f.select :category_id, Category.all.map { |category| [category.name, category.id] }, {}, { required: true, class: "form-control" } %>
+              <%= f.select :category_id, Category.rank(:row_order).map { |category| [category.name, category.id] }, {}, { required: true, class: "form-control" } %>
+            </div>
+            
+            <div class="field">
               <%= f.label :brand_id, 'メーカーブランド' %>
-              <%= f.select :brand_id, Brand.all.map { |brand| [brand.name, brand.id] }, {}, { required: true, class: "form-control" } %>
+              <%= f.select :brand_id, Brand.rank(:row_order).map { |brand| [brand.name, brand.id] }, {}, { required: true, class: "form-control" } %>
             </div>
 
             <div class="field">

@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   def index
-    @products = Product.all
+    @products = Product.all.order(model: :ASC)
   end
 
   def new
@@ -8,8 +8,14 @@ class ProductsController < ApplicationController
   end
 
   def create
-    flash[:info] = @product
-    redirect_to products_url
+    @product = Product.new(product_params)
+    if @product.save
+      flash[:success] = "【#{@product.model}】を登録しました。"
+      redirect_to products_url
+    else
+      flash[:danger] = @product.errors.full_messages.join
+      redirect_to products_url
+    end
   end
 
   def edit
@@ -21,11 +27,13 @@ class ProductsController < ApplicationController
   def destroy
   end
 
+  private
+
     def set_product
       @product = Product.find(params[:id])
     end
 
     def product_params
-      params.require(:product).permit(:model, :category_id, :brand_id)
+      params.permit(:model, :category_id, :brand_id)
     end
 end
