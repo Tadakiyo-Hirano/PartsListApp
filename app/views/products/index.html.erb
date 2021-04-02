@@ -1,8 +1,8 @@
 <div class="row">
-  <div class="col-md-6 offset-md-3">
+  <div class="col-md-8 offset-md-2">
     <h3>パーツカタログ登録･編集</h3>
   <div class="new-product-btn">
-    <div class="new-product-item-left" data-toggle="modal" data-target="#new-product-modal">
+    <div class="new-product-item-left">
       <%= link_to '新規', new_product_path, remote: true, class: "btn btn-sm btn-navy" %>
     </div>
   </div>
@@ -14,6 +14,8 @@
         <th>パーツカタログ</th>
         <th><%= Category.human_attribute_name :name %></th>
         <th><%= Brand.human_attribute_name :name %></th>
+        <th></th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -23,10 +25,23 @@
           <td></td>
           <td><%= Category.find(product.category_id).name %></td>
           <td><%= Brand.find(product.brand_id).name %></td>
+          <td>
+            <%= link_to edit_product_path(product), remote: true do %>
+              <i class="fas fa-pencil-alt"></i>
+            <% end %>
+          </td>
+          <td>
+            <%= link_to product_path(product), method: :delete, id: "trash-icon-#{product.id}", data: { disable_with: "送信中", confirm: '選択したパーツカタログを削除しますか？' } do %>
+              <i class="fas fa-trash-alt"></i>
+            <% end %>
+          </td>
         </tr>
       <% end %>
     </tbody>
   </table>
 </div>
 
-<%= render 'new' %>
+<div id="new-product-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+<div id="edit-product-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+
+<i class="fa fa-spinner fa-spin"></i>

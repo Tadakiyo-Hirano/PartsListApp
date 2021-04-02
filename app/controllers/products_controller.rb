@@ -1,4 +1,6 @@
 class ProductsController < ApplicationController
+  before_action :set_product, only: %i(edit update destroy)
+
   def index
     @products = Product.all.order(model: :ASC)
   end
@@ -22,9 +24,24 @@ class ProductsController < ApplicationController
   end
 
   def update
+    @product_updated_at = @product.updated_at
+    if @product.update(product_params)
+      if @product_updated_at != @product.updated_at
+        flash[:success] = "パーツカタログ【#{@product.model}】を更新しました。"
+      else
+        flash[:info] = "変更はありません。"
+      end
+      redirect_to products_url
+    else
+      flash[:danger] = @product.errors.full_messages.join
+      redirect_to products_url
+    end
   end
 
   def destroy
+    @product.destroy
+    flash[:danger] = "パーツカタログ【#{@product.model}】を削除しました。"
+    redirect_to products_url
   end
 
   private
@@ -34,6 +51,6 @@ class ProductsController < ApplicationController
     end
 
     def product_params
-      params.permit(:model, :category_id, :brand_id)
+      params.require(:product).permit(:model, :category_id, :brand_id)
     end
 end
