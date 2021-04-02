@@ -1,0 +1,22 @@
+ja:
+  activerecord:
+    models:
+      brand:
+      category:
+      product:
+    attributes:
+      brand:
+        id: ID
+        name: メーカーブランド
+        created_at: 作成日
+        updated_at: 更新日
+      category:
+        id: ID
+        name: 機種
+        created_at: 作成日
+        updated_at: 更新日
+      product:
+        id: ID
+        model: 型式
+        created_at: 作成日
+        updated_at: 更新日
