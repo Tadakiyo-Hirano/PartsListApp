@@ -47,6 +47,7 @@ group :development do
   gem 'spring'
   
   gem 'rspec-rails', '~> 5.0.0'
+  gem 'factory_bot_rails', '~> 6.0.0'
   gem 'spring-commands-rspec'
   gem 'rexml', '~> 3.2', '>= 3.2.4'
 end
