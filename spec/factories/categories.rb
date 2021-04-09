@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :category do
-    id { 2 }
+    id { 1 }
     name { "spec sample category" }
   end
 end

@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :brand do
-    id { 2 }
+    id { 1 }
     name { "spec sample brand" }
   end
 end
