@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root 'home#index'
+
   resources :brands, except: :destroy do
     post :sort
     collection do

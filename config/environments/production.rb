@@ -97,7 +97,7 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  # devise 本番環境では、hostの部分にアプリケーションのドメインを入力
+  # devise 認証メール内URL (本番環境では、hostの部分にアプリケーションのドメインを入力)
   # config.action_mailer.default_url_options = { :host => ドメイン, :protocol => 'https'}
 
   # Inserts middleware to perform automatic connection switching.

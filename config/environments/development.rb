@@ -74,6 +74,7 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::FileUpdateChecker
   config.hosts << '.ngrok.io'
 
+  # 認証メール内URL
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
   # Uncomment if you wish to allow Action Cable access from any origin.
