@@ -2,6 +2,7 @@
 @import 'brands';
 @import 'categories';
 @import 'products';
+@import 'users';
 @import 'bootstrap/scss/bootstrap';
 
 body {
@@ -67,6 +68,19 @@ h1, h2, h3 {
 
 .w-460px {
   width: 460px;
+}
+
+/* devise error explanation */
+
+#error_explanation {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+  border-radius: 5px;
+  padding: 10px 10px 1px 10px;
+  ul {
+    list-style-type: square;
+  }
 }
 
 /* デバッグ */

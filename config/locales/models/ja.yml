@@ -4,6 +4,7 @@ ja:
       brand:
       category:
       product:
+      user:
     attributes:
       brand:
         id: ID
@@ -20,3 +21,10 @@ ja:
         model: 型式
         created_at: 作成日
         updated_at: 更新日
+      user:
+        id: ID
+        name: 名前
+        email: メールアドレス
+        password: パスワード
+        password_confirmation: 確認用パスワード
+        remember_me: パスワードを保持する
