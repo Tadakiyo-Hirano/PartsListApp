@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'users/show'
   devise_for :admins, controllers: {
     sessions: 'admins/sessions'
   }
@@ -7,6 +8,7 @@ Rails.application.routes.draw do
     sessions: 'users/sessions',
     registrations: 'users/registrations'
   }
+  resources :users, only: %i(show)
 
   root 'home#index'
 
