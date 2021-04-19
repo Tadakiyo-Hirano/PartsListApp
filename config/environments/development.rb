@@ -77,6 +77,18 @@ Rails.application.configure do
   # 認証メール内URL
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    enable_starttls_auto: true,
+    address: "smtp.gmail.com",
+    port: 587,
+    domain: 'smtp.gmail.com',
+    user_name: ENV['LOGIN_MAIL'],
+    password: ENV['LOGIN_PASSWORD'],
+    authentication: 'login'
+  }
+
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
 end
