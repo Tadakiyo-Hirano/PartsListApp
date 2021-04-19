@@ -51,6 +51,7 @@ group :development do
   gem 'factory_bot_rails', '~> 6.0.0'
   gem 'spring-commands-rspec'
   gem 'rexml', '~> 3.2', '>= 3.2.4'
+  gem 'dotenv-rails'
 end
 
 group :test do
