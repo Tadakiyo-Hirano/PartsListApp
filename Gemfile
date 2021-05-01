@@ -52,6 +52,7 @@ group :development do
   gem 'spring-commands-rspec'
   gem 'rexml', '~> 3.2', '>= 3.2.4'
   gem 'dotenv-rails'
+  gem 'omniauth-google-oauth2'
 end
 
 group :test do
