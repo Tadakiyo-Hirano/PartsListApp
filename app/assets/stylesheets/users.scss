@@ -1,8 +1,9 @@
 @media screen and (min-width: 960px) {
   .user-login-form {
     display: inline-block;
-    margin: 1em;
-    width: 45%;
+    vertical-align: top;
+    // margin: 0 0.5em 0 0.5em;
+    width: 25%;
   }
 
   .user-registration-form {
@@ -12,10 +13,11 @@
 
   .field-group {
     text-align: left;
-    background-color: #f4f4f4;
-    border: solid 1px #eee;
+    // background-color: #f4f4f4;
+    border: solid 1px #47619c;
     border-radius: 10px;  
-    padding: 3em;
+    padding: 1em;
+    height: 250px;
   }
 }
 
@@ -35,8 +37,8 @@
 
   .field-group {
     text-align: left;
-    background-color: #f4f4f4;
-    border: solid 1px #eee;
+    // background-color: #f4f4f4;
+    border: solid 1px #47619c;
     border-radius: 10px;  
     padding: 1em;
   }

@@ -1,8 +1,15 @@
 Rails.application.routes.draw do
-  get 'users/show'
+
+  root 'home#index'
+  # get 'users/show'
   devise_for :admins, controllers: {
     sessions: 'admins/sessions'
   }
+
+  # rootをログイン画面に設定
+  # devise_scope :user do
+  #   root "users/sessions#new"
+  # end
 
   devise_for :users, controllers: {
     sessions: 'users/sessions',
@@ -10,8 +17,6 @@ Rails.application.routes.draw do
     omniauth_callbacks: 'users/omniauth_callbacks'
   }
   resources :users, only: %i(show)
-
-  root 'home#index'
 
   resources :brands, except: :destroy do
     post :sort
