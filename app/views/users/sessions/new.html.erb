@@ -1,23 +1,23 @@
 <div id="pageBase">
   <div class="login">
-    <h1 class="logo"><img src="/top_logo.png" alt="PARTS LIST"></h1>
+    <h1 class="logo">
+      <img src="/top_logo.png" alt="PARTS LIST", class="title-logo">
+    </h1>
   </div>
 </div>
 
 <div class="center">
   <div class="user-login-form">
     <div class="field-group">
-      <h2>ログイン</h2>
+      <P>ログイン</P>
 
       <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
         <div class="field">
-          <%= f.label :email %><br />
-          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
+          <%= f.email_field :email, placeholder: "#{User.human_attribute_name :email}", autofocus: true, autocomplete: "email", class: "form-control form-control-sm" %>
         </div>
 
         <div class="field">
-          <%= f.label :password %><br />
-          <%= f.password_field :password, autocomplete: "current-password", class: "form-control" %>
+          <%= f.password_field :password, placeholder: "#{User.human_attribute_name :password}", autocomplete: "current-password", class: "form-control form-control-sm                                                                                                       " %>
         </div>
 
         <% if devise_mapping.rememberable? %>
@@ -28,47 +28,19 @@
         <% end %>
 
         <div class="actions">
-          <%= f.submit "ログイン", class: "btn btn-block btn-navy" %>
+          <%= f.submit "ログイン", class: "btn btn-sm btn-block btn-navy" %>
         </div>
       <% end %>
-
-      <div class="shared-links">
-        <%= render "users/shared/links" %>
-      </div>
     </div>
   </div>
 
   <div class="user-login-form">
     <div class="field-group">
-      <h2>Log in</h2>
-
-      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-        <div class="field">
-          <%= f.label :email %><br />
-          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
-        </div>
-
-        <div class="field">
-          <%= f.label :password %><br />
-          <%= f.password_field :password, autocomplete: "current-password", class: "form-control" %>
-        </div>
-
-        <% if devise_mapping.rememberable? %>
-          <div class="field">
-            <%= f.check_box :remember_me %>
-            <%= f.label :remember_me %>
-          </div>
-        <% end %>
-
-        <div class="actions">
-          <%= f.submit "Log in", class: "btn btn-block btn-navy" %>
-        </div>
-      <% end %>
+      <P class="small">Googleアカウントをお持ちの方</P>
 
       <div class="shared-links">
         <%= render "users/shared/links" %>
       </div>
-      
     </div>
   </div>
 </div>
