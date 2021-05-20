@@ -10,21 +10,38 @@
   <table class="table table-sm">
     <thead>
       <tr>
-        <th><%= Product.human_attribute_name :model %></th>
-        <th>パーツカタログ</th>
-        <th><%= Category.human_attribute_name :name %></th>
-        <th><%= Brand.human_attribute_name :name %></th>
+        <th>
+          <%= Product.human_attribute_name :model %>
+        </th>
+        <th>
+          PDF
+        </th>
+        <th>
+          <%= Category.human_attribute_name :name %>
+        </th>
+        <th>
+          <%= Brand.human_attribute_name :name %>
+        </th>
         <th></th>
         <th></th>
       </tr>
     </thead>
+    
     <tbody>
       <% @products.each do |product| %>
         <tr>
-          <td><%= product.model %></td>
-          <td></td>
-          <td><%= Category.find(product.category_id).name %></td>
-          <td><%= Brand.find(product.brand_id).name %></td>
+          <td>
+            <%= product.model %>
+          </td>
+          <td>
+            <%= document_link(product.document) %>
+          </td>
+          <td>
+            <%= Category.find(product.category_id).name %>
+          </td>
+          <td>
+            <%= Brand.find(product.brand_id).name %>
+          </td>
           <td>
             <%= link_to edit_product_path(product), remote: true do %>
               <i class="fas fa-pencil-alt"></i>
