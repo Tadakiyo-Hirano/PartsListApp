@@ -9,10 +9,11 @@ RSpec.describe Category, type: :model do
 
   describe "カテゴリー名を登録する" do
     it "重複したカテゴリー名があれば無効な状態であること" do
-      FactoryBot.create(:category)
-      category = FactoryBot.build(:category)
-      category.valid?
-      expect(category.errors[:name]).to include("はすでに存在します")
+      category1 = FactoryBot.create(:category)
+
+      category2 = FactoryBot.build(:category, name: category1.name)
+      category2.valid?
+      expect(category2.errors[:name]).to include("はすでに存在します")
     end
 
     context "カテゴリー名の存在が" do

@@ -16,6 +16,15 @@ require 'factory_bot_rails'
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
+
+  # テスト全体の前に実行する処理をブロックで記述
+  config.before(:suite) do
+    # データベースをCleanする方法を'transaction'に指定
+    DatabaseCleaner.strategy = :transaction
+    # このタイミングで'transaction'でデータベースをCleanしておく
+    DatabaseCleaner.clean_with(:truncation)
+  end
+  
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.

@@ -9,10 +9,11 @@ RSpec.describe Brand, type: :model do
 
   describe "ブランド名を登録する" do
     it "重複したブランド名があれば無効な状態であること" do
-      FactoryBot.create(:brand)
-      brand = FactoryBot.build(:brand)
-      brand.valid?
-      expect(brand.errors[:name]).to include("はすでに存在します")
+      brand1 = FactoryBot.create(:brand)
+      
+      brand2 = FactoryBot.build(:brand, name: brand1.name)
+      brand2.valid?
+      expect(brand2.errors[:name]).to include("はすでに存在します")
     end
 
     context "ブランド名の存在が" do
