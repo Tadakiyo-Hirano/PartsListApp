@@ -4,8 +4,10 @@ class Product < ApplicationRecord
   belongs_to :category
 
   validates :model, presence: true, length: { maximum: 50 }
-  validates :category_id, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
-  validates :brand_id, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+  # validates :category_id, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+  # validates :brand_id, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+  validates :category_id, presence: true
+  validates :brand_id, presence: true
 
   # validate :category_id_that_does_not_exist
   # validate :brand_id_that_dose_not_exist
