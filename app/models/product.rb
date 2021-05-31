@@ -7,6 +7,6 @@ class Product < ApplicationRecord
   validates :category_id, presence: true
   validates :brand_id, presence: true
   validates :document, attached: true,
-                        content_type: { in: 'application/pdf', message: 'の形式が正しくありません。' },
-                        size: { less_than: 10.megabytes , message: 'のサイズは10MBまでにしてください。' }
+                        content_type: { in: 'application/pdf', message: 'の形式が正しくありません' },
+                        size: { less_than: 10.megabytes , message: 'のサイズは10MBまでにしてください' }
 end
