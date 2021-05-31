@@ -40,7 +40,7 @@ class ProductsController < ApplicationController
 
   def destroy
     @product.destroy
-    flash[:danger] = "パーツカタログ【#{@product.model}】を削除しました。"
+      flash[:danger] = "パーツカタログ【#{@product.model}】を削除しました。"
     redirect_to products_url
   end
 

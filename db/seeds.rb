@@ -6,6 +6,9 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+# ActiveStorage::AnalyzeJob.queue_adapter = :inline
+# ActiveStorage::PurgeJob.queue_adapter = :inline
+
 10.times do |n|
   Category.create!(
     name: "sample category#{n + 1}"
@@ -24,11 +27,13 @@ puts 'sample brand created!'
 
 
 20.times do |n|
-  Product.create!(
-    model: "#{rand(340..570)}XP",
-    category_id: rand(Category.find(1).id..Category.find(10).id),
-    brand_id: rand(Brand.find(1).id..Brand.find(10).id)
-  )
+  product = Product.create(
+              model: "#{rand(340..570)}XP",
+              category_id: rand(Category.find(1).id..Category.find(10).id),
+              brand_id: rand(Brand.find(1).id..Brand.find(10).id),
+            )
+  product.document.attach(io: File.open("public/test_seed.pdf"), filename: "test_seed.pdf", content_type: "application/pdf")
+  product.save
 end
 
 puts 'sample product created!'
