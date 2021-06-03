@@ -6,12 +6,17 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+<<<<<<< HEAD
 Admin.create!(
   email: 'admin@email.com',
   password: 'password'
 )
 
 puts 'admin created!'
+=======
+# ActiveStorage::AnalyzeJob.queue_adapter = :inline
+# ActiveStorage::PurgeJob.queue_adapter = :inline
+>>>>>>> a5852fd7f659ab0da5fe8c62ad2b921878bc6d3b
 
 10.times do |n|
   Category.create!(
@@ -30,11 +35,13 @@ end
 puts 'sample brand created!'
 
 20.times do |n|
-  Product.create!(
-    model: "#{rand(340..570)}XP",
-    category_id: rand(Category.find(1).id..Category.find(10).id),
-    brand_id: rand(Brand.find(1).id..Brand.find(10).id)
-  )
+  product = Product.create(
+              model: "#{rand(340..570)}XP",
+              category_id: rand(Category.find(1).id..Category.find(10).id),
+              brand_id: rand(Brand.find(1).id..Brand.find(10).id),
+            )
+  product.document.attach(io: File.open("public/test_seed.pdf"), filename: "test_seed.pdf", content_type: "application/pdf")
+  product.save
 end
 
 puts 'sample product created!'
