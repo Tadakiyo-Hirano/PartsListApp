@@ -6,6 +6,12 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+Admin.create!(
+  email: 'admin@email.com',
+  password: 'password'
+)
+
+puts 'admin created!'
 # ActiveStorage::AnalyzeJob.queue_adapter = :inline
 # ActiveStorage::PurgeJob.queue_adapter = :inline
 
@@ -24,7 +30,6 @@ puts 'sample category created!'
 end
 
 puts 'sample brand created!'
-
 
 20.times do |n|
   product = Product.create(
