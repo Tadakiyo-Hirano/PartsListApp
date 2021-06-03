@@ -6,17 +6,14 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-<<<<<<< HEAD
 Admin.create!(
   email: 'admin@email.com',
   password: 'password'
 )
 
 puts 'admin created!'
-=======
 # ActiveStorage::AnalyzeJob.queue_adapter = :inline
 # ActiveStorage::PurgeJob.queue_adapter = :inline
->>>>>>> a5852fd7f659ab0da5fe8c62ad2b921878bc6d3b
 
 10.times do |n|
   Category.create!(
