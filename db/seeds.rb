@@ -6,6 +6,13 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+Admin.create!(
+  email: 'admin@email.com',
+  password: 'password'
+)
+
+puts 'admin created!'
+
 10.times do |n|
   Category.create!(
     name: "sample category#{n + 1}"
@@ -21,7 +28,6 @@ puts 'sample category created!'
 end
 
 puts 'sample brand created!'
-
 
 20.times do |n|
   Product.create!(
