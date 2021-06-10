@@ -4,7 +4,7 @@ jobs:
     docker:
       - image: circleci/ruby3.0.0-buster-node-browsers # アプリのバージョン
         evvironment:
-          # RAILS_ENV: test
+          RAILS_ENV: test
           DATABASE_HOST: 127.0.0.1
       - image: circleci/postgres:13.9
         environment:
