@@ -1,47 +1,38 @@
-verssion: 2
+version: 2
+
 jobs:
-  build:
+  test:
     docker:
-      - image: circleci/ruby3.0.0-buster-node-browsers # アプリのバージョン
-        evvironment:
+      - image: circleci/ruby:3.0.0-node
+        environment:
           RAILS_ENV: test
-          DATABASE_HOST: 127.0.0.1
+          DATABASE_HOST: 127.0.0.1 
       - image: circleci/postgres:13.9
         environment:
-          POSTGRES_USER: circleci
+          POSTGRES_USER: ''
+          POSTGRES_HOST_AUTH_METHOD: true
           POSTGRES_DB: myapp_test
-          POSTGRES_HOST_AUTH_METHOD: trust # パスワードなし
-
-    working_directory: ~/myapp  #自身のアプリディレクトリ名を設定
-
+    working_directory: ~/myapp
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "Gemfile.lock" }}-{{ checksum "yarn.lock" }}
-            - v1-dependencies-
-      - run: 
-          name: Bundler and Yarn
-          command: |
-            gem install bundler -v '2.1.4' -N
-            bundle -v
-            bundle install --jobs=3 --retry=3 --path vendor/bundle
-            yarn install
-      - save_cache:  # bundle キャッシュを保存する
-          key: v1-dependencies-{{ checksum "Gemfile.lock" }}}-{{ checksum "yarn.lock" }}
-          paths:
-            - ./vender/bundle
       - run:
-          name: DB Initializing
-          command: |
-            dockerize -wait tcp://127.0.0.1:5432 -timeout 120s
-            bundle exec rake db:schema:load
+          name: "bundle install"
+          command: bundle install --path vendor/bundle
+      # DBと接続できるまで待ちます
       - run:
-          name: rspec
+          name: "waiting DB start"
+          command: dockerize -wait tcp://127.0.0.1:3306 -timeout 1m
+      - run:
+          name: "initialize DB"
           command: |
-            bundle exec rspec --format RspecJunitFormatter \
-                              --out test_results/rspec.xml \
-                              --format progress \
-                              $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
-      - store_test_results:
-          path: /tmp/test-results
+            bundle exec rake db:create
+            bundle exec rake db:migrate
+      - run:
+          name: RSpec
+          command: bundle exec rspec
+
+workflows:
+  version: 2
+  workflows:
+    jobs:
+      - test

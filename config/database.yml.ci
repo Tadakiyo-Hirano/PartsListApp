@@ -1,9 +1,0 @@
-test: &default
-  adapter: postgres
-  encoding: utf8
-  pool: 5
-  username: <%= ENV.fetch("POSTGRES_USER") %>
-  password: <%= ENV.fetch("POSTGRES_HOST_AUTH_METHOD") %>
-  host: db
-  port: '127.0.0.1'
-  database: myapp_test
