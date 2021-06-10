@@ -21,7 +21,7 @@ jobs:
       # DBと接続できるまで待ちます
       - run:
           name: "waiting DB start"
-          command: dockerize -wait tcp://127.0.0.1:3306 -timeout 1m
+          command: dockerize -wait tcp://127.0.0.1:3306 -timeout 20m
       - run:
           name: "initialize DB"
           command: |
