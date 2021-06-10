@@ -3,6 +3,10 @@ version: 2
 jobs:
   test:
     docker:
+      - image: acme-private/private-image:321
+        auth:
+          username: mydockerhub-user  # 文字列リテラル値を指定します
+          password: $DOCKERHUB_PASSWORD
       - image: circleci/ruby:3.0.0-node
         environment:
           RAILS_ENV: test
@@ -15,9 +19,6 @@ jobs:
     working_directory: ~/myapp
     steps:
       - checkout
-      - run: |
-          docker login -u $DOCKER_USER -p $DOCKER_PASS
-          docker run -d --name db company/proprietary-db:1.2.3
       - run:
           name: "bundle install"
           command: bundle install --path vendor/bundle
