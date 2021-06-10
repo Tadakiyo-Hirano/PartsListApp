@@ -9,7 +9,7 @@ jobs:
           DATABASE_HOST: 127.0.0.1 
       - image: circleci/postgres:13.9
         environment:
-          POSTGRES_USER: ''
+          POSTGRES_USER: postgres
           POSTGRES_HOST_AUTH_METHOD: true
           POSTGRES_DB: myapp_test
     working_directory: ~/myapp
