@@ -17,11 +17,12 @@ jobs:
       - checkout
       - run:
           name: "bundle install"
-          command: bundle install --path vendor/bundle
+          command: bundle config set --local path 'vendor/bundle'
+          # command: bundle install --path vendor/bundle
       # DBと接続できるまで待ちます
       - run:
           name: "waiting DB start"
-          command: dockerize -wait tcp://127.0.0.1:3306 -timeout 20m
+          command: dockerize -wait tcp://127.0.0.1:3306 -timeout 10s
       - run:
           name: "initialize DB"
           command: |
