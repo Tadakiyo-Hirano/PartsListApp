@@ -4,6 +4,9 @@ jobs:
   test:
     docker:
       - image: circleci/ruby:3.0.0-node
+        auth:
+          username: Tadakiyo-Hirano
+          password: $DOCKERHUB_PASSWORD
         environment:
           RAILS_ENV: test
           DATABASE_HOST: 127.0.0.1 
