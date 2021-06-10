@@ -19,14 +19,14 @@ jobs:
           name: "bundle install"
           command: bundle install --path vendor/bundle
       # DBと接続できるまで待ちます
-      - run:
-          name: "waiting DB start"
-          command: dockerize -wait tcp://127.0.0.1:3306 -timeout 1m
+      # - run:
+      #     name: "waiting DB start"
+      #     command: dockerize -wait tcp://127.0.0.1:3306 -timeout 1m
       - run:
           name: "initialize DB"
           command: |
-            bundle exec rake db:create
-            bundle exec rake db:migrate
+            bundle exec rails db:create
+            bundle exec rails db:migrate
       - run:
           name: RSpec
           command: bundle exec rspec
