@@ -2,7 +2,7 @@ verssion: 2
 jobs:
   build:
     docker:
-      - image: circleci/ruby3.0.0-node-browsers # アプリのバージョン
+      - image: circleci/ruby3.0.0-buster-node-browsers # アプリのバージョン
         evvironment:
           # RAILS_ENV: test
           DATABASE_HOST: 127.0.0.1
@@ -12,7 +12,7 @@ jobs:
           POSTGRES_DB: myapp_test
           POSTGRES_HOST_AUTH_METHOD: trust # パスワードなし
 
-      working_directory: ~/myapp  #自身のアプリディレクトリ名を設定
+    working_directory: ~/myapp  #自身のアプリディレクトリ名を設定
 
     steps:
       - checkout
@@ -45,4 +45,3 @@ jobs:
                               $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
       - store_test_results:
           path: /tmp/test-results
-          
