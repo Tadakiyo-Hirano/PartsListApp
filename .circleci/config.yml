@@ -3,11 +3,7 @@ version: 2
 jobs:
   test:
     docker:
-      - image: acme-private/private-image:321
-        auth:
-          username: mydockerhub-user  # 文字列リテラル値を指定します
-          password: $DOCKERHUB_PASSWORD
-      - image: circleci/ruby:3.0.0-node
+      - image: circleci/ruby:3.0.0-node-browsers
         environment:
           RAILS_ENV: test
           DATABASE_HOST: 127.0.0.1 
