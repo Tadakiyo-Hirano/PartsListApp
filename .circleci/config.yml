@@ -4,14 +4,15 @@ jobs:
   test:
     docker:
       - image: circleci/ruby:3.0.0-rc1-buster-node-browsers
-        # environment:
-        #   POSTGRES_USER: postgres 
-        #   RAILS_ENV: test
-        #   DATABASE_HOST: 127.0.0.1 
+        environment:
+          POSTGRES_USER: postgres 
+          RAILS_ENV: test
+          DATABASE_HOST: 127.0.0.1 
       - image: circleci/postgres:13.1
         environment:
           POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
+          # POSTGRES_PASSWORD: postgres
+          POSTGRES_HOST_AUTH_METHOD: trust
           POSTGRES_DB: myapp_test
     working_directory: ~/myapp
     steps:
@@ -26,7 +27,8 @@ jobs:
           command: dockerize -wait tcp://127.0.0.1:3306 -timeout 1m
       - run:
           name: "initialize DB"
-          command: bundle exec rails db:schema:load --trace
+      - run: bundle exec rake db:create
+      - run: bundle exec rake db:schema:load
           # command: |
           #   bundle exec rails db:create
           #   bundle exec rails db:migrate
