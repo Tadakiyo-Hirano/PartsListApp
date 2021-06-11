@@ -1,58 +1,133 @@
-version: 2.1
-orbs:
-  ruby: circleci/ruby@0.1.2 
-
+version: 2
 jobs:
   build:
+    working_directory: ~/myapp
+
+    # Primary container image where all commands run
+
     docker:
       - image: circleci/ruby:3.0.0-rc1-buster-node-browsers
+        # auth:
+        #   username: mydockerhub-user
+        #   password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
         environment:
           RAILS_ENV: test
           PGHOST: 127.0.0.1
-          PGUSER: root
-          TZ: "/usr/share/zoneinfo/Asia/Tokyo"
+          PGUSER: postgres
+
+    # Service container image available at `host: localhost`
+
       - image: circleci/postgres:13.1
+        # auth:
+        #   username: mydockerhub-user
+        #   password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
         environment:
-          POSTGRES_USER: root
-          POSTGRES_DB: myapp_test
-          POSTGRES_HOST_AUTH_METHOD: trust # パスワードなし
-          TZ: "/usr/share/zoneinfo/Asia/Tokyo"
+          POSTGRES_USER: postgres
+          POSTGRES_DB: test
+
     steps:
       - checkout
+
+      # Restore bundle cache
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "Gemfile.lock" }}-{{ checksum "yarn.lock" }}
+            - v1-dependencies-{{ checksum "Gemfile.lock" }}
             - v1-dependencies-
+
+      # Bundle install dependencies
       - run:
-          name: Bundler and Yarn
-          command: |
-            gem install bundler -v '2.1.4' -N
-            bundle -v
-            bundle install --jobs=3 --retry=3 --path vendor/bundle
-            yarn install
-      - run:
-          # db:structure:loadに必要
-          name: Install postgresql-client 
-          command: sudo apt install -y postgresql-client || true
+          name: Install dependencies
+          command: bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs 4 --retry 3
+
+      - run: sudo apt install -y postgresql-client || true
+
+      # Store bundle cache
       - save_cache:
-          key: v1-dependencies-{{ checksum "Gemfile.lock" }}-{{ checksum "yarn.lock" }}
+          key: - v1-dependencies-{{ checksum "Gemfile.lock" }}
           paths:
-            - ./vendor/bundle
-            - ./node_modules
+            - vendor/bundle
+
       - run:
-          name: DB Initializing
+          name: Database Setup
           command: |
-            dockerize -wait tcp://localhost:5432 -timeout 1m
-            bundle exec rails db:structure:dump
-          # bundle exec rake db:schema:load (db:schema:load の代わりに db:structure:load とする)
+            bundle exec rake db:create
+            bundle exec rake db:structure:load
+
       - run:
-          name: rspec
-          command: |
-            bundle exec rspec --format RspecJunitFormatter \
-                              --out test_results/rspec.xml \
-                              --format documentation
+          name: Parallel RSpec
+          command: bin/rails test
+
+      # Save artifacts
       - store_test_results:
-          path: test_results
+          path: /tmp/test-results
+
+Note: An alternative is to build your own image by extending the current image, installing the needed packages, committing, and pushing it to Docker Hub or the registry of your choosing.
+Example environment setup
+
+
+
+
+
+
+
+
+
+
+# version: 2.1
+# orbs:
+#   ruby: circleci/ruby@0.1.2 
+
+# jobs:
+#   build:
+#     docker:
+#       - image: circleci/ruby:3.0.0-rc1-buster-node-browsers
+#         environment:
+#           RAILS_ENV: test
+#           PGHOST: 127.0.0.1
+#           PGUSER: root
+#           TZ: "/usr/share/zoneinfo/Asia/Tokyo"
+#       - image: circleci/postgres:13.1
+#         environment:
+#           POSTGRES_USER: root
+#           POSTGRES_DB: myapp_test
+#           POSTGRES_HOST_AUTH_METHOD: trust # パスワードなし
+#           TZ: "/usr/share/zoneinfo/Asia/Tokyo"
+#     steps:
+#       - checkout
+#       - restore_cache:
+#           keys:
+#             - v1-dependencies-{{ checksum "Gemfile.lock" }}-{{ checksum "yarn.lock" }}
+#             - v1-dependencies-
+#       - run:
+#           name: Bundler and Yarn
+#           command: |
+#             gem install bundler -v '2.1.4' -N
+#             bundle -v
+#             bundle install --jobs=3 --retry=3 --path vendor/bundle
+#             yarn install
+#       - run:
+#           # db:structure:loadに必要
+#           name: Install postgresql-client 
+#           command: sudo apt install -y postgresql-client || true
+#       - save_cache:
+#           key: v1-dependencies-{{ checksum "Gemfile.lock" }}-{{ checksum "yarn.lock" }}
+#           paths:
+#             - ./vendor/bundle
+#             - ./node_modules
+#       - run:
+#           name: DB Initializing
+#           command: |
+#             dockerize -wait tcp://localhost:5432 -timeout 1m
+#             bundle exec rails db:structure:dump
+#           # bundle exec rake db:schema:load (db:schema:load の代わりに db:structure:load とする)
+#       - run:
+#           name: rspec
+#           command: |
+#             bundle exec rspec --format RspecJunitFormatter \
+#                               --out test_results/rspec.xml \
+#                               --format documentation
+#       - store_test_results:
+#           path: test_results
 
 
 
