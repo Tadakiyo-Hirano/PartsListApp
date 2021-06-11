@@ -46,7 +46,7 @@ jobs:
           command: dockerize -wait tcp://127.0.0.1:5432 -timeout 1m
       - run:
           name: Database setup
-          command: bundle exec rails db:create db:schema:load --trace
+          command: bundle exec rails db:create db:structure:load
       - run: bundle exec bin/webpack
       - run:
           name: execute rspec
