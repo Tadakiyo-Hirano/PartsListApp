@@ -15,7 +15,7 @@ jobs:
         environment:
           POSTGRES_USER: root
           POSTGRES_DB: myapp_test
-          # POSTGRES_HOST_AUTH_METHOD: trust # パスワードなし
+          POSTGRES_HOST_AUTH_METHOD: trust # パスワードなし
           TZ: "/usr/share/zoneinfo/Asia/Tokyo"
     steps:
       - checkout
