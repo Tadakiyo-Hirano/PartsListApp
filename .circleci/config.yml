@@ -9,13 +9,13 @@ jobs:
         environment:
           RAILS_ENV: test
           PGHOST: 127.0.0.1
-          PGUSER: postgres
+          PGUSER: root
           TZ: "/usr/share/zoneinfo/Asia/Tokyo"
       - image: circleci/postgres:13.1
         environment:
-          POSTGRES_USER: postgres
+          POSTGRES_USER: root
           POSTGRES_DB: myapp_test
-          POSTGRES_HOST_AUTH_METHOD: trust # パスワードなし
+          # POSTGRES_HOST_AUTH_METHOD: trust # パスワードなし
           TZ: "/usr/share/zoneinfo/Asia/Tokyo"
     steps:
       - checkout
@@ -30,17 +30,15 @@ jobs:
             bundle -v
             bundle install --jobs=3 --retry=3 --path vendor/bundle
             yarn install
-      - save_cache:
-          paths:
-            - ./vendor/bundle
-            - ./node_modules
-          key: v1-dependencies-{{ checksum "Gemfile.lock" }}-{{ checksum "yarn.lock" }}
       - run:
           # db:structure:loadに必要
           name: Install postgresql-client 
-          command: |
-            sudo apt-get update || true
-            sudo apt install -y postgresql-client
+          command: sudo apt install -y postgresql-client || true
+      - save_cache:
+          key: v1-dependencies-{{ checksum "Gemfile.lock" }}-{{ checksum "yarn.lock" }}
+          paths:
+            - ./vendor/bundle
+            - ./node_modules
       - run:
           name: DB Initializing
           command: |
