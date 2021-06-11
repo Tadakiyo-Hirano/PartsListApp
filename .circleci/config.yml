@@ -7,7 +7,7 @@ jobs:
         environment:
           RAILS_ENV: test
           DATABASE_HOST: 127.0.0.1 
-      - image: circleci/postgres:13.1-alpine
+      - image: circleci/postgres:13.1
         environment:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
@@ -24,10 +24,13 @@ jobs:
           name: "waiting DB start"
           command: dockerize -wait tcp://127.0.0.1:3306 -timeout 30s
       - run:
-          name: "initialize DB"
-          command: |
-            bundle exec rails db:create
-            bundle exec rails db:migrate
+          name: DBをセットアップ
+          command: bin/rails db:schema:load --trace
+      # - run:
+      #     name: "initialize DB"
+      #     command: |
+      #       bundle exec rails db:create
+      #       bundle exec rails db:migrate
       - run:
           name: RSpec
           command: bundle exec rspec
