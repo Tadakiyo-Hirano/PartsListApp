@@ -73,7 +73,7 @@ Example environment setup
 
 
 
-# version: 2.1
+# version: 2
 # orbs:
 #   ruby: circleci/ruby@0.1.2 
 
