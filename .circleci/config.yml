@@ -26,10 +26,10 @@ jobs:
           command: dockerize -wait tcp://127.0.0.1:3306 -timeout 1m
       - run:
           name: "initialize DB"
-          command: bundle exec rails db:schema:load --trace
-          # command: |
-          #   bundle exec rails db:create
-          #   bundle exec rails db:migrate
+          # command: bundle exec rails db:schema:load --trace
+          command: |
+            rails db:create
+            rails db:migrate
 
       - run:
           name: RSpec
