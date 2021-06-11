@@ -4,10 +4,10 @@ jobs:
   test:
     docker:
       - image: circleci/ruby:3.0.0-rc1-buster-node-browsers
-        environment:
-          POSTGRES_USER: postgres 
-          RAILS_ENV: test
-          DATABASE_HOST: 127.0.0.1 
+        # environment:
+        #   POSTGRES_USER: postgres 
+        #   RAILS_ENV: test
+        #   DATABASE_HOST: 127.0.0.1 
       - image: circleci/postgres:13.1
         environment:
           POSTGRES_USER: postgres
