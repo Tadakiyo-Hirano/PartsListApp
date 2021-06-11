@@ -32,7 +32,7 @@ jobs:
       # Restore bundle cache
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "Gemfile.lock" }}
+            - v1-dependencies-{{ checksum "Gemfile.lock" }}-{{ checksum "yarn.lock" }}
             - v1-dependencies-
 
       # Bundle install dependencies
