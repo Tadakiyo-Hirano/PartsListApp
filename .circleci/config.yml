@@ -1,43 +1,106 @@
 version: 2
-
 jobs:
-  test:
+  build:
+    working_directory: ~/myapp
+
+    # すべてのコマンドを実行する場所となるプライマリ コンテナ イメージ
+
     docker:
+
       - image: circleci/ruby:3.0.0-rc1-buster-node-browsers
         environment:
-          POSTGRES_USER: postgres 
           RAILS_ENV: test
-          DATABASE_HOST: 127.0.0.1 
+          PGHOST: 127.0.0.1
+          PGUSER: postgres
+
+    # `host: localhost` でアクセスできるサービス コンテナ イメージ
+
       - image: circleci/postgres:13.1
         environment:
           POSTGRES_USER: postgres
-          # POSTGRES_PASSWORD: postgres
-          POSTGRES_HOST_AUTH_METHOD: trust
           POSTGRES_DB: myapp_test
-    working_directory: ~/myapp
+
     steps:
+
       - checkout
+
+      # バンドル キャッシュを復元します
+
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "Gemfile.lock" }}
+            - v1-dependencies-
+
+      # 依存関係をバンドル インストールします
+
       - run:
-          name: "bundle install"
-          # command: bundle config set --local path 'vendor/bundle'
-          command: bundle install --path vendor/bundle
-      # DBと接続できるまで待ちます
+          name: 依存関係のインストール
+          command: bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs 4 --retry 3
+
+      - run: sudo apt install -y postgresql-client || true
+
+      # バンドル キャッシュを保存します
+
+      - save_cache:
+          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+
       - run:
-          name: "waiting DB start"
-          command: dockerize -wait tcp://127.0.0.1:3306 -timeout 1m
-      - run:
-          name: "initialize DB"
-      - run: bundle exec rake db:create
-      - run: bundle exec rake db:schema:load
-          # command: |
-          #   bundle exec rails db:create
-          #   bundle exec rails db:migrate
+          name: データベースのセットアップ
+          command: |
+            bundle exec rake db:create
+            bundle exec rake db:schema:load
+
       - run:
           name: RSpec
           command: bundle exec rspec
 
-workflows:
-  version: 2
-  workflows:
-    jobs:
-      - test
+      # アーティファクトを保存します
+
+      - store_test_results:
+          path: /tmp/test-result
+
+
+
+# version: 2
+
+# jobs:
+#   test:
+#     docker:
+#       - image: circleci/ruby:3.0.0-rc1-buster-node-browsers
+#         # environment:
+#         #   POSTGRES_USER: postgres 
+#         #   RAILS_ENV: test
+#         #   DATABASE_HOST: 127.0.0.1 
+#       - image: circleci/postgres:13.1
+#         environment:
+#           POSTGRES_USER: postgres
+#           POSTGRES_PASSWORD: postgres
+#           POSTGRES_DB: myapp_test
+#     working_directory: ~/myapp
+#     steps:
+#       - checkout
+#       - run:
+#           name: "bundle install"
+#           # command: bundle config set --local path 'vendor/bundle'
+#           command: bundle install --path vendor/bundle
+#       # DBと接続できるまで待ちます
+#       - run:
+#           name: "waiting DB start"
+#           command: dockerize -wait tcp://127.0.0.1:3306 -timeout 1m
+#       - run:
+#           name: "initialize DB"
+#           command: bundle exec rails db:schema:load --trace
+#           # command: |
+#           #   bundle exec rails db:create
+#           #   bundle exec rails db:migrate
+#       - run:
+#           name: RSpec
+#           command: bundle exec rspec
+
+# workflows:
+#   version: 2
+#   workflows:
+#     jobs:
+#       - test
