@@ -61,15 +61,6 @@ jobs:
       - store_test_results:
           path: /tmp/test-results
 
-Note: An alternative is to build your own image by extending the current image, installing the needed packages, committing, and pushing it to Docker Hub or the registry of your choosing.
-Example environment setup
-
-
-
-
-
-
-
 
 
 
