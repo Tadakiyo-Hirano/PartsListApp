@@ -18,6 +18,7 @@ jobs:
       - image: circleci/postgres:13.1
         environment:
           POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
           POSTGRES_DB: myapp_test
 
     steps:
