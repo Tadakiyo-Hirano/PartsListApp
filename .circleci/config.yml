@@ -22,15 +22,12 @@ jobs:
       # DBと接続できるまで待ちます
       - run:
           name: "waiting DB start"
-          command: dockerize -wait tcp://127.0.0.1:3306 -timeout 30s
+          command: dockerize -wait tcp://127.0.0.1:3306 -timeout 2m
       - run:
-          name: DBをセットアップ
-          command: bin/rails db:schema:load --trace
-      # - run:
-      #     name: "initialize DB"
-      #     command: |
-      #       bundle exec rails db:create
-      #       bundle exec rails db:migrate
+          name: "initialize DB"
+          command: |
+            bundle exec rails db:create
+            bundle exec rails db:migrate
       - run:
           name: RSpec
           command: bundle exec rspec
