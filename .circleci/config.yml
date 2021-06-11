@@ -9,9 +9,12 @@ jobs:
           BUNDLE_PATH: vendor/bundle
           # DATABASE_URL: postgres://postgres:password@localhost:5432/myapp_test
           RAILS_ENV: test
-          PGHOST: 127.0.0.1
+          DB_HOST: 127.0.0.1
+          DB_PASSWORD: ''
       - image: circleci/postgres:13.1
-          POSTGRES_DB: myapp_test
+        environment:
+          POSTGRES_USER: root
+          POSTGRES_DB: circleci_testdb
           POSTGRES_HOST_AUTH_METHOD: trust # パスワードなし
     steps:
       - checkout
