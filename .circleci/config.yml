@@ -9,14 +9,9 @@ jobs:
           DATABASE_HOST: 127.0.0.1 
       - image: circleci/postgres:13.1
         environment:
-          adapter: postgresql
-          encoding: unicode
-          username: postgres
-          password: postgres
-          host: '127.0.0.1'
-          # POSTGRES_USER: postgres
-          # POSTGRES_PASSWORD: postgres
-          # POSTGRES_DB: myapp_test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: myapp_test
     working_directory: ~/myapp
     steps:
       - checkout
