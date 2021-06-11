@@ -10,6 +10,9 @@ jobs:
           DATABASE_URL: postgres://postgres:password@localhost:5432/myapp_test
           RAILS_ENV: test
       - image: circleci/postgres:13.1
+          POSTGRES_USER: root
+          POSTGRES_DB: myapp_test
+          POSTGRES_HOST_AUTH_METHOD: trust # パスワードなし
     steps:
       - checkout
       - restore_cache:
