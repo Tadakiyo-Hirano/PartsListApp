@@ -7,8 +7,10 @@ jobs:
         environment:
           BUNDLE_RETRY: 3
           BUNDLE_PATH: vendor/bundle
-          DATABASE_URL: postgres://postgres:password@localhost:5432/myapp_test
+          # DATABASE_URL: postgres://postgres:password@localhost:5432/myapp_test
           RAILS_ENV: test
+          PGHOST: 127.0.0.1
+          PGUSER: root
       - image: circleci/postgres:13.1
           POSTGRES_USER: root
           POSTGRES_DB: myapp_test
