@@ -12,8 +12,8 @@ jobs:
         #   password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
         environment:
           RAILS_ENV: test
-          POSTGRES_HOST: db
-          POSTGRES_USER: postgres
+          POSTGRES_HOST: 127.0.0.1
+          # POSTGRES_USER: postgres
 
     # Service container image available at `host: localhost`
 
