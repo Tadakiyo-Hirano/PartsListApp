@@ -56,9 +56,6 @@ jobs:
           command: |
             bundle exec rails db:create
             bundle exec rails db:migrate
-          # command: |
-          #   bundle exec rails db:create
-          #   bundle exec rails db:migrate
 
       - run:
           name: RSpec
