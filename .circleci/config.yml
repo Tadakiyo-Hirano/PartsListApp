@@ -53,9 +53,6 @@ jobs:
       - run:
           name: データベースのセットアップ
           command: bundle exec rails db:schema:load --trace
-          command: |
-            bundle exec rails db:create
-            bundle exec rails db:migrate
 
       - run:
           name: RSpec
