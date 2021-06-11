@@ -39,8 +39,8 @@ jobs:
           name: DB Initializing
           command: |
             dockerize -wait tcp://localhost:5432 -timeout 1m
-            bundle exec rails db:create
-            bundle exec rails db:migrate
+            bin/rails db:create
+            bin/rails db:migrate
       - run:
           name: rspec
           command: |
