@@ -48,6 +48,8 @@ jobs:
           paths:
             - vendor/bundle
 
+      - run: bundle install --path vendor/cache
+
       - run:
           name: Database Setup
           command: |
