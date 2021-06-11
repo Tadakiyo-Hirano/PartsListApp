@@ -45,7 +45,7 @@ jobs:
           name: DB Initializing
           command: |
             dockerize -wait tcp://localhost:5432 -timeout 1m
-            bundle exec rake db:structure:load
+            bundle exec rails db:structure:dump
           # bundle exec rake db:schema:load (db:schema:load の代わりに db:structure:load とする)
       - run:
           name: rspec
