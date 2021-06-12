@@ -54,12 +54,16 @@ jobs:
             - vendor/bundle
 
       - run:
-          name: Wait for DB
-          command: dockerize -wait tcp://127.0.0.1:5432 -timeout 1m
+            name: DBの起動を待つ
+            command: dockerize -wait tcp://127.0.0.1:5432 -timeout 120s
+
+      - run: yarn install --check-files
 
       - run:
-          name: Database setup
-          command: bin/rails db:create db:schema:load --trace
+          name: データベースのセットアップ
+          command: |
+            bundle exec rake db:create db:schema:load --trace
+            bundle exec rake db:migrate
 
       - run:
           name: RSpec の並列実行
