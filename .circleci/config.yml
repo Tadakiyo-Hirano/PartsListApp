@@ -9,7 +9,6 @@ jobs:
 
       - image: circleci/ruby:3.0.0-rc1-buster-node-browsers
         environment:
-          TEST_DATABASE_URL: postgresql://root@localhost/circle_test
           POSTGRES_USER: postgres 
           PGHOST: 127.0.0.1
           RAILS_ENV: test
@@ -21,25 +20,16 @@ jobs:
           POSTGRES_USER: postgres
           #下記を書けばパスワードなしでデータベースにログインしてくれる。 
           POSTGRES_HOST_AUTH_METHOD: trust
-          POSTGRES_DB: circle_test
+          POSTGRES_DB: circleci_test
 
     steps:
 
       - checkout
-      - run:
-          name: Install System Dependencies
-          command: |
-            sudo apt-get update
-            sudo apt-get install -y lsb-release
 
       - run:
-          name: Install postgresql 10
           command: |
-            wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-            sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
-            cat /etc/apt/sources.list.d/pgdg.list
-            sudo apt-get update
-            sudo apt-get install postgresql postgresql-contrib
+            echo LOGIN_MAIL=${LOGIN_MAIL} > ~/.env
+            echo LOGIN_PASSWORD=${LOGIN_PASSWORD} >> ~/.env
 
       # バンドル キャッシュを復元します
 
@@ -66,8 +56,9 @@ jobs:
       - run:
             name: DBの起動を待つ
             command: dockerize -wait tcp://127.0.0.1:5432 -timeout 120s
-
-      - run: yarn install --check-files
+      
+      - run: sudo apt-get update
+      - run: sudo apt-get install postgresql-client-13.1
 
       - run:
           name: データベースのセットアップ
