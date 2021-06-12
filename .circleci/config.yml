@@ -9,16 +9,18 @@ jobs:
 
       - image: circleci/ruby:3.0.0-rc1-buster-node-browsers
         environment:
-          RAILS_ENV: test
+          POSTGRES_USER: postgres 
           PGHOST: 127.0.0.1
-          PGUSER: root
+          RAILS_ENV: test
 
     # `host: localhost` でアクセスできるサービス コンテナ イメージ
 
       - image: circleci/postgres:13.1
         environment:
-          POSTGRES_USER: root
-          POSTGRES_DB: circle-test_test
+          POSTGRES_USER: postgres
+          #下記を書けばパスワードなしでデータベースにログインしてくれる。 
+          POSTGRES_HOST_AUTH_METHOD: trust
+          POSTGRES_DB: circleci_test
 
     steps:
 
