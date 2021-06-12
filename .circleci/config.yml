@@ -26,6 +26,11 @@ jobs:
 
       - checkout
 
+      - run:
+          command: |
+            echo LOGIN_MAIL=${LOGIN_MAIL} > ~/.env
+            echo LOGIN_PASSWORD=${LOGIN_PASSWORD} >> ~/.env
+
       # バンドル キャッシュを復元します
 
       - restore_cache:
