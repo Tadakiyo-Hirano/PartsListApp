@@ -30,7 +30,7 @@ gem 'bootsnap', '>= 1.4.4', require: false
 
 gem 'rails-i18n'
 gem 'ranked-model'
-gem 'devise', git: "https://github.com/heartcombo/devise"
+gem 'devise'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-rails_csrf_protection'
 gem 'aws-sdk-s3', require: false
