@@ -64,7 +64,6 @@ jobs:
           name: データベースのセットアップ
           command: |
             bundle exec rake db:create db:schema:load --trace
-            bundle exec rake db:migrate
 
       - run:
           name: RSpec の並列実行
