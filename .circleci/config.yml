@@ -1,79 +1,78 @@
-version: 2
+version: 2.1
+
+orbs:
+  ruby: circleci/ruby@1.0
+  node: circleci/node@2
+
+# setupでまとめる
+commands:
+  setup:
+    steps:
+      - checkout
+      - ruby/install-deps
+      - node/install-packages:
+          pkg-manager: yarn
+          cache-key: "yarn.lock"
+
 jobs:
   build:
-    working_directory: ~/myapp
-
-    # すべてのコマンドを実行する場所となるプライマリ コンテナ イメージ
-
     docker:
-
       - image: circleci/ruby:3.0.0-rc1-buster-node-browsers
-        # environment:
-        #   POSTGRES_USER: postgres 
-        #   PGHOST: 127.0.0.1
-        #   RAILS_ENV: test
-
-    # `host: localhost` でアクセスできるサービス コンテナ イメージ
-
+    steps:
+      - setup
+  test:
+    docker:
+      - image: circleci/ruby:3.0.0-rc1-buster-node-browsers
       - image: circleci/postgres:13.1
         environment:
           POSTGRES_USER: postgres
           POSTGRES_DB: myapp_test
-          #下記を書けばパスワードなしでデータベースにログインしてくれる。 
-          POSTGRES_HOST_AUTH_METHOD: trust
-
+          POSTGRES_PASSWORD: ""
+    environment:
+      BUNDLE_JOBS: "4"
+      BUNDLE_RETRY: "3"
+      PGHOST: 127.0.0.1
+      PGUSER: postgres
+      PGPASSWORD: ""
+      RAILS_ENV: test
     steps:
-
-      - checkout
-
+      - setup
       - run:
-          command: |
-            echo LOGIN_MAIL=${LOGIN_MAIL} > ~/.env
-            echo LOGIN_PASSWORD=${LOGIN_PASSWORD} >> ~/.env
-
-      # バンドル キャッシュを復元します
-
-      - restore_cache:
-          keys:
-            - rails-demo-{{ checksum "Gemfile.lock" }}
-            - rails-demo-
-
-      # 依存関係をバンドル インストールします
-
+          name: Wait for DB
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
       - run:
-          name: 依存関係のインストール
-          command: bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs 4 --retry 3
-
-      - run: sudo apt install -y postgresql-client || true
-
-      # バンドル キャッシュを保存します
-
-      - save_cache:
-          key: rails-demo-{{ checksum "Gemfile.lock" }}
-          paths:
-            - vendor/bundle
-
+          name: Database setup
+          command: bundle exec rails db:schema:load --trace
       - run:
-            name: DBの起動を待つ
-            command: dockerize -wait tcp://127.0.0.1:5432 -timeout 120s
-      
-      - run: sudo apt-get update
-      - run: sudo apt-get install postgresql-client
+          name: Rspec
+          command: bundle exec rspec
 
-      - run:
-          name: データベースのセットアップ
-          command: |
-            bundle exec rake db:create db:schema:load --trace
+  # deploy:
+  #   executor: heroku/default
+  #   steps:
+  #     - checkout
+  #     - heroku/install
+  #     - heroku/deploy-via-git:
+  #         maintenance-mode: true
+  #     - run:
+  #         name: DB migrate
+  #         command: heroku run rails db:migrate --app $HEROKU_APP_NAME
 
-      - run:
-          name: RSpec の並列実行
-          command: bin/rails test
-
-      # アーティファクトを保存します
-
-      - store_test_results:
-          path: /tmp/test-results
-
+workflows:
+  version: 2
+  test_and_deploy:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+      # - deploy:
+      #     requires:
+      #       - build
+      #       - test
+      #     filters:
+      #       branches:
+      #         only: master
 
 
 # version: 2
