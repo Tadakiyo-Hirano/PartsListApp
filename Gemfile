@@ -30,7 +30,7 @@ gem 'bootsnap', '>= 1.4.4', require: false
 
 gem 'rails-i18n'
 gem 'ranked-model'
-gem 'devise', git: "https://github.com/heartcombo/devise"
+gem 'devise'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-rails_csrf_protection'
 gem 'aws-sdk-s3', require: false
@@ -65,6 +65,8 @@ group :test do
   gem 'selenium-webdriver'
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'webdrivers'
+
+  gem 'dotenv-rails'
   gem 'database_cleaner'
   gem 'rspec_junit_formatter'
 end

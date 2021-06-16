@@ -1,48 +1,241 @@
-verssion: 2
+version: 2.1
+
+orbs:
+  ruby: circleci/ruby@1.0
+  node: circleci/node@2
+
+# setupでまとめる
+commands:
+  setup:
+    steps:
+      - checkout
+      - ruby/install-deps
+      - node/install-packages:
+          pkg-manager: yarn
+          cache-key: "yarn.lock"
+
 jobs:
   build:
     docker:
-      - image: circleci/ruby3.0.0-node-browsers # アプリのバージョン
-        evvironment:
-          # RAILS_ENV: test
-          DATABASE_HOST: 127.0.0.1
-      - image: circleci/postgres:13.9
-        environment:
-          POSTGRES_USER: circleci
-          POSTGRES_DB: myapp_test
-          POSTGRES_HOST_AUTH_METHOD: trust # パスワードなし
-
-      working_directory: ~/myapp  #自身のアプリディレクトリ名を設定
-
+      - image: circleci/ruby:3.0.0-rc1-buster-node-browsers
     steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "Gemfile.lock" }}-{{ checksum "yarn.lock" }}
-            - v1-dependencies-
-      - run: 
-          name: Bundler and Yarn
-          command: |
-            gem install bundler -v '2.1.4' -N
-            bundle -v
-            bundle install --jobs=3 --retry=3 --path vendor/bundle
-            yarn install
-      - save_cache:  # bundle キャッシュを保存する
-          key: v1-dependencies-{{ checksum "Gemfile.lock" }}}-{{ checksum "yarn.lock" }}
-          paths:
-            - ./vender/bundle
+      - setup
+  test:
+    docker:
+      - image: circleci/ruby:3.0.0-rc1-buster-node-browsers
+      - image: circleci/postgres:13.1
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_DB: myapp_test
+          POSTGRES_HOST_AUTH_METHOD: trust
+    environment:
+      BUNDLE_JOBS: "4"
+      BUNDLE_RETRY: "3"
+      PGHOST: 127.0.0.1
+      PGUSER: postgres
+      POSTGRES_HOST_AUTH_METHOD: trust
+      RAILS_ENV: test
+    steps:
+      - setup
       - run:
-          name: DB Initializing
-          command: |
-            dockerize -wait tcp://127.0.0.1:5432 -timeout 120s
-            bundle exec rake db:schema:load
+          name: Wait for DB
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
       - run:
-          name: rspec
-          command: |
-            bundle exec rspec --format RspecJunitFormatter \
-                              --out test_results/rspec.xml \
-                              --format progress \
-                              $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
-      - store_test_results:
-          path: /tmp/test-results
-          
+          name: Database setup
+          command: bundle exec rails db:schema:load --trace
+      - run:
+          name: Rspec
+          command: bundle exec rspec
+
+  # deploy:
+  #   executor: heroku/default
+  #   steps:
+  #     - checkout
+  #     - heroku/install
+  #     - heroku/deploy-via-git:
+  #         maintenance-mode: true
+  #     - run:
+  #         name: DB migrate
+  #         command: heroku run rails db:migrate --app $HEROKU_APP_NAME
+
+workflows:
+  version: 2
+  test_and_deploy:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+      # - deploy:
+      #     requires:
+      #       - build
+      #       - test
+      #     filters:
+      #       branches:
+      #         only: master
+
+
+# version: 2
+# jobs:
+#   build:
+#     working_directory: ~/myapp
+#     docker:
+#       - image: circleci/ruby:3.0.0-rc1-buster-node-browsers
+#         environment:
+#           BUNDLE_RETRY: 3
+#           BUNDLE_PATH: vendor/bundle
+#           # DATABASE_URL: postgres://postgres:password@localhost:5432/myapp_test
+#           RAILS_ENV: test
+#           DB_HOST: 127.0.0.1
+#           DB_PASSWORD: ''
+#       - image: circleci/postgres:13.1
+#         environment:
+#           POSTGRES_USER: root
+#           POSTGRES_DB: circleci_testdb
+#           POSTGRES_HOST_AUTH_METHOD: trust # パスワードなし
+#     steps:
+#       - checkout
+#       - restore_cache:
+#           keys:
+#             - myapp-bundle-v1-{{ checksum "Gemfile.lock" }}
+#             - myapp-bundle-v1-
+#       - run:
+#           name: Bundlerをinstall
+#           command: |
+#             gem update --system
+#             gem install bundler
+#       - run:
+#           name: Bundle Install
+#           command: bundle check || bundle install
+#       - save_cache:
+#           key: myapp-bundle-v1-{{ checksum "Gemfile.lock" }}
+#           paths:
+#             - vendor/bundle
+#       - restore_cache:
+#           keys:
+#             - rails-demo-yarn-{{ checksum "yarn.lock" }}
+#             - rails-demo-yarn-
+#       - run:
+#           name: Yarnをinstall
+#           command: yarn install --cache-folder ~/.cache/yarn
+#       - run:
+#           name: Wait for DB
+#           command: dockerize -wait tcp://127.0.0.1:5432 -timeout 1m
+#       - run:
+#           name: Database setup
+#           command: bundle exec rails db:create db:structure:load --trace
+#       - run: bundle exec bin/webpack
+#       - run:
+#           name: execute rspec
+#           command: bundle exec rspec
+#       - store_test_results:
+#           path: /tmp/test-results
+
+
+# version: 2
+# orbs:
+#   ruby: circleci/ruby@0.1.2 
+
+# jobs:
+#   build:
+#     docker:
+#       - image: circleci/ruby:3.0.0-rc1-buster-node-browsers
+#         environment:
+#           RAILS_ENV: test
+#           PGHOST: 127.0.0.1
+#           PGUSER: root
+#           TZ: "/usr/share/zoneinfo/Asia/Tokyo"
+#       - image: circleci/postgres:13.1
+#         environment:
+#           POSTGRES_USER: root
+#           POSTGRES_DB: myapp_test
+#           POSTGRES_HOST_AUTH_METHOD: trust # パスワードなし
+#           TZ: "/usr/share/zoneinfo/Asia/Tokyo"
+#     steps:
+#       - checkout
+#       - restore_cache:
+#           keys:
+#             - v1-dependencies-{{ checksum "Gemfile.lock" }}-{{ checksum "yarn.lock" }}
+#             - v1-dependencies-
+#       - run:
+#           name: Bundler and Yarn
+#           command: |
+#             gem install bundler -v '2.1.4' -N
+#             bundle -v
+#             bundle install --jobs=3 --retry=3 --path vendor/bundle
+#             yarn install
+#       - run:
+#           # db:structure:loadに必要
+#           name: Install postgresql-client 
+#           command: sudo apt install -y postgresql-client || true
+#       - save_cache:
+#           key: v1-dependencies-{{ checksum "Gemfile.lock" }}-{{ checksum "yarn.lock" }}
+#           paths:
+#             - ./vendor/bundle
+#             - ./node_modules
+#       - run:
+#           name: DB Initializing
+#           command: |
+#             dockerize -wait tcp://localhost:5432 -timeout 1m
+#             bundle exec rails db:structure:dump
+#           # bundle exec rake db:schema:load (db:schema:load の代わりに db:structure:load とする)
+#       - run:
+#           name: rspec
+#           command: |
+#             bundle exec rspec --format RspecJunitFormatter \
+#                               --out test_results/rspec.xml \
+#                               --format documentation
+#       - store_test_results:
+#           path: test_results
+
+
+
+
+
+
+
+
+
+
+# version: 2
+
+# jobs:
+#   test:
+#     docker:
+#       - image: circleci/ruby:3.0.0-rc1-buster-node-browsers
+#         # environment:
+#         #   POSTGRES_USER: postgres 
+#         #   RAILS_ENV: test
+#         #   DATABASE_HOST: 127.0.0.1 
+#       - image: circleci/postgres:13.1
+#         environment:
+#           POSTGRES_USER: postgres
+#           POSTGRES_PASSWORD: postgres
+#           POSTGRES_DB: myapp_test
+#     working_directory: ~/myapp
+#     steps:
+#       - checkout
+#       - run:
+#           name: "bundle install"
+#           # command: bundle config set --local path 'vendor/bundle'
+#           command: bundle install --path vendor/bundle
+#       # DBと接続できるまで待ちます
+#       - run:
+#           name: "waiting DB start"
+#           command: dockerize -wait tcp://127.0.0.1:3306 -timeout 1m
+#       - run:
+#           name: "initialize DB"
+#           # command: bundle exec rails db:schema:load --trace
+#           command: |
+#             bundle exec rails db:create
+#             bundle exec rails db:migrate
+
+#       - run:
+#           name: RSpec
+#           command: bundle exec rspec
+
+# workflows:
+#   version: 2
+#   workflows:
+#     jobs:
+#       - test
