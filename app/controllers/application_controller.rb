@@ -11,6 +11,12 @@ class ApplicationController < ActionController::Base
     products_url
   end
 
+  private
+
+    def set_user
+      @user = current_user if user_signed_in?
+    end
+
   protected
 
     def configure_permitted_parameters

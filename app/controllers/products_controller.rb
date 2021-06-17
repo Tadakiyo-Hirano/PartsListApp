@@ -1,5 +1,6 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: %i(edit update destroy)
+  before_action :set_user, only: %i(index)
 
   def index
     @products = Product.all.order(model: :ASC)
