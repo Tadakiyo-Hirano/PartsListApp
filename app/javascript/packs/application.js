@@ -19,3 +19,5 @@ window.$ = jQuery;
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
+setTimeout("$('.flash_messages').fadeOut('slow')", 5000);
