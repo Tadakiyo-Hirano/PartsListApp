@@ -11,7 +11,7 @@
   </head>
 
   <%= render 'layouts/header' if user_signed_in? %>
-
+  
   <body>
     <div class="container-sm">
       <div class="flash_messages">
@@ -26,7 +26,7 @@
       <!-- <p class="notice"><%= notice %></p> -->
       <!-- <p class="alert"><%= alert %></p> -->
 
-      <div class="container">
+      <div class="container main">
         <%= yield %>
       </div>
 
@@ -36,3 +36,17 @@
     </div>
   </body>
 </html>
+
+<style>
+  .flash_messages {
+    /* position: fixed; */
+    position: -webkit-sticky;
+    position: sticky;
+    top: 5px;
+    z-index: 1;
+    
+    margin-top: 5px;
+    left: 200px;
+    right: 200px;
+  }
+</style>
