@@ -2,13 +2,13 @@
   <h3>カテゴリー並べ替え</h3>
   <div class="new-category-btn">
     <div class="new-category-item-right">
-      <%= link_to '戻る', categories_path, class: "btn btn-sm btn-secondary", data: { "turbolinks": false } %>
+      <%= link_to '戻る', admins_categories_path, class: "btn btn-sm btn-secondary", data: { "turbolinks": false } %>
     </div>
   </div>
 
   <table class="table table-sm table-sortable">
-    <thead>
-      <tr w-auto class="bg-light">
+    <thead class="table-dark">
+      <tr w-auto>
         <th></th>
         <th>No.</th>
         <th><%= Category.human_attribute_name :name %></th>
@@ -17,7 +17,7 @@
 
     <tbody>
       <% @categories.each do |category| %>
-        <tr id="category-<%= category.id %>" class="item" data-model_name="<%= category.class.name.underscore %>" data-update_url="<%= category_sort_path(category) %>" data-method="post">
+        <tr id="category-<%= category.id %>" class="item" data-model_name="<%= category.class.name.underscore %>" data-update_url="<%= admins_category_sort_path(category) %>" data-method="post">
           <td class="w-100px"></td>
           <td class="w-100px"><%= @heading_number += 1 %></td>
           <td class="w-360px"><%= category.name %></td>

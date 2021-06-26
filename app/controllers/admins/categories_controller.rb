@@ -1,5 +1,6 @@
-class CategoriesController < ApplicationController
+class Admins::CategoriesController < ApplicationController
   protect_from_forgery except: :sort
+  before_action :authenticate_admin!
   before_action :set_category, only: %i(edit update)
 
   def index
@@ -31,10 +32,10 @@ class CategoriesController < ApplicationController
     @category = Category.new(category_params)
     if @category.save
       flash[:success] = "カテゴリー【#{@category.name}】を登録しました。"
-      redirect_to categories_url
+      redirect_to admins_categories_url
     else
       flash[:danger] = @category.errors.full_messages.join
-      redirect_to categories_url
+      redirect_to admins_categories_url
     end
   end
 
@@ -49,10 +50,10 @@ class CategoriesController < ApplicationController
       else
         flash[:info] = "変更はありません。"
       end
-      redirect_to categories_url
+      redirect_to admins_categories_url
     else
       flash[:danger] = @category.errors.full_messages.join
-      redirect_to categories_url(id: params[:id])
+      redirect_to admins_categories_url(id: params[:id])
     end
   end
 
@@ -60,12 +61,12 @@ class CategoriesController < ApplicationController
     @categories = Category.where(id: params[:categories])
     if @categories.blank?
       flash[:warning] = "削除するカテゴリーを選択してください。"
-      redirect_to categories_path
+      redirect_to admins_categories_path
     else
       delete_count = @categories.map { |category| }.count
       @categories.destroy_all
       flash[:danger] = "カテゴリーを#{delete_count}件削除しました。"
-      redirect_to categories_path
+      redirect_to admins_categories_path
     end
   end
 

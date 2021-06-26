@@ -6,6 +6,25 @@ Rails.application.routes.draw do
     sessions: 'admins/sessions'
   }
 
+  namespace :admins do
+    resources :brands, except: :destroy do
+      post :sort
+      collection do
+        get :index_sort
+        delete :destroy_all
+      end
+    end
+    
+    resources :categories, except: :destroy do
+      post :sort
+      collection do
+        get :index_sort
+        delete :destroy_all
+      end
+    end
+    resources :users
+  end
+
   # rootをログイン画面に設定
   # devise_scope :user do
   #   root "users/sessions#new"
@@ -16,23 +35,7 @@ Rails.application.routes.draw do
     registrations: 'users/registrations',
     omniauth_callbacks: 'users/omniauth_callbacks'
   }
+
   resources :users, only: %i(show)
-
-  resources :brands, except: :destroy do
-    post :sort
-    collection do
-      get :index_sort
-      delete :destroy_all
-    end
-  end
-
-  resources :categories, except: :destroy do
-    post :sort
-    collection do
-      get :index_sort
-      delete :destroy_all
-    end
-  end
-
   resources :products
 end

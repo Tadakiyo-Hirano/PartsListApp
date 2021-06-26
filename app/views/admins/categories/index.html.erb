@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-6 offset-md-3">
-    <h3>カテゴリー登録･編集</h3>
+    <h5>カテゴリー登録</h5>
     <div class="new-category-btn">
       <div class="new-category-item-left" data-toggle="modal" data-target="#new-category-modal">
         <%= new_category_btn %>
@@ -9,17 +9,17 @@
         <%= delete_category_btn %>
       </div>
       <div class="new-category-item-right">
-        <%= link_to '並べ替え', index_sort_categories_path, class: "btn btn-sm btn-navy", data: { "turbolinks": false } %>
+        <%= link_to '並べ替え', index_sort_admins_categories_path, class: "btn btn-sm btn-navy", data: { "turbolinks": false } %>
       </div>
     </div>
 
     <table class="table table-sm table-sortable">
-      <thead>
-        <tr w-auto class="bg-light">
+      <thead class="table-dark">
+        <tr w-auto>
           <th></th>
           <th>No.</th>
           <th><%= Category.human_attribute_name :name %></th>
-          <th></th>
+          <th>編集</th>
         </tr>
       </thead>
 
@@ -32,7 +32,7 @@
                   <td class="table-number"><%= @heading_number += 1 %>&emsp;</td>
                   <td><%= category.name %></td>
                 <td>
-                  <%= link_to categories_path(id: category), local: true, method: :get do %>
+                  <%= link_to admins_categories_path(id: category), local: true, method: :get do %>
                     <i class="far fa-edit"></i>
                   <% end %>
                 </td>
@@ -47,11 +47,11 @@
                 <td><%= edit_category_form(category) %></td>
               <td>
                 <% if @category.id == category.id %>
-                  <%= link_to categories_path do %>
+                  <%= link_to admins_categories_path do %>
                     <i class="far fa-window-close"></i>
                   <% end %>
                 <% else %>
-                  <%= link_to categories_path(id: category), local: true, method: :get do %>
+                  <%= link_to admins_categories_path(id: category), local: true, method: :get do %>
                     <i class="far fa-edit"></i>
                   <% end %>
                 <% end %>

@@ -1,5 +1,6 @@
-class BrandsController < ApplicationController
+class Admins::BrandsController < ApplicationController
   protect_from_forgery except: :sort
+  before_action :authenticate_admin!
   before_action :set_brand, only: %i(edit update)
 
   def index
@@ -31,10 +32,10 @@ class BrandsController < ApplicationController
     @brand = Brand.new(brand_params)
     if @brand.save
       flash[:success] = "カテゴリー【#{@brand.name}】を登録しました。"
-      redirect_to brands_url
+      redirect_to admins_brands_url
     else
       flash[:danger] = @brand.errors.full_messages.join
-      redirect_to brands_url
+      redirect_to admins_brands_url
     end
   end
 
@@ -49,10 +50,10 @@ class BrandsController < ApplicationController
       else
         flash[:info] = "変更はありません。"
       end
-      redirect_to brands_url
+      redirect_to admins_brands_url
     else
       flash[:danger] = @brand.errors.full_messages.join
-      redirect_to brands_url(id: params[:id])
+      redirect_to admins_brands_url(id: params[:id])
     end
   end
 
@@ -60,12 +61,12 @@ class BrandsController < ApplicationController
     @brands = Brand.where(id: params[:brands])
     if @brands.blank?
       flash[:warning] = "削除するブランドを選択してください。"
-      redirect_to brands_path
+      redirect_to admins_brands_url
     else
       delete_count = @brands.map { |brand| }.count
       @brands.destroy_all
       flash[:danger] = "ブランドを#{delete_count}件削除しました。"
-      redirect_to brands_path
+      redirect_to admins_brands_url
     end
   end
 

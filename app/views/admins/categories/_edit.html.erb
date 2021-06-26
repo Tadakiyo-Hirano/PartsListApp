@@ -1,0 +1,10 @@
+<div style="margin-left: -20px;">
+  <%= form_with model: @category, url: admins_category_path(@category), remote: true do |f|  %>
+    <div class="input-group input-group-sm col-md-8 text_left">
+      <%= f.text_field :name, placeholder: "20文字以内", required: true, maxlength: "20", class: "form-control" %>
+      <div class="input-group-append">
+        <%= f.submit '更新', class: "btn btn-navy", method: :post, required: true, maxlength: "20", data: { disable_with: '送信中' } %>
+      </div>
+    </div>
+  <% end %>
+</div>
