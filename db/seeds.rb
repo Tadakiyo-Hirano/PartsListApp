@@ -12,8 +12,16 @@ Admin.create!(
 )
 
 puts 'admin created!'
-# ActiveStorage::AnalyzeJob.queue_adapter = :inline
-# ActiveStorage::PurgeJob.queue_adapter = :inline
+
+10.times do |n|
+  User.create!(
+    name: "Test User#{n + 1}",
+    email: "sample#{n + 1}@email.com",
+    password: 'password'
+  )
+end
+
+puts 'user created!'
 
 10.times do |n|
   Category.create!(

@@ -9,7 +9,7 @@
       </div>
 
       <div class="modal-body">
-        <%= form_with model: @brand, remote: true do |f|  %>
+        <%= form_with model: @brand, url: admins_brands_path, method: :post, remote: true do |f|  %>
           <div class="form-group">
             <div class="field">
               <%= f.text_field :name, placeholder: "20文字以内", required: true, maxlength: "20", class: "form-control" %>

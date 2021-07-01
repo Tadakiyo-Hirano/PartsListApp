@@ -29,3 +29,9 @@ ja:
         password: パスワード
         password_confirmation: 確認用パスワード
         remember_me: パスワードを保持する
+        sign_in_count: ログイン回数
+        current_sign_in_at: 最終ログイン
+        last_sign_in_at: 前回ログイン
+        current_sign_in_ip: 最終ログインIP
+        last_sign_in_ip: 前回ログインIP
+

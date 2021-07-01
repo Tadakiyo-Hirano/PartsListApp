@@ -1,0 +1,45 @@
+<h5><%= user_name(@user) %></h5>
+
+<div class="col col-md-8 offset-md-2">
+  <table class="table table-sm table-bordered">
+    <tbody>
+      <tr>
+        <th width="25%"><%= User.human_attribute_name :id %></th>
+        <td><%= @user.id %></td>
+      </tr>
+      <tr>
+        <th><%= User.human_attribute_name :name %></th>
+        <td><%= @user.name %></td>
+      </tr>
+      <tr>
+        <th><%= User.human_attribute_name :email %></th>
+        <td><%= @user.email %></td>
+      </tr>
+      <tr>
+        <th><%= User.human_attribute_name :sign_in_count  %></th>
+        <td><%= @user.sign_in_count  %>&nbsp;回</td>
+      </tr>
+      <tr>
+        <th><%= User.human_attribute_name :current_sign_in_at %></th>
+        <td><%= user_current_sign_in_at(@user) %></td>
+      </tr>
+      <tr>
+        <th><%= User.human_attribute_name :current_sign_in_ip %></th>
+        <td><%= @user.current_sign_in_ip %></td>
+      </tr>
+      <tr>
+        <th><%= User.human_attribute_name :last_sign_in_at %></th>
+        <td><%= user_last_sign_in_at(@user) %></td>
+      </tr>
+      <tr>
+        <th><%= User.human_attribute_name :last_sign_in_ip %></th>
+        <td><%= @user.last_sign_in_ip %></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="col col-md-8 offset-md-2">
+  <%= link_to 'アカウント情報編集', edit_admins_user_path, class: "btn btn-sm btn-navy" %>
+  <%= link_to '一覧に戻る', admins_users_path, class: "btn btn-sm btn-secondary" %>
+</div>
