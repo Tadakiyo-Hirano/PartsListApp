@@ -1,0 +1,27 @@
+<%= form_with model: @user, url: admins_user_path, method: :patch, local: true do |f|  %>
+  <div class="form-group">
+    <div class="field">
+      <%= f.label :name %>
+      <%= f.text_field :name, required: true, class: "form-control" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :email %>
+      <%= f.email_field :email, required: true, class: "form-control" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :password %>
+      <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :password_confirmation, "確認用パスワード" %><br />
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
+    </div>
+
+    <div class="field">
+      <%= f.submit submit_text, class: "btn btn-navy w-100", data: { disable_with: '送信中' } %>
+    </div>
+  </div>
+<% end %>
