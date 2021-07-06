@@ -23,6 +23,7 @@ Rails.application.routes.draw do
       end
     end
     resources :users
+    resources :products
   end
 
   # rootをログイン画面に設定

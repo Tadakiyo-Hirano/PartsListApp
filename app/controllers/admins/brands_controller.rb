@@ -31,11 +31,9 @@ class Admins::BrandsController < ApplicationController
   def create
     @brand = Brand.new(brand_params)
     if @brand.save
-      flash[:success] = "カテゴリー【#{@brand.name}】を登録しました。"
-      redirect_to admins_brands_url
+      redirect_to admins_brands_url, flash: { success: "カテゴリー【#{@brand.name}】を登録しました。" }
     else
-      flash[:danger] = @brand.errors.full_messages.join
-      redirect_to admins_brands_url
+      redirect_to admins_brands_url, flash: { danger: @brand.errors.full_messages.join }
     end
   end
 
@@ -52,22 +50,22 @@ class Admins::BrandsController < ApplicationController
       end
       redirect_to admins_brands_url
     else
-      flash[:danger] = @brand.errors.full_messages.join
-      redirect_to admins_brands_url(id: params[:id])
+      redirect_to admins_brands_url(id: params[:id]), flash: { danger: @brand.errors.full_messages.join }
     end
   end
 
   def destroy_all
     @brands = Brand.where(id: params[:brands])
     if @brands.blank?
-      flash[:warning] = "削除するブランドを選択してください。"
-      redirect_to admins_brands_url
+      redirect_to admins_brands_url, flash: { warning: '削除するブランドを選択してください。' }
     else
       delete_count = @brands.map { |brand| }.count
       @brands.destroy_all
       flash[:danger] = "ブランドを#{delete_count}件削除しました。"
       redirect_to admins_brands_url
     end
+  rescue ActiveRecord::InvalidForeignKey
+    redirect_to admins_brands_url, flash: { danger: 'パーツリストへ使用中のブランドは削除できません。' }
   end
 
   private

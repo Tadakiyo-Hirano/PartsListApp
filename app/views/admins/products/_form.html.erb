@@ -1,0 +1,24 @@
+<div class="form-group">
+  <div class="field">
+    <%= f.label :model, '型式' %>
+    <%= f.text_field :model, placeholder: "50文字以内", required: true, maxlength: "50", class: "form-control" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :category_id, '機種' %>
+    <%= f.select :category_id, Category.rank(:row_order).map { |category| [category.name, category.id] }, {}, { required: true, class: "form-control" } %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :brand_id, 'メーカーブランド' %>
+    <%= f.select :brand_id, Brand.rank(:row_order).map { |brand| [brand.name, brand.id] }, {}, { required: true, class: "form-control" } %>
+  </div>
+
+  <div class="field">
+    <%= f.file_field :document %>
+  </div>
+
+  <div class="field">
+    <%= f.submit submit_text, class: "btn btn-navy w-100", data: { disable_with: '送信中' } %>
+  </div>
+</div>
