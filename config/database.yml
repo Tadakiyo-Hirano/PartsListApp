@@ -62,6 +62,7 @@ test:
   <<: *default
   # host: localhost
   # host: db
+  # [host: localhost]だとcircleciは成功,localのrspecはエラー。[host: db]だとlocalのrspecは成功,circleciはエラー。になるので下記のようにする。
   host: <%= ENV['PGHOST'] || 'db' %>
   database: myapp_test
 

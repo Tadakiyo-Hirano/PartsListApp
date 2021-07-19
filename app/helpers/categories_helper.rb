@@ -24,4 +24,12 @@ module CategoriesHelper
       category.name
     end
   end
+
+  def category_check_box(category)
+    if Product.where(category_id: category).first
+      check_box_tag '', 'true', false, disabled: true
+    else
+      check_box_tag 'brands[]',category
+    end
+  end
 end
