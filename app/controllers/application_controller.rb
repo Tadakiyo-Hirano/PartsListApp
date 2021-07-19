@@ -7,11 +7,21 @@ class ApplicationController < ActionController::Base
   # deviseコントローラーにストロングパラメータを追加     
   before_action :configure_permitted_parameters, if: :devise_controller?
 
+  # ログイン後リダイレクト先
   def after_sign_in_path_for(resource)
     if resource.is_a?(Admin)
       admins_brands_url
     else
       products_url
+    end
+  end
+
+  # ログアウト後リダイレクト先
+  def after_sign_out_path_for(resource_or_scope)
+    if resource_or_scope == :admin
+      admin_session_url
+    else
+      user_session_url
     end
   end
 

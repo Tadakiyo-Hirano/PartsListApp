@@ -31,11 +31,9 @@ class Admins::CategoriesController < ApplicationController
   def create
     @category = Category.new(category_params)
     if @category.save
-      flash[:success] = "カテゴリー【#{@category.name}】を登録しました。"
-      redirect_to admins_categories_url
+      redirect_to admins_categories_url, flash: { success: "カテゴリー【#{@category.name}】を登録しました。" }
     else
-      flash[:danger] = @category.errors.full_messages.join
-      redirect_to admins_categories_url
+      redirect_to admins_categories_url, flash: { danger: @category.errors.full_messages.join }
     end
   end
 
@@ -52,22 +50,21 @@ class Admins::CategoriesController < ApplicationController
       end
       redirect_to admins_categories_url
     else
-      flash[:danger] = @category.errors.full_messages.join
-      redirect_to admins_categories_url(id: params[:id])
+      redirect_to admins_categories_url(id: params[:id]), flash: { danger: @category.errors.full_messages.join }
     end
   end
 
   def destroy_all
     @categories = Category.where(id: params[:categories])
     if @categories.blank?
-      flash[:warning] = "削除するカテゴリーを選択してください。"
-      redirect_to admins_categories_path
+      redirect_to admins_categories_path, flash: { warning: '削除するカテゴリーを選択してください。' }
     else
       delete_count = @categories.map { |category| }.count
       @categories.destroy_all
-      flash[:danger] = "カテゴリーを#{delete_count}件削除しました。"
-      redirect_to admins_categories_path
+      redirect_to admins_categories_path, flash: { danger: "カテゴリーを#{delete_count}件削除しました。" }
     end
+  rescue ActiveRecord::InvalidForeignKey
+    redirect_to admins_brands_url, flash: { danger: 'パーツリストへ使用中のカテゴリは削除できません。' }
   end
 
   private

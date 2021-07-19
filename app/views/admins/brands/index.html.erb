@@ -13,7 +13,7 @@
       </div>
     </div>
 
-    <table class="table table-sm">
+    <table class="table table-sm table-striped">
       <thead class="table-dark">
         <tr w-auto>
           <th></th>
@@ -28,9 +28,9 @@
           <%= form_tag({ controller: :brands, action: :destroy_all }, id: "delete-brand", method: 'delete') do %>
             <% @brands.each do |brand| %>
               <tr>
-                <td><%= check_box_tag 'brands[]',brand.id %></td>
-                  <td class="table-number"><%= @heading_number += 1 %>&emsp;</td>
-                  <td><%= brand.name %></td>
+                <td><%= brand_check_box(brand.id) %></td>
+                <td class="table-number"><%= @heading_number += 1 %>&emsp;</td>
+                <td><%= brand.name %></td>
                 <td>
                   <%= link_to admins_brands_path(id: brand), local: true, method: :get do %>
                     <i class="far fa-edit"></i>
@@ -47,7 +47,7 @@
                 <td><%= edit_brand_form(brand) %></td>
               <td>
                 <% if @brand.id == brand.id %>
-                  <%= link_to admins_brands_path do %>
+                  <%= link_to admins_brands_path, data: { "turbolinks": false } do %>
                     <i class="far fa-window-close"></i>
                   <% end %>
                 <% else %>
