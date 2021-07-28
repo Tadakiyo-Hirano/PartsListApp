@@ -4,6 +4,8 @@ class Admins::ProductsController < ApplicationController
 
   def index
     @products = Product.all.order(model: :ASC)
+    @aaa = @products.map {|product| product.document.byte_size}
+    
   end
 
   def new

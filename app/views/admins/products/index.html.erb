@@ -2,8 +2,11 @@
   <div class="col-md-8 offset-md-2">
     <h5>パーツカタログ登録</h5>
   <div class="new-product-btn">
-    <div class="new-product-item-left">
-      <%= link_to '新規', new_admins_product_path, remote: true, class: "btn btn-sm btn-navy" %>
+    <div class="new-product-item">
+      <%= link_to '新規登録', new_admins_product_path, remote: true, class: "btn btn-sm btn-navy" %>
+    </div>
+    <div class="new-product-item size-text">
+      <%= "ストレージ使用量 : #{sprintf("%.2f", (@aaa.sum.to_f / 1000000000))} GB" %>
     </div>
   </div>
 

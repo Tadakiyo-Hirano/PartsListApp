@@ -1,24 +1,51 @@
 <div class="form-group">
   <div class="field">
     <%= f.label :model, '型式' %>
-    <%= f.text_field :model, placeholder: "50文字以内", required: true, maxlength: "50", class: "form-control" %>
+    <%= f.text_field :model, placeholder: "50文字以内", required: true, maxlength: "50", class: "form-control-sm form-control" %>
   </div>
 
   <div class="field">
     <%= f.label :category_id, '機種' %>
-    <%= f.select :category_id, Category.rank(:row_order).map { |category| [category.name, category.id] }, {}, { required: true, class: "form-control" } %>
+    <%= f.select :category_id, Category.rank(:row_order).map { |category| [category.name, category.id] }, {}, { required: true, class: "form-control-sm form-control" } %>
   </div>
   
   <div class="field">
     <%= f.label :brand_id, 'メーカーブランド' %>
-    <%= f.select :brand_id, Brand.rank(:row_order).map { |brand| [brand.name, brand.id] }, {}, { required: true, class: "form-control" } %>
+    <%= f.select :brand_id, Brand.rank(:row_order).map { |brand| [brand.name, brand.id] }, {}, { required: true, class: "form-control-sm form-control" } %>
   </div>
 
   <div class="field">
-    <%= f.file_field :document %>
+    <%= f.file_field :document, accept: 'application/pdf', id: "example#{@product.id}" %>
+  </div>
+
+  <div class="field file-data">
+    <% if @product.document.attached? %>
+      <%= @product.document.filename.to_s.truncate(40) %><br>
+      <%= "ファイルサイズ: #{sprintf("%.2f", (@product.document.byte_size.to_f / 1000000))} MB" %>
+    <% end %>
   </div>
 
   <div class="field">
-    <%= f.submit submit_text, class: "btn btn-navy w-100", data: { disable_with: '送信中' } %>
+    <%= f.submit submit_text, class: "btn btn-sm btn-navy w-100", data: { disable_with: '送信中' } %>
   </div>
 </div>
+
+<script>
+  const sizeLimit = 2097152;　// 制限サイズ
+  const fileInput = document.getElementById('<%= "example#{@product.id}" %>'); // input要素
+  // changeイベントで呼び出す関数
+  const handleFileSelect = () => {
+    const files = fileInput.files;
+    for (let i = 0; i < files.length; i++) {
+      if (files[i].size > sizeLimit) {
+        // ファイルサイズが制限以上
+        alert(`ファイルサイズは${Math.floor(sizeLimit / 1000000)}MB以下にしてください`); // エラーメッセージを表示
+        fileInput.value = ''; // inputの中身をリセット
+        return; // この時点で処理を終了する
+      }
+    }
+  }
+  // フィールドの値が変更された時（≒ファイル選択時）に、handleFileSelectを発火
+  fileInput.addEventListener('change', handleFileSelect);
+  </script>
+  
