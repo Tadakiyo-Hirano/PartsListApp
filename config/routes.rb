@@ -2,9 +2,17 @@ Rails.application.routes.draw do
 
   root 'home#index'
   # get 'users/show'
-  devise_for :admins, controllers: {
-    sessions: 'admins/sessions'
-  }
+  
+  # devise_for :admins, controllers: {
+  #   sessions: 'admins/sessions'
+  # }
+
+  devise_for :admins, skip: :all
+  devise_scope :admin do
+    get 'pladmin/login' => 'admins/sessions#new', as: :new_admin_session
+    post 'pladmin/login' => 'admins/sessions#create', as: :admin_session
+    delete 'pladmin/logout' => 'admins/sessions#destroy', as: :destroy_admin_session
+  end
 
   namespace :admins do
     resources :brands, except: :destroy do

@@ -3,7 +3,17 @@
   display: flex;
 }
 
-.new-product-item-left {
+.new-product-item {
   display: inline-block;
   margin-right: 3px;
+}
+
+.new-product-item:last-child {
+  margin-left: auto;
+  margin-right: 3px;
+}
+
+.size-text {
+  font-size: small;
+  padding-top: 10px;
 }
