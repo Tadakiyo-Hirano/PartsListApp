@@ -25,8 +25,8 @@
         <th>
           <%= Brand.human_attribute_name :name %>
         </th>
-        <th></th>
-        <th></th>
+        <th class="center">修正</th>
+        <th class="center">削除</th>
       </tr>
     </thead>
     
@@ -45,13 +45,13 @@
           <td>
             <%= Brand.find(product.brand_id).name %>
           </td>
-          <td>
+          <td class="center">
             <%= link_to edit_admins_product_path(product), remote: true do %>
               <i class="fas fa-pencil-alt"></i>
             <% end %>
           </td>
-          <td>
-            <%= link_to admins_product_path(product), method: :delete, id: "trash-icon-#{product.id}", data: { disable_with: "送信中", confirm: '選択したパーツカタログを削除しますか？' } do %>
+          <td class="center">
+            <%= link_to admins_product_path(product), method: :delete, id: "trash-icon-#{product.id}", data: { disable_with: "送信中", confirm: "#{product.model}のパーツリストを削除しますか？" } do %>
               <i class="fas fa-trash-alt"></i>
             <% end %>
           </td>
