@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   # ログイン後リダイレクト先
   def after_sign_in_path_for(resource)
     if resource.is_a?(Admin)
-      admins_brands_url
+      admins_products_url
     else
       products_url
     end
