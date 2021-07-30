@@ -37,6 +37,7 @@ gem 'aws-sdk-s3', require: false
 gem 'active_storage_validations'
 gem 'mini_magick', '>= 4.9.5'
 gem 'kaminari'
+gem 'ransack'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

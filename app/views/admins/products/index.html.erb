@@ -1,6 +1,30 @@
 <div class="row">
   <div class="col-md-8 offset-md-2">
-    <h5>パーツカタログ登録</h5>
+    <h5>パーツリスト登録</h5>
+
+    
+    <%= search_form_for @q, url: admins_products_path do |f| %>
+      <div class="search-flexbox">
+        <div class="search-flexbox-item">
+          <%= f.search_field :model_cont, placeholder: "型式", class: "form-control form-control-sm" %>
+        </div>
+
+        <div class="search-flexbox-item">
+          <%= f.collection_select :category_id_eq, @categories, :id, :name, { include_blank: '機種選択' }, { class: "form-control form-control-sm" } %>
+        </div>
+
+        <div class="search-flexbox-item">
+          <%= f.collection_select :brand_id_eq, @brands, :id, :name, { include_blank: 'メーカー選択' }, { class: "form-control form-control-sm" } %>
+        </div>
+
+        <div class="search-flexbox-item">
+          <%= f.submit "検索", class: "btn btn-sm btn-navy" %>
+          <%= link_to 'リセット', admins_products_path, class: "btn btn-sm btn-secondary" if params[:q].present? %>
+        </div>
+      </div>
+    <% end %>
+
+
     
     <div class="new-product-btn">
       <div class="new-product-item">
@@ -13,18 +37,21 @@
 
     <table class="table table-sm">
       <thead class="table-dark">
-        <tr>
+        <tr class="product-table-header">
           <th>
-            <%= Product.human_attribute_name :model %>
+            <!-- <%= Product.human_attribute_name :model %> -->
+            <%= sort_link(@q, :model) %>
           </th>
           <th>
             PDF
           </th>
           <th>
-            <%= Category.human_attribute_name :name %>
+            <!-- <%= Category.human_attribute_name :name %> -->
+            <%= sort_link(@q, :category_id, '機種') %>
           </th>
           <th>
-            <%= Brand.human_attribute_name :name %>
+            <!-- <%= Brand.human_attribute_name :name %> -->
+            <%= sort_link(@q, :brand_id, 'メーカー') %>
           </th>
           <th class="center">修正</th>
           <th class="center">削除</th>
@@ -68,6 +95,9 @@
 <div id="edit-product-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
 
 <style>
+  .product-table-header a {
+    color: #fff;
+  }
   .page-item.active .page-link {
     z-index: 3;
     color: #fff;
@@ -84,5 +114,41 @@
     color: #47619c;
     background-color: #fff;
     border: 1px solid #dee2e6;
+  }
+
+  .search-flexbox{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    /* 以降はレイアウトとは無関係です */
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .search-flexbox-item{
+    flex-basis:calc((100% - 20px) / 4);
+    max-width:calc((100% - 20px) / 4);
+    margin-top:20px;
+    /* 以降はレイアウトとは無関係です */
+  }
+
+  /* 1段目だけ上下マージンを無くす */
+  .search-flexbox-item:nth-of-type(1),
+  .search-flexbox-item:nth-of-type(2),
+  .search-flexbox-item:nth-of-type(3),
+  .search-flexbox-item:nth-of-type(4){
+    margin-top:0;
+  }
+
+  /* 最終行のアイテム数が2OR3つの時、左右に振り分けられるのを防ぐ */
+  .search-flexbox-item:nth-of-type(4n-1):nth-last-of-type(1),
+  .search-flexbox-item:nth-of-type(4n-2):nth-last-of-type(1){
+    margin-right:auto;
+    margin-left:20px;
+  }
+  
+  .search-flexbox-item:nth-of-type(4n-2):nth-last-of-type(2){
+    margin-right:0;
+    margin-left:20px;
   }
 </style>
