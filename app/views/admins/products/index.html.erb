@@ -1,65 +1,88 @@
 <div class="row">
   <div class="col-md-8 offset-md-2">
     <h5>パーツカタログ登録</h5>
-  <div class="new-product-btn">
-    <div class="new-product-item">
-      <%= link_to '新規登録', new_admins_product_path, remote: true, class: "btn btn-sm btn-navy" %>
-    </div>
-    <div class="new-product-item size-text">
-      <%= "ストレージ使用量 : #{sprintf("%.2f", (@aaa.sum.to_f / 1000000000))} GB" %>
-    </div>
-  </div>
-
-  <table class="table table-sm">
-    <thead class="table-dark">
-      <tr>
-        <th>
-          <%= Product.human_attribute_name :model %>
-        </th>
-        <th>
-          PDF
-        </th>
-        <th>
-          <%= Category.human_attribute_name :name %>
-        </th>
-        <th>
-          <%= Brand.human_attribute_name :name %>
-        </th>
-        <th class="center">修正</th>
-        <th class="center">削除</th>
-      </tr>
-    </thead>
     
-    <tbody>
-      <% @products.each do |product| %>
+    <div class="new-product-btn">
+      <div class="new-product-item">
+        <%= link_to '新規登録', new_admins_product_path, remote: true, class: "btn btn-sm btn-navy" %>
+      </div>
+      <div class="new-product-item size-text">
+        <%= "ストレージ使用量 : #{sprintf("%.2f", (@storage_size.sum.to_f / 1000000000))} GB" %>
+      </div>
+    </div>
+
+    <table class="table table-sm">
+      <thead class="table-dark">
         <tr>
-          <td>
-            <%= product.model %>
-          </td>
-          <td>
-            <%= document_link(product.document) %>
-          </td>
-          <td>
-            <%= Category.find(product.category_id).name %>
-          </td>
-          <td>
-            <%= Brand.find(product.brand_id).name %>
-          </td>
-          <td class="center">
-            <%= link_to edit_admins_product_path(product), remote: true do %>
-              <i class="fas fa-pencil-alt"></i>
-            <% end %>
-          </td>
-          <td class="center">
-            <%= link_to admins_product_path(product), method: :delete, id: "trash-icon-#{product.id}", data: { disable_with: "送信中", confirm: "#{product.model}のパーツリストを削除しますか？" } do %>
-              <i class="fas fa-trash-alt"></i>
-            <% end %>
-          </td>
+          <th>
+            <%= Product.human_attribute_name :model %>
+          </th>
+          <th>
+            PDF
+          </th>
+          <th>
+            <%= Category.human_attribute_name :name %>
+          </th>
+          <th>
+            <%= Brand.human_attribute_name :name %>
+          </th>
+          <th class="center">修正</th>
+          <th class="center">削除</th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
+      
+      <tbody>
+        <% @products.each do |product| %>
+          <tr>
+            <td>
+              <%= product.model %>
+            </td>
+            <td>
+              <%= document_link(product.document) %>
+            </td>
+            <td>
+              <%= Category.find(product.category_id).name %>
+            </td>
+            <td>
+              <%= Brand.find(product.brand_id).name %>
+            </td>
+            <td class="center">
+              <%= link_to edit_admins_product_path(product), remote: true do %>
+                <i class="fas fa-pencil-alt"></i>
+              <% end %>
+            </td>
+            <td class="center">
+              <%= link_to admins_product_path(product), method: :delete, id: "trash-icon-#{product.id}", data: { disable_with: "送信中", confirm: "#{product.model}のパーツリストを削除しますか？" } do %>
+                <i class="fas fa-trash-alt"></i>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <div><%= paginate @products %></div>
+  </div>
 </div>
 
 <div id="new-product-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
 <div id="edit-product-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+
+<style>
+  .page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #47619c;
+    border-color: #47619c;
+  }
+
+  .page-link {
+    position: relative;
+    display: block;
+    padding: 0.5rem 0.75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: #47619c;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+  }
+</style>

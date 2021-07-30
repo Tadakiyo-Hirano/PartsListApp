@@ -3,8 +3,9 @@ class Admins::ProductsController < ApplicationController
   before_action :set_user, only: %i(index)
 
   def index
-    @products = Product.all.order(model: :ASC)
-    @aaa = @products.map {|product| product.document.byte_size}
+    # @products = Product.all.order(model: :ASC)
+    @products = Product.page(params[:page]).per(20).order(model: :ASC)
+    @storage_size = Product.all.map {|product| product.document.byte_size}
     
   end
 
