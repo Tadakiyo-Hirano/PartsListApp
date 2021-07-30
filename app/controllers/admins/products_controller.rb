@@ -4,7 +4,10 @@ class Admins::ProductsController < ApplicationController
 
   def index
     # @products = Product.all.order(model: :ASC)
-    @products = Product.page(params[:page]).per(20).order(model: :ASC)
+    @q = Product.ransack(params[:q])
+    @brands = Brand.all
+    @categories = Category.all
+    @products = @q.result.includes(:brand, :category).page(params[:page]).per(20).order(model: :ASC)
     @storage_size = Product.all.map {|product| product.document.byte_size}
     
   end
@@ -17,10 +20,10 @@ class Admins::ProductsController < ApplicationController
     @product = Product.new(product_params)
     if @product.save
       flash[:success] = "【#{@product.model}】を登録しました。"
-      redirect_to admins_products_url
+      redirect_to request.referer
     else
       flash[:danger] = @product.errors.full_messages.join
-      redirect_to admins_products_url
+      redirect_to request.referer
     end
   end
 
@@ -35,17 +38,17 @@ class Admins::ProductsController < ApplicationController
       else
         flash[:info] = "変更はありません。"
       end
-      redirect_to admins_products_url
+      redirect_to request.referer
     else
       flash[:danger] = @product.errors.full_messages.join
-      redirect_to admins_products_url
+      redirect_to request.referer
     end
   end
 
   def destroy
     @product.destroy
       flash[:danger] = "パーツカタログ【#{@product.model}】を削除しました。"
-    redirect_to admins_products_url
+      redirect_to request.referer
   end
 
   private
