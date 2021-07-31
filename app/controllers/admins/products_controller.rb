@@ -5,8 +5,8 @@ class Admins::ProductsController < ApplicationController
   def index
     # @products = Product.all.order(model: :ASC)
     @q = Product.ransack(params[:q])
-    @brands = Brand.all
-    @categories = Category.all
+    @brands = Brand.all.rank(:row_order)
+    @categories = Category.rank(:row_order)
     @products = @q.result.includes(:brand, :category).page(params[:page]).per(20).order(model: :ASC)
     @storage_size = Product.all.map {|product| product.document.byte_size}
     

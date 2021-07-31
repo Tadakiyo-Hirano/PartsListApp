@@ -2,6 +2,23 @@
   <div class="col-md-12">
     <h5>ユーザー</h5>
 
+    <%= search_form_for @q, url: admins_users_path do |f| %>
+      <div class="user-search-flexbox">
+        <div class="user-search-flexbox-item">
+          <%= f.search_field :name_cont, placeholder: "名前", class: "form-control form-control-sm" %>
+        </div>
+
+        <div class="user-search-flexbox-item">
+          <%= f.search_field :email_cont, placeholder: "email", class: "form-control form-control-sm" %>
+        </div>
+
+        <div class="user-search-flexbox-item">
+          <%= f.submit "検索", class: "btn btn-sm btn-navy" %>
+          <%= link_to 'リセット', admins_users_path, class: "btn btn-sm btn-secondary" if params[:q].present? %>
+        </div>
+      </div>
+    <% end %>
+
     <table class="table table-sm">
       <thead class="table-dark text-center">
         <tr>
@@ -39,3 +56,42 @@
     </table>
   </div>
 </div>
+
+
+<style>
+.user-search-flexbox {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  /* 以降はレイアウトとは無関係です */
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.user-search-flexbox-item {
+  flex-basis: calc((100% - 20px) / 3);
+  max-width: calc((100% - 20px) / 3);
+  margin-top: 20px;
+  /* 以降はレイアウトとは無関係です */
+}
+
+/* 1段目だけ上下マージンを無くす */
+.user-search-flexbox-item:nth-of-type(1),
+.user-search-flexbox-item:nth-of-type(2),
+.user-search-flexbox-item:nth-of-type(3) {
+  margin-top: 0;
+}
+
+/* 最終行のアイテム数が2OR3つの時、左右に振り分けられるのを防ぐ */
+.user-search-flexbox-item:nth-of-type(3n-1):nth-last-of-type(1),
+.user-search-flexbox-item:nth-of-type(3n-2):nth-last-of-type(1) {
+  margin-right: auto;
+  margin-left: 20px;
+}
+
+.user-search-flexbox-item:nth-of-type(3n-2):nth-last-of-type(2) {
+  margin-right: 0;
+  margin-left: 20px;
+}
+
+</style>
