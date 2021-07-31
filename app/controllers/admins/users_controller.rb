@@ -3,7 +3,9 @@ class Admins::UsersController < ApplicationController
   before_action :set_user, only: %i(show edit update)
   
   def index
-    @users = User.all.order(id: :ASC)
+    # @users = User.all.order(id: :ASC)
+    @q = User.ransack(params[:q])
+    @users = @q.result.order(:id)
   end
 
   def show

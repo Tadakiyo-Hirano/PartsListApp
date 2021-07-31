@@ -17,3 +17,60 @@
   font-size: small;
   padding-top: 10px;
 }
+
+.product-table-header a {
+  color: #fff;
+}
+.page-item.active .page-link {
+  z-index: 3;
+  color: #fff;
+  background-color: #47619c;
+  border-color: #47619c;
+}
+
+.page-link {
+  position: relative;
+  display: block;
+  padding: 0.5rem 0.75rem;
+  margin-left: -1px;
+  line-height: 1.25;
+  color: #47619c;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+}
+
+.product-search-flexbox {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  /* 以降はレイアウトとは無関係です */
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.product-search-flexbox-item {
+  flex-basis: calc((100% - 20px) / 4);
+  max-width: calc((100% - 20px) / 4);
+  margin-top: 20px;
+  /* 以降はレイアウトとは無関係です */
+}
+
+/* 1段目だけ上下マージンを無くす */
+.product-search-flexbox-item:nth-of-type(1),
+.product-search-flexbox-item:nth-of-type(2),
+.product-search-flexbox-item:nth-of-type(3),
+.product-search-flexbox-item:nth-of-type(4) {
+  margin-top: 0;
+}
+
+/* 最終行のアイテム数が2OR3つの時、左右に振り分けられるのを防ぐ */
+.product-search-flexbox-item:nth-of-type(4n-1):nth-last-of-type(1),
+.product-search-flexbox-item:nth-of-type(4n-2):nth-last-of-type(1) {
+  margin-right: auto;
+  margin-left: 20px;
+}
+
+.product-search-flexbox-item:nth-of-type(4n-2):nth-last-of-type(2) {
+  margin-right: 0;
+  margin-left: 20px;
+}
