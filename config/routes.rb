@@ -45,6 +45,8 @@ Rails.application.routes.draw do
     omniauth_callbacks: 'users/omniauth_callbacks'
   }
 
-  resources :users, only: %i(show)
+  resources :users, only: %i(show) do
+    resources :products, controller: 'users/products'
+  end
   resources :products
 end

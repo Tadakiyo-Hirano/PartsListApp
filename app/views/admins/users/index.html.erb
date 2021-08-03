@@ -19,46 +19,58 @@
       </div>
     <% end %>
 
-    <table class="table table-sm">
-      <thead class="table-dark text-center">
-        <tr>
-          <th>ID</th>
-          <th><%= User.human_attribute_name :name %></th>
-          <th><%= User.human_attribute_name :email %></th>
-          <th><%= User.human_attribute_name :sign_in_count %></th>
-          <th><%= User.human_attribute_name :current_sign_in_at %></th>
-          <th><%= User.human_attribute_name :current_sign_in_ip %></th>
-          <th><%= User.human_attribute_name :last_sign_in_at %></th>
-          <th><%= User.human_attribute_name :last_sign_in_ip %></th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <% @users.each do |user| %>
-          <tr>
-            <td><%= link_to user.id, admins_user_path(user) %></td>
-            <td><%= user.name %></td>
-            <td><%= user.email %></td>
-            <td class="text-center"><%= user.sign_in_count %></td>
-            <td class="text-center"><%= user_current_sign_in_at(user) %></td>
-            <td class="text-center"><%= user.current_sign_in_ip %></td>
-            <td class="text-center"><%= user_last_sign_in_at(user) %></td>
-            <td class="text-center"><%= user.last_sign_in_ip %></td>
+    <div class="users-table">
+      <table class="table table-sm">
+        <thead class="table-dark text-center">
+          <tr class="user-table-header">
+            <th><%= sort_link(@q, :id) %></th>
+            <th><%= sort_link(@q, :name) %></th>
+            <th><%= sort_link(@q, :email) %></th>
+            <th><%= sort_link(@q, :sign_in_count) %></th>
+            <th><%= sort_link(@q, :current_sign_in_at) %></th>
+            <th><%= sort_link(@q, :current_sign_in_ip) %></th>
+            <th><%= sort_link(@q, :last_sign_in_at) %></th>
+            <th><%= sort_link(@q, :last_sign_in_ip) %></th>
+            <th><%= sort_link(@q, :created_at) %></th>
           </tr>
-        <% end %>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-      </tbody>
-    </table>
+        </thead>
+
+        <tbody>
+          <% @users.each do |user| %>
+            <tr>
+              <td><%= link_to user.id, admins_user_path(user) %></td>
+              <td><%= user.name %></td>
+              <td><%= user.email %></td>
+              <td class="text-center"><%= user.sign_in_count %></td>
+              <td class="text-center"><%= user_current_sign_in_at(user) %></td>
+              <td class="text-center"><%= user.current_sign_in_ip %></td>
+              <td class="text-center"><%= user_last_sign_in_at(user) %></td>
+              <td class="text-center"><%= user.last_sign_in_ip %></td>
+              <td><%= user.created_at.strftime("%Y/%-m/%-d") %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
 
 
 <style>
+.users-table {
+  overflow: auto; /* 横スクロールバーを表示 */
+  white-space: nowrap; /* セル内にあるテキストの折り返しを禁止 */
+}
+
+.user-table-header a {
+  color: #fff;
+}
+
+.user-table-header a:hover {
+  color: #dee2e6;
+  text-decoration: none;
+}
+
 .user-search-flexbox {
   display: flex;
   flex-wrap: wrap;

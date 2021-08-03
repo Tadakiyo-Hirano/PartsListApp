@@ -38,6 +38,7 @@
     <table class="table table-sm table-striped">
       <thead class="table-dark">
         <tr class="product-table-header">
+          <th></th>
           <th>
             <!-- <%= Product.human_attribute_name :model %> -->
             <%= sort_link(@q, :model) %>
@@ -61,6 +62,9 @@
       <tbody>
         <% @products.each do |product| %>
           <tr>
+            <td>
+              <%= @heading_number += 1 %>
+            </td>
             <td>
               <%= product.model %>
             </td>

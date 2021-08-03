@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
     if resource.is_a?(Admin)
       admins_products_url
     else
-      products_url
+      user_products_url(current_user)
     end
   end
 
