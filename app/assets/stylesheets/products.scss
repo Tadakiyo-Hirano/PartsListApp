@@ -1,3 +1,10 @@
+.model-link a {
+  color: #47619c;
+  text-decoration: underline;
+  font-weight: bold;
+  font-size: 110%;
+}
+
 .new-product-btn {
   margin-bottom: 10px;
   display: flex;
@@ -21,22 +28,14 @@
 .product-table-header a {
   color: #fff;
 }
-.page-item.active .page-link {
-  z-index: 3;
-  color: #fff;
-  background-color: #47619c;
-  border-color: #47619c;
+
+.product-table-header a:hover {
+  color: #dee2e6;
+  text-decoration: none;
 }
 
-.page-link {
-  position: relative;
-  display: block;
-  padding: 0.5rem 0.75rem;
-  margin-left: -1px;
-  line-height: 1.25;
-  color: #47619c;
-  background-color: #fff;
-  border: 1px solid #dee2e6;
+li li:hover a {
+  background: #00305c;
 }
 
 .product-search-flexbox {

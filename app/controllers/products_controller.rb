@@ -4,6 +4,7 @@ class ProductsController < ApplicationController
 
   def index
     @products = Product.all.order(model: :ASC)
+    @heading_number = 0
   end
 
   # def new

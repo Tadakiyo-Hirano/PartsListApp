@@ -9,7 +9,7 @@ class Admins::ProductsController < ApplicationController
     @categories = Category.rank(:row_order)
     @products = @q.result.includes(:brand, :category).page(params[:page]).per(20).order(model: :ASC)
     @storage_size = Product.all.map {|product| product.document.byte_size}
-    
+    @heading_number = 0
   end
 
   def new
