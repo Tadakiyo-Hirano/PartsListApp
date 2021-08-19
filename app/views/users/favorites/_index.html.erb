@@ -1,0 +1,11 @@
+<% if !Favorite.exists?(user_id: current_user.id, product_id: product.id) %>
+  <%= link_to user_product_favorites_path(@user, product.id), method: :post, remote: true, data: { "turbolinks": false } do %>
+    <i class="far fa-star star-icon1"></i>
+  <% end %>
+  <span class="star-count1"><%= product.favorites.count %></span>
+<% else %>
+  <%= link_to user_product_favorite_path(@user, product_id: product.id, id: product.favorites[0].id), method: :delete, remote: true do %>
+    <i class="fas fa-star star-icon2"></i>
+  <% end %>
+  <span class="star-count2"><%= product.favorites.count %></span>
+<% end %>

@@ -30,7 +30,9 @@ Rails.application.routes.draw do
         delete :destroy_all
       end
     end
-    resources :users
+    resources :users do
+      get 'favorite'
+    end
     resources :products
   end
 
@@ -46,7 +48,10 @@ Rails.application.routes.draw do
   }
 
   resources :users, only: %i(show) do
-    resources :products, controller: 'users/products'
+    resources :products, controller: 'users/products' do
+      resources :favorites
+    end
   end
+
   resources :products
 end

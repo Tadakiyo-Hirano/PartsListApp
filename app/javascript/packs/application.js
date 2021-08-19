@@ -14,6 +14,7 @@ import 'jquery-ui';
 
 import './table_sort.js';
 
+
 window.$ = jQuery;
 
 Rails.start()

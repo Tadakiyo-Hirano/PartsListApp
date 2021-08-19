@@ -35,6 +35,12 @@
         <th><%= User.human_attribute_name :last_sign_in_ip %></th>
         <td><%= @user.last_sign_in_ip %></td>
       </tr>
+      <tr>
+        <th>ブックマーク件数</th>
+        <td>
+          <%= link_to @user.favorites.count, admins_user_favorite_path(@user), remote: true %>
+        </td>
+      </tr>
     </tbody>
   </table>
 </div>
@@ -43,3 +49,5 @@
   <%= link_to '名前変更', edit_admins_user_path, class: "btn btn-sm btn-navy" %>
   <%= link_to '一覧に戻る', admins_users_path, class: "btn btn-sm btn-secondary" %>
 </div>
+
+<div id="favorite-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>

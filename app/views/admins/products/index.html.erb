@@ -43,9 +43,8 @@
             <!-- <%= Product.human_attribute_name :model %> -->
             <%= sort_link(@q, :model) %>
           </th>
-          <th>
-            PDF
-          </th>
+          <th class="text-center">PDF</th>
+          <th class="text-center"><i class="fas fa-star star-icon2"></i></th>
           <th>
             <!-- <%= Category.human_attribute_name :name %> -->
             <%= sort_link(@q, :category_id, '機種') %>
@@ -54,29 +53,20 @@
             <!-- <%= Brand.human_attribute_name :name %> -->
             <%= sort_link(@q, :brand_id, 'メーカー') %>
           </th>
-          <th class="center">修正</th>
-          <th class="center">削除</th>
+          <th class="text-center">修正</th>
+          <th class="text-center">削除</th>
         </tr>
       </thead>
       
       <tbody>
         <% @products.each do |product| %>
           <tr>
-            <td>
-              <%= @heading_number += 1 %>
-            </td>
-            <td>
-              <%= product.model %>
-            </td>
-            <td>
-              <%= document_link(product.document) %>
-            </td>
-            <td>
-              <%= Category.find(product.category_id).name %>
-            </td>
-            <td>
-              <%= Brand.find(product.brand_id).name %>
-            </td>
+            <td><%= @heading_number += 1 %></td>
+            <td><%= product.model %></td>
+            <td class="text-center"><%= document_link(product.document) %></td>
+            <td class="text-center"><%= product.favorites.count %></td>
+            <td><%= Category.find(product.category_id).name %></td>
+            <td><%= Brand.find(product.brand_id).name %></td>
             <td class="center">
               <%= link_to edit_admins_product_path(product), remote: true do %>
                 <i class="fas fa-pencil-alt"></i>
