@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  has_many :favorites, dependent: :destroy
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -6,6 +7,15 @@ class User < ApplicationRecord
           :omniauthable, omniauth_providers: [:google_oauth2]
 
   validates :name, length: { maximum: 20 }
+
+  # def favorite(product)
+  #   favorites.find_or_create_by(product_id: product.id)
+  # end
+
+  # def unfavorite(product)
+  #   favorite = favorites.find_by(poduct_id: product.id)
+  #   favorite.destroy if favorite
+  # end
 
   def update_without_current_password(params, *options)
     params.delete(:current_password)

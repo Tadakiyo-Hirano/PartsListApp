@@ -1,0 +1,33 @@
+<div class="modal-dialog modal-sm" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h6 class="modal-title" id="favorite-modal-label">ブックマーク一覧</h6>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <table class="favorite-table table table-sm">
+        <tr>
+          <th>型式</th>
+          <th class="text-right">登録日&emsp;&emsp;</th>
+        </tr>
+        <% @user.favorites.each do |favorite| %>
+          <tr>
+            <td>
+              <%= link_to Product.find(favorite.product_id).model,
+                    rails_blob_path(Product.find(favorite.product_id).document),
+                    target: :_blank, rel: "noopener noreferrer" %>
+            </td>
+            <td class="text-right"><%= favorite.created_at.strftime("%Y/%-m/%-d") %></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">閉じる</button>
+    </div>
+  </div>
+</div>

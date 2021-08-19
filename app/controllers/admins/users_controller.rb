@@ -22,6 +22,10 @@ class Admins::UsersController < ApplicationController
     end
   end
 
+  def favorite
+    @user = User.find(params[:user_id])
+  end
+
   private
 
     def set_user

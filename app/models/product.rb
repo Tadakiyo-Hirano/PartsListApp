@@ -1,4 +1,6 @@
 class Product < ApplicationRecord
+  has_many :favorites, dependent: :destroy
+
   has_one_attached :document
   belongs_to :brand
   belongs_to :category
