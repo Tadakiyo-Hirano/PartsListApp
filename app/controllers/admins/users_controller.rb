@@ -24,6 +24,8 @@ class Admins::UsersController < ApplicationController
 
   def favorite
     @user = User.find(params[:user_id])
+    @user_favorites_products = @user.favorited_products.order(model: :ASC) # 中間テーブルを通じて他のテーブルにアクセスする
+    @favorites = @user.favorites
   end
 
   private

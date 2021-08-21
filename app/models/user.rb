@@ -1,5 +1,7 @@
 class User < ApplicationRecord
   has_many :favorites, dependent: :destroy
+  has_many :favorited_products, through: :favorites, source: :product # 中間テーブルを通じて他のテーブルにアクセスする
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,

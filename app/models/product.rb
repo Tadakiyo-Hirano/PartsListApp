@@ -1,5 +1,6 @@
 class Product < ApplicationRecord
   has_many :favorites, dependent: :destroy
+  has_many :favorited_users, through: :favorites, source: :user # 中間テーブルを通じて他のテーブルにアクセスする
 
   has_one_attached :document
   belongs_to :brand
