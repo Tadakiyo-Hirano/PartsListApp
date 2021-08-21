@@ -38,7 +38,12 @@
       <tr>
         <th>ブックマーク件数</th>
         <td>
-          <%= link_to @user.favorites.count, admins_user_favorite_path(@user), remote: true %>
+          <%= @user.favorites.count %>
+          <% if @user.favorites.count > 0 %>
+            <%= link_to admins_user_favorite_path(@user), remote: true do %>
+              <i class="far fa-bookmark"></i>
+            <% end %>
+          <% end %>
         </td>
       </tr>
     </tbody>

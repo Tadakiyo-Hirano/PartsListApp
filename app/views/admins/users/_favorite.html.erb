@@ -1,7 +1,7 @@
-<div class="modal-dialog modal-sm" role="document">
+<div class="modal-dialog" role="document">
   <div class="modal-content">
     <div class="modal-header">
-      <h6 class="modal-title" id="favorite-modal-label">ブックマーク一覧</h6>
+      <h6 class="modal-title" id="favorite-modal-label"><i class="far fa-bookmark"></i>&nbsp;ブックマーク一覧</h6>
       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -11,16 +11,18 @@
       <table class="favorite-table table table-sm">
         <tr>
           <th>型式</th>
-          <th class="text-right">登録日&emsp;&emsp;</th>
+          <th><%= Category.human_attribute_name :name %></th>
+          <th><%= Brand.human_attribute_name :name %></th>
         </tr>
-        <% @user.favorites.each do |favorite| %>
+        <% @user_favorites_products.each do |favorite_product| %>
           <tr>
             <td>
-              <%= link_to Product.find(favorite.product_id).model,
-                    rails_blob_path(Product.find(favorite.product_id).document),
+              <%= link_to favorite_product.model,
+                    rails_blob_path(favorite_product.document),
                     target: :_blank, rel: "noopener noreferrer" %>
             </td>
-            <td class="text-right"><%= favorite.created_at.strftime("%Y/%-m/%-d") %></td>
+            <td><%= Category.find(favorite_product.category_id).name %></td>
+            <td><%= Brand.find(favorite_product.brand_id).name %></td>
           </tr>
         <% end %>
       </table>
