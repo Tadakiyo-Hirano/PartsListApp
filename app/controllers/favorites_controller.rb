@@ -4,7 +4,7 @@ class FavoritesController < ApplicationController
   def create
     product = Product.find(params[:product_id])
     favorite = Favorite.create(user_id: current_user.id, product_id: product.id)
-    redirect_back(fallback_location: root_path)
+    redirect_back(fallback_location: root_path, flash: { success: "登録"})
   end
 
   def destroy

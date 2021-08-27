@@ -21,11 +21,19 @@
       </div>
 
       <div class="product-search-flexbox-item">
-        <%= f.submit "検索", class: "btn btn-sm btn-navy" %>
+        <%= f.submit '検索', class: "btn btn-sm btn-navy" %>
         <%= link_to 'リセット', user_products_path(@user), class: "btn btn-sm btn-secondary" if params[:q].present? %>
       </div>
     </div>
   <% end %>
+
+  <div class="favorite-btn">
+    <% if @user.favorited_products.present? %>
+    <%= link_to 'ブックマーク一覧', favorites_user_products_path(@user), class: "btn btn-sm btn-navy" %>
+    <% else %>
+      <span style="font-size: small;">☆クリックで、ブックマーク登録･解除ができます。</span>
+    <% end %>
+  </div>
 
 
   <table id="table-navy" class="table table-sm table-striped">
@@ -36,7 +44,7 @@
         <th><%= Category.human_attribute_name :name %></th>
         <th><%= Brand.human_attribute_name :name %></th>
       </tr>
-    </thead>
+    </thead>  
     
     <tbody>
       <% @products.each do |product| %>
