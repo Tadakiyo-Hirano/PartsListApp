@@ -1,0 +1,60 @@
+<div class="row">
+  <div class="col-md-8 offset-md-2">
+    <h3>ブックマーク一覧</h3>
+  <div class="new-product-btn">
+    <div class="new-product-item-left">
+    </div>
+  </div>
+
+  <div class="favorite-btn">
+    <%= link_to '戻る', user_products_path(@user), class: "btn btn-sm btn-secondary" %>
+  </div>
+
+  <table id="table-navy" class="table table-sm table-striped">
+    <thead class="bg-navy" style="color: #fff;">
+      <tr>
+        <th></th>
+        <th><%= Product.human_attribute_name :model %></th>
+        <th><%= Category.human_attribute_name :name %></th>
+        <th><%= Brand.human_attribute_name :name %></th>
+      </tr>
+    </thead>
+    
+    <% if @favorite_products.present? %>
+    <tbody>
+      <% @favorite_products.each do |favorite_product| %>
+        <tr>
+          <td><%= render "users/favorites/index", product: favorite_product %></td>
+          <td class="model-link"><%= link_to favorite_product.model, rails_blob_path(favorite_product.document), target: :_blank, rel: "noopener noreferrer" %></td>
+          <td><%= Category.find(favorite_product.category_id).name %></td>
+          <td><%= Brand.find(favorite_product.brand_id).name %></td>
+        </tr>
+      <% end %>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+    </tbody>
+    <% end %>
+    
+    <tbody>
+      <% @products.each do |product| %>
+        <tr>
+          <td>
+            <!-- < if @favorites.present? %> -->
+            <div id="favorite_<%= product.id %>">
+              <%= render "users/favorites/index", product: product %>
+            </div>
+            <!-- < end %> -->
+          </td>
+          <td class="model-link"><%= link_to product.model, rails_blob_path(product.document), target: :_blank, rel: "noopener noreferrer"  %></td>
+          <td><%= Category.find(product.category_id).name %></td>
+          <td><%= Brand.find(product.brand_id).name %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <div><%= paginate @products %></div>
+</div>

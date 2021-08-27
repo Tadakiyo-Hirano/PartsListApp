@@ -49,6 +49,9 @@ Rails.application.routes.draw do
 
   resources :users, only: %i(show) do
     resources :products, controller: 'users/products' do
+      collection do
+        get :favorites
+      end
       resources :favorites
     end
   end
