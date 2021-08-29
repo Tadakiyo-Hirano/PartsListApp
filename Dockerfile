@@ -1,5 +1,5 @@
 FROM ruby:3.0.0
-RUN apt-get update -qq && apt-get install -y vim nodejs postgresql-client
+# RUN apt-get update -qq && apt-get install -y vim nodejs postgresql-client
 RUN mkdir /myapp
 WORKDIR /myapp
 COPY Gemfile /myapp/Gemfile
@@ -11,7 +11,7 @@ COPY . /myapp
 RUN apt-get install apt-transport-https
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-RUN apt-get update && apt-get install -y yarn
+RUN apt-get update && apt-get install -y yarn vim nodejs postgresql-client
 
 # Add a script to be executed every time the container starts.
 COPY entrypoint.sh /usr/bin/
