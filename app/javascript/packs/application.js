@@ -10,6 +10,7 @@ import "channels"
 
 import '@fortawesome/fontawesome-free/js/all';
 import 'bootstrap';
+import '../../assets/stylesheets/application.scss'
 import 'jquery-ui';
 
 import './table_sort.js';
