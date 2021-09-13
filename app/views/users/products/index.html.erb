@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-8 offset-md-2">
-    <h3>パーツリスト</h3>
+    <h5>パーツリスト</h5>
   <div class="new-product-btn">
     <div class="new-product-item-left">
     </div>
@@ -40,7 +40,7 @@
     <thead class="bg-navy" style="color: #fff;">
       <tr>
         <th></th>
-        <th><%= Product.human_attribute_name :model %></th>
+        <th class="aaa"><%= Product.human_attribute_name :model %></th>
         <th><%= Category.human_attribute_name :name %></th>
         <th><%= Brand.human_attribute_name :name %></th>
       </tr>
@@ -51,7 +51,7 @@
         <tr>
           <td>
             <!-- < if @favorites.present? %> -->
-            <div id="favorite_<%= product.id %>">
+            <div id="favorite_<%= product.id %>" class="favorite-star">
               <%= render "users/favorites/index", product: product %>
             </div>
             <!-- < end %> -->

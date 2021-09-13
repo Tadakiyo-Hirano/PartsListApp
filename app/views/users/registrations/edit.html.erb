@@ -7,12 +7,12 @@
 
       <div class="field">
         <%= f.label :name %><br />
-        <%= f.text_field :name, autofocus: true, autocomplete: "name", class: "form-control" %>
+        <%= f.text_field :name, autofocus: true, autocomplete: "name", class: "form-control-sm form-control" %>
       </div>
 
       <div class="field">
         <%= f.label :email %><br />
-        <%= f.email_field :email, autocomplete: "email", class: "form-control" %>
+        <%= f.email_field :email, autocomplete: "email", class: "form-control-sm form-control" %>
       </div>
 
       <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
@@ -21,7 +21,7 @@
 
       <div class="field">
         <%= f.label :password %> <i>(変更しない場合は空欄にしてください。)</i><br />
-        <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
+        <%= f.password_field :password, autocomplete: "new-password", class: "form-control-sm form-control" %>
         <% if @minimum_password_length %>
           <br />
           <em><%= @minimum_password_length %> 文字以上</em>
@@ -30,7 +30,7 @@
 
       <div class="field">
         <%= f.label :password_confirmation %><br />
-        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control-sm form-control" %>
       </div>
 
       <!-- <div class="field">
@@ -39,8 +39,8 @@
       </div> -->
 
       <div class="actions">
-        <%= f.submit "編集", class: "btn btn-block btn-navy", data: { disable_with: '送信中' } %>
-        <%= link_to "戻る", :back, class: "btn btn-block btn-secondary" %>
+        <%= f.submit "編集", class: "btn btn-block btn-sm btn-navy", data: { disable_with: '送信中' } %>
+        <%= link_to "戻る", :back, class: "btn btn-block btn-sm btn-secondary" %>
       </div>
     <% end %>
   </div>
@@ -49,8 +49,8 @@
     <div class="cancel-account-form col col-md-8">
       <p>
         <%= button_to "退会する", registration_path(resource_name),
-                                 data: { confirm: "本当に退会しますか?", disable_with: '送信中' },
-                                 method: :delete %>
+                                  data: { confirm: "本当に退会しますか?", disable_with: '送信中' },
+                                  method: :delete %>
       </p>
       <p style="font-size: small;">退会するとアカウントが削除されます。</p>
     </div>
