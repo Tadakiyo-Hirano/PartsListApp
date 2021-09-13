@@ -13,33 +13,13 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
+  color: #47619c;
   text-align: center;
 }
 
 .main {
   margin-top: 20px;
 }
-
-// .btn-navy {
-//   color: #fff;
-//   background-color: #47619c;
-//   border-color: #47619c;
-// }
-// .btn-navy:focus {
-//   color: #fff;
-//   background-color: #758cbf;
-//   border-color: #758cbf;
-// }
-// .btn-navy:hover {
-//   color: #fff;
-//   background-color: #758cbf;
-//   border-color: #758cbf;
-// }
-// .btn-navy:active {
-//   color: #fff;
-//   background-color: #758cbf;
-//   border-color: #758cbf;
-// }
 
 .field {
   margin-bottom: 15px;
@@ -71,6 +51,18 @@ h1, h2, h3, h4, h5, h6 {
 
 .fa-file-pdf {
   color: #dc3545;
+}
+
+.favorite-star {
+  color: #47619c;
+}
+
+.star-icon-on:hover {
+  text-decoration: none;
+}
+
+.star-icon-off:hover {
+  text-decoration: none;
 }
 
 .w-100px {
