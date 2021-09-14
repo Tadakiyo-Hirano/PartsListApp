@@ -1,5 +1,8 @@
 FROM ruby:3.0.0
+# RUN apt-get update -qq && apt-get install -y vim nodejs postgresql-client
 RUN apt-get update -qq && apt-get install -y vim nodejs postgresql-client
+RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - && apt-get install -y nodejs
+
 RUN mkdir /myapp
 WORKDIR /myapp
 COPY Gemfile /myapp/Gemfile
