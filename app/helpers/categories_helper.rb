@@ -2,7 +2,7 @@ module CategoriesHelper
   def new_category_btn
     unless params[:id]
       link_to new_admins_category_path, remote: true do
-        button_tag '新規', class: "btn btn-sm btn-navy"
+        button_tag '新規', class: "btn btn-sm btn-primary"
       end
     else
       button_tag '新規', class: "btn btn-sm btn-outline-secondary", disabled: true

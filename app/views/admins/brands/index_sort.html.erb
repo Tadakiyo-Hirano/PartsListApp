@@ -1,5 +1,5 @@
 <div class="col-md-6 offset-md-3">
-  <h5>ブランド並べ替え</h5>
+  <h5><%= Brand.human_attribute_name :name %>並べ替え</h5>
   <div class="new-brand-btn">
     <div class="new-brand-item-right">
       <%= link_to '戻る', admins_brands_path, class: "btn btn-sm btn-secondary", data: { "turbolinks": false } %>

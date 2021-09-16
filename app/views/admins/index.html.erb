@@ -1,0 +1,67 @@
+<div class="content">
+  <div class="container-fluid">
+    <div class="row">
+      
+      <!-- /.col-md-6 -->
+      <div class="col-lg-6">
+        <div class="card card-dark">
+          <div class="card-header">
+            <h5 class="m-0">パーツリスト管理</h5>
+          </div>
+          <div class="card-body">
+            <h6 class="card-title">パーツリスト</h6>
+            <p class="card-text">登録件数: <%= Product.count %>件 / ストレージ容量: <%= sprintf("%.2f", (@storage_size.sum.to_f / 1000000000)) %>GB</p>
+            <h6 class="card-title"><%= Brand.human_attribute_name :name %></h6>
+            <p class="card-text">登録件数: <%= Brand.count %>件</p>
+            <h6 class="card-title"><%= Category.human_attribute_name :name %></h6>
+            <p class="card-text">登録件数: <%= Category.count %>件</p>
+            <a href="<%= admins_products_path %>" class="btn btn-sm btn-primary">パーツリスト</a>
+            <a href="<%= admins_brands_path %>" class="btn btn-sm btn-info"><%= Brand.human_attribute_name :name %></a>
+            <a href="<%= admins_categories_path %>" class="btn btn-sm btn-info"><%= Category.human_attribute_name :name %></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="card card-dark">
+          <div class="card-header">
+            <h5 class="m-0">ユーザー管理</h5>
+          </div>
+          <div class="card-body">
+            <h6 class="card-title">ユーザー</h6>
+            <p class="card-text">登録件数: <%= User.count %>件 (一般: 00件 / プレミアム: 00件)</p>
+            <a href="<%= admins_users_path %>" class="btn btn-sm btn-primary">ユーザー</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="card card-dark">
+          <div class="card-header">
+            <h5 class="m-0">お知らせ管理</h5>
+          </div>
+          <div class="card-body">
+            <h6 class="card-title">お知らせ</h6>
+            <p class="card-text">登録件数: 00件</p>
+            <a href="<%= admins_users_path %>" class="btn btn-sm btn-primary">お知らせ</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="card card-dark">
+          <div class="card-header">
+            <h5 class="m-0">システム管理</h5>
+          </div>
+          <div class="card-body">
+            <h6 class="card-title">管理メールアドレス</h6>
+            <p class="card-text"><%= current_admin.email %></p>
+            <a href="#" class="btn btn-sm btn-primary">不具合報告</a>
+          </div>
+        </div>
+      </div>
+      <!-- /.col-md-6 -->
+    </div>
+    <!-- /.row -->
+  </div><!-- /.container-fluid -->
+</div>

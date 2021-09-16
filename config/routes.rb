@@ -56,5 +56,6 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :admins, only: %i(index)
   resources :products
 end
