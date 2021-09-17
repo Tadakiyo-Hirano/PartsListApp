@@ -2,10 +2,10 @@ module BrandsHelper
   def new_brand_btn
     unless params[:id]
       link_to new_admins_brand_path, remote: true do
-        button_tag '登録', class: "btn btn-sm btn-navy"
+        button_tag '新規登録', class: "btn btn-sm btn-primary"
       end
     else
-      button_tag '登録', class: "btn btn-sm btn-outline-secondary", disabled: true
+      button_tag '新規登録', class: "btn btn-sm btn-outline-secondary", disabled: true
     end
   end
 

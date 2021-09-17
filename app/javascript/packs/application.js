@@ -12,6 +12,7 @@ import '@fortawesome/fontawesome-free/js/all';
 import 'bootstrap';
 import '../../assets/stylesheets/application.scss'
 import 'jquery-ui';
+import 'admin-lte';
 
 import './table_sort.js';
 

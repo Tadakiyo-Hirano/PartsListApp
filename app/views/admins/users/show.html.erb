@@ -1,58 +1,69 @@
-<h5><%= user_name(@user) %></h5>
+<div class="card card-dark">
+  <div class="card-header">
+    <h3 class="card-title">
+      <i class="fas fa-users nav-icon"></i>
+      &nbsp;
+      登録情報 : <%= user_name(@user) %>
+    </h3>
+  </div>
+  <div class="card-body">
 
-<div class="col col-md-8 offset-md-2">
-  <table class="table table-sm table-bordered">
-    <tbody>
-      <tr>
-        <th width="25%"><%= User.human_attribute_name :id %></th>
-        <td><%= @user.id %></td>
-      </tr>
-      <tr>
-        <th><%= User.human_attribute_name :name %></th>
-        <td><%= @user.name %></td>
-      </tr>
-      <tr>
-        <th><%= User.human_attribute_name :email %></th>
-        <td><%= @user.email %></td>
-      </tr>
-      <tr>
-        <th><%= User.human_attribute_name :sign_in_count  %></th>
-        <td><%= @user.sign_in_count  %>&nbsp;回</td>
-      </tr>
-      <tr>
-        <th><%= User.human_attribute_name :current_sign_in_at %></th>
-        <td><%= user_current_sign_in_at(@user) %></td>
-      </tr>
-      <tr>
-        <th><%= User.human_attribute_name :current_sign_in_ip %></th>
-        <td><%= @user.current_sign_in_ip %></td>
-      </tr>
-      <tr>
-        <th><%= User.human_attribute_name :last_sign_in_at %></th>
-        <td><%= user_last_sign_in_at(@user) %></td>
-      </tr>
-      <tr>
-        <th><%= User.human_attribute_name :last_sign_in_ip %></th>
-        <td><%= @user.last_sign_in_ip %></td>
-      </tr>
-      <tr>
-        <th>ブックマーク件数</th>
-        <td>
-          <%= @user.favorites.count %>
-          <% if @user.favorites.count > 0 %>
-            <%= link_to admins_user_favorite_path(@user), remote: true do %>
-              <i class="far fa-bookmark"></i>
-            <% end %>
-          <% end %>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+    <div class="col col-md-12">
+      <table class="table table-sm table-bordered">
+        <tbody>
+          <tr>
+            <th width="25%"><%= User.human_attribute_name :id %></th>
+            <td><%= @user.id %></td>
+          </tr>
+          <tr>
+            <th><%= User.human_attribute_name :name %></th>
+            <td><%= @user.name %></td>
+          </tr>
+          <tr>
+            <th><%= User.human_attribute_name :email %></th>
+            <td><%= @user.email %></td>
+          </tr>
+          <tr>
+            <th><%= User.human_attribute_name :sign_in_count  %></th>
+            <td><%= @user.sign_in_count  %>&nbsp;回</td>
+          </tr>
+          <tr>
+            <th><%= User.human_attribute_name :current_sign_in_at %></th>
+            <td><%= user_current_sign_in_at(@user) %></td>
+          </tr>
+          <tr>
+            <th><%= User.human_attribute_name :current_sign_in_ip %></th>
+            <td><%= @user.current_sign_in_ip %></td>
+          </tr>
+          <tr>
+            <th><%= User.human_attribute_name :last_sign_in_at %></th>
+            <td><%= user_last_sign_in_at(@user) %></td>
+          </tr>
+          <tr>
+            <th><%= User.human_attribute_name :last_sign_in_ip %></th>
+            <td><%= @user.last_sign_in_ip %></td>
+          </tr>
+          <tr>
+            <th>ブックマーク件数</th>
+            <td>
+              <%= @user.favorites.count %>
+              <% if @user.favorites.count > 0 %>
+                <%= link_to admins_user_favorite_path(@user), remote: true do %>
+                  <i class="far fa-bookmark"></i>
+                <% end %>
+              <% end %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-<div class="col col-md-8 offset-md-2">
-  <%= link_to '名前変更', edit_admins_user_path, class: "btn btn-sm btn-navy" %>
-  <%= link_to '一覧に戻る', admins_users_path, class: "btn btn-sm btn-secondary" %>
+    <div class="field">
+      <%= link_to '名前変更', edit_admins_user_path, class: "btn btn-sm btn-primary" %>
+      <%= link_to '一覧に戻る', admins_users_path, class: "btn btn-sm btn-secondary" %>
+    </div>
+
+  </div>
 </div>
 
 <div id="favorite-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>

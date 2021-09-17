@@ -11,12 +11,76 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
   
+  <!--
   <% if user_signed_in? %>
-    <%= render 'layouts/user_header' %>
+    <= render 'layouts/user_header' %>
   <% elsif admin_signed_in? %>
-    <%= render 'layouts/admin_header' %>
+    <= render 'layouts/admin_header' %>
   <% end %>
+  -->
+
+  <body class="hold-transition sidebar-mini">
+    <div class="wrapper">
+    
+      <%= render 'layouts/admin_header' if admin_signed_in? %>
+    
+      <!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+        
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+          <div class="flash_messages">
+            <% flash.each do |key, value| %>
+              <p class="alert alert-<%= bootstrap_alert(key) %>">
+                <%= value %>
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+              </p>
+            <% end %>
+          </div>
+        </div>
+        <!-- /.content-header -->
+    
+        <!-- Main content -->
+        <div class="container-sm">
+    
+          <div class="container main">
+            <%= yield %>
+          </div>
+
+          <div>
+            <%= debug(params) if Rails.env.development? %>
+          </div>
+          
+        </div>
+        <!-- /.content -->
+        
+      </div>
+      <!-- /.content-wrapper -->
+    
+      <!-- Control Sidebar -->
+      <!-- <aside class="control-sidebar control-sidebar-dark"> -->
+        <!-- Control sidebar content goes here -->
+        <!-- <div class="p-3"> -->
+          <!-- <h5>Title</h5> -->
+          <!-- <p>Sidebar content</p> -->
+        <!-- </div> -->
+      <!-- </aside> -->
+      <!-- /.control-sidebar -->
+    
+      <!-- Main Footer -->
+      <footer class="main-footer">
+        <!-- To the right -->
+        <div class="float-right d-none d-sm-inline">
+          Anything you want
+        </div>
+        <!-- Default to the left -->
+        <strong>Copyright©秋田マッカラー株式会社</strong> All Rights Reserved.
+      </footer>
+    </div>
+    <!-- ./wrapper -->
+  </body>
   
+  <!--
   <body>
     <div class="container-sm">
       <div class="flash_messages">
@@ -28,18 +92,19 @@
         <% end %>
       </div>
 
-      <!-- <p class="notice"><%= notice %></p> -->
-      <!-- <p class="alert"><%= alert %></p> -->
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
 
       <div class="container main">
-        <%= yield %>
+        <= yield %>
       </div>
 
       <div>
-        <%= debug(params) if Rails.env.development? %>
+        <= debug(params) if Rails.env.development? %>
       </div>
     </div>
   </body>
+  -->
 </html>
 
 <style>

@@ -1,87 +1,95 @@
-<div class="row">
-  <div class="col-md-8 offset-md-2">
-    <h5>パーツリスト登録</h5>
-
+<div class="card card-dark">
+  <div class="card-header">
+    <h3 class="card-title">
+      <i class="far fa-file nav-icon"></i>
+      &nbsp;
+      パーツリスト一覧
+    </h3>
+  </div>
+  <div class="card-body">
     
-    <%= search_form_for @q, url: admins_products_path do |f| %>
-      <div class="product-search-flexbox">
-        <div class="product-search-flexbox-item">
-          <%= f.search_field :model_cont, placeholder: "型式", class: "form-control form-control-sm" %>
-        </div>
-
-        <div class="product-search-flexbox-item">
-          <%= f.collection_select :category_id_eq, @categories, :id, :name, { include_blank: '機種選択' }, { class: "form-control form-control-sm" } %>
-        </div>
-
-        <div class="product-search-flexbox-item">
-          <%= f.collection_select :brand_id_eq, @brands, :id, :name, { include_blank: 'メーカー選択' }, { class: "form-control form-control-sm" } %>
-        </div>
-
-        <div class="product-search-flexbox-item">
-          <%= f.submit "検索", class: "btn btn-sm btn-navy" %>
-          <%= link_to 'リセット', admins_products_path, class: "btn btn-sm btn-secondary" if params[:q].present? %>
-        </div>
-      </div>
-    <% end %>
-
-
+    <div class="row">
+      <div class="col-md-12">
+        <%= search_form_for @q, url: admins_products_path do |f| %>
+          <div class="product-search-flexbox">
+            <div class="product-search-flexbox-item">
+              <%= f.search_field :model_cont, placeholder: "型式", class: "form-control form-control-sm" %>
+            </div>
     
-    <div class="new-product-btn">
-      <div class="new-product-item">
-        <%= link_to '新規登録', new_admins_product_path, remote: true, class: "btn btn-sm btn-navy" %>
-      </div>
-      <div class="new-product-item size-text">
-        <%= "ストレージ使用量 : #{sprintf("%.2f", (@storage_size.sum.to_f / 1000000000))} GB" %>
+            <div class="product-search-flexbox-item">
+              <%= f.collection_select :category_id_eq, @categories, :id, :name, { include_blank: '機種選択' }, { class: "form-control form-control-sm" } %>
+            </div>
+    
+            <div class="product-search-flexbox-item">
+              <%= f.collection_select :brand_id_eq, @brands, :id, :name, { include_blank: 'メーカー選択' }, { class: "form-control form-control-sm" } %>
+            </div>
+    
+            <div class="product-search-flexbox-item">
+              <%= f.submit "検索", class: "btn btn-sm btn-primary" %>
+              <%= link_to 'リセット', admins_products_path, class: "btn btn-sm btn-secondary" if params[:q].present? %>
+            </div>
+          </div>
+        <% end %>
+        
+        <div class="new-product-btn">
+          <div class="new-product-item">
+            <%= link_to '新規登録', new_admins_product_path, remote: true, class: "btn btn-sm btn-primary" %>
+          </div>
+          <div class="new-product-item size-text">
+            <%= "ストレージ使用量 : #{sprintf("%.2f", (@storage_size.sum.to_f / 1000000000))} GB" %>
+          </div>
+        </div>
+    
+        <table class="table table-sm table-striped">
+          <thead class="table-dark">
+            <tr class="product-table-header">
+              <th></th>
+              <th>
+                <!-- <%= Product.human_attribute_name :model %> -->
+                <%= sort_link(@q, :model) %>
+              </th>
+              <th class="text-center">PDF</th>
+              <th class="text-center"><i class="fas fa-star star-icon2"></i></th>
+              <th>
+                <!-- <%= Category.human_attribute_name :name %> -->
+                <%= sort_link(@q, :category_id, '機種') %>
+              </th>
+              <th>
+                <!-- <%= Brand.human_attribute_name :name %> -->
+                <%= sort_link(@q, :brand_id, 'メーカー') %>
+              </th>
+              <th class="text-center">修正</th>
+              <th class="text-center">削除</th>
+            </tr>
+          </thead>
+          
+          <tbody>
+            <% @products.each do |product| %>
+              <tr>
+                <td><%= @heading_number += 1 %></td>
+                <td><%= product.model %></td>
+                <td class="text-center"><%= document_link(product.document) %></td>
+                <td class="text-center"><%= product.favorites.count %></td>
+                <td><%= Category.find(product.category_id).name %></td>
+                <td><%= Brand.find(product.brand_id).name %></td>
+                <td class="center">
+                  <%= link_to edit_admins_product_path(product), remote: true do %>
+                    <i class="fas fa-pencil-alt"></i>
+                  <% end %>
+                </td>
+                <td class="center">
+                  <%= link_to admins_product_path(product), method: :delete, id: "trash-icon-#{product.id}", data: { disable_with: "送信中", confirm: "#{product.model}のパーツリストを削除しますか？" } do %>
+                    <i class="fas fa-trash-alt"></i>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <div><%= paginate @products %></div>
       </div>
     </div>
 
-    <table class="table table-sm table-striped">
-      <thead class="table-dark">
-        <tr class="product-table-header">
-          <th></th>
-          <th>
-            <!-- <%= Product.human_attribute_name :model %> -->
-            <%= sort_link(@q, :model) %>
-          </th>
-          <th class="text-center">PDF</th>
-          <th class="text-center"><i class="fas fa-star star-icon2"></i></th>
-          <th>
-            <!-- <%= Category.human_attribute_name :name %> -->
-            <%= sort_link(@q, :category_id, '機種') %>
-          </th>
-          <th>
-            <!-- <%= Brand.human_attribute_name :name %> -->
-            <%= sort_link(@q, :brand_id, 'メーカー') %>
-          </th>
-          <th class="text-center">修正</th>
-          <th class="text-center">削除</th>
-        </tr>
-      </thead>
-      
-      <tbody>
-        <% @products.each do |product| %>
-          <tr>
-            <td><%= @heading_number += 1 %></td>
-            <td><%= product.model %></td>
-            <td class="text-center"><%= document_link(product.document) %></td>
-            <td class="text-center"><%= product.favorites.count %></td>
-            <td><%= Category.find(product.category_id).name %></td>
-            <td><%= Brand.find(product.brand_id).name %></td>
-            <td class="center">
-              <%= link_to edit_admins_product_path(product), remote: true do %>
-                <i class="fas fa-pencil-alt"></i>
-              <% end %>
-            </td>
-            <td class="center">
-              <%= link_to admins_product_path(product), method: :delete, id: "trash-icon-#{product.id}", data: { disable_with: "送信中", confirm: "#{product.model}のパーツリストを削除しますか？" } do %>
-                <i class="fas fa-trash-alt"></i>
-              <% end %>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-    <div><%= paginate @products %></div>
   </div>
 </div>
 

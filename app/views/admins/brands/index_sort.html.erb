@@ -1,28 +1,40 @@
-<div class="col-md-6 offset-md-3">
-  <h5>ブランド並べ替え</h5>
-  <div class="new-brand-btn">
-    <div class="new-brand-item-right">
-      <%= link_to '戻る', admins_brands_path, class: "btn btn-sm btn-secondary", data: { "turbolinks": false } %>
-    </div>
+<div class="card card-dark">
+  <div class="card-header">
+    <h3 class="card-title">
+      <i class="far fa-copyright nav-icon"></i>
+      <%= Brand.human_attribute_name :name %>並べ替え
+    </h3>
   </div>
+  <div class="card-body">
 
-  <table class="table table-sm table-sortable table-striped">
-    <thead class="table-dark">
-      <tr w-auto>
-        <th></th>
-        <th>No.</th>
-        <th><%= Brand.human_attribute_name :name %></th>
-      </tr>
-    </thead>
+    <div class="col-md-6 offset-md-3">
+      <div class="new-brand-btn">
+        <p style="font-size: small;">ドラッグ＆ドロップで上下に並べ替えができます。</p>
+        <div class="new-brand-item-right">
+          <%= link_to '戻る', admins_brands_path, class: "btn btn-sm btn-secondary", data: { "turbolinks": false } %>
+        </div>
+      </div>
+    
+      <table class="table table-sm table-sortable table-striped">
+        <thead class="table-dark">
+          <tr w-auto>
+            <th></th>
+            <th>No.</th>
+            <th><%= Brand.human_attribute_name :name %></th>
+          </tr>
+        </thead>
+    
+        <tbody>
+          <% @brands.each do |brand| %>
+            <tr id="brand-<%= brand.id %>" class="item" data-model_name="<%= brand.class.name.underscore %>" data-update_url="<%= admins_brand_sort_path(brand) %>" data-method="post">
+              <td></td>
+              <td class="w-100px"><%= @heading_number += 1 %></td>
+              <td class="w-360px"><%= brand.name %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
 
-    <tbody>
-      <% @brands.each do |brand| %>
-        <tr id="brand-<%= brand.id %>" class="item" data-model_name="<%= brand.class.name.underscore %>" data-update_url="<%= admins_brand_sort_path(brand) %>" data-method="post">
-          <td class="w-100px"></td>
-          <td class="w-100px"><%= @heading_number += 1 %></td>
-          <td class="w-360px"><%= brand.name %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+  </div>
 </div>

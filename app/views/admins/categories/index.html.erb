@@ -1,66 +1,80 @@
-<div class="row">
-  <div class="col-md-6 offset-md-3">
-    <h5>カテゴリー登録</h5>
-    <div class="new-category-btn">
-      <div class="new-category-item-left" data-toggle="modal" data-target="#new-category-modal">
-        <%= new_category_btn %>
-      </div>
-      <div class="new-category-item-left">
-        <%= delete_category_btn %>
-      </div>
-      <div class="new-category-item-right">
-        <%= link_to '並べ替え', index_sort_admins_categories_path, class: "btn btn-sm btn-navy", data: { "turbolinks": false } %>
+<div class="card card-dark">
+  <div class="card-header">
+    <h3 class="card-title">
+      <i class="fas fa-tractor nav-icon"></i>
+      &nbsp;
+      <%= Category.human_attribute_name :name %>一覧
+    </h3>
+    <div class="card-tools">
+    </div>
+  </div>
+  <div class="card-body">
+
+    <div class="row">
+      <div class="col-md-8 offset-md-2">
+        <div class="new-category-btn">
+          <div class="new-category-item-left" data-toggle="modal" data-target="#new-category-modal">
+            <%= new_category_btn %>
+          </div>
+          <div class="new-category-item-left">
+            <%= delete_category_btn %>
+          </div>
+          <div class="new-category-item-right">
+            <%= link_to '並べ替え', index_sort_admins_categories_path, class: "btn btn-sm btn-primary", data: { "turbolinks": false } %>
+          </div>
+        </div>
+    
+        <table class="table table-sm table-striped">
+          <thead class="table-dark">
+            <tr w-auto>
+              <th></th>
+              <th>No.</th>
+              <th><%= Category.human_attribute_name :name %></th>
+              <th>編集</th>
+            </tr>
+          </thead>
+    
+          <tbody>
+            <% unless params[:id] %>
+              <%= form_tag({ controller: :categories, action: :destroy_all }, id: "delete-category", method: 'delete') do %>
+                <% @categories.each do |category| %>
+                  <tr>
+                    <td><%= category_check_box(category.id) %></td>
+                    <td class="table-number"><%= @heading_number += 1 %>&emsp;</td>
+                    <td><%= category.name %></td>
+                    <td>
+                      <%= link_to admins_categories_path(id: category), local: true, method: :get do %>
+                        <i class="far fa-edit"></i>
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+              <% end %>
+            <% else %>
+              <% @categories.each do |category| %>
+                <tr>
+                  <td><%= check_box_tag '', 'true', false, disabled: true %></td>
+                    <td class="table-number"><%= @heading_number += 1 %>&emsp;</td>
+                    <td><%= edit_category_form(category) %></td>
+                  <td>
+                    <% if @category.id == category.id %>
+                      <%= link_to admins_categories_path, data: { "turbolinks": false } do %>
+                        <i class="far fa-window-close"></i>
+                      <% end %>
+                    <% else %>
+                      <%= link_to admins_categories_path(id: category), local: true, method: :get do %>
+                        <i class="far fa-edit"></i>
+                      <% end %>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            <% end %>
+          </tbody>
+        </table>
       </div>
     </div>
 
-    <table class="table table-sm table-striped">
-      <thead class="table-dark">
-        <tr w-auto>
-          <th></th>
-          <th>No.</th>
-          <th><%= Category.human_attribute_name :name %></th>
-          <th>編集</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <% unless params[:id] %>
-          <%= form_tag({ controller: :categories, action: :destroy_all }, id: "delete-category", method: 'delete') do %>
-            <% @categories.each do |category| %>
-              <tr>
-                <td><%= category_check_box(category.id) %></td>
-                <td class="table-number"><%= @heading_number += 1 %>&emsp;</td>
-                <td><%= category.name %></td>
-                <td>
-                  <%= link_to admins_categories_path(id: category), local: true, method: :get do %>
-                    <i class="far fa-edit"></i>
-                  <% end %>
-                </td>
-              </tr>
-            <% end %>
-          <% end %>
-        <% else %>
-          <% @categories.each do |category| %>
-            <tr>
-              <td><%= check_box_tag '', 'true', false, disabled: true %></td>
-                <td class="table-number"><%= @heading_number += 1 %>&emsp;</td>
-                <td><%= edit_category_form(category) %></td>
-              <td>
-                <% if @category.id == category.id %>
-                  <%= link_to admins_categories_path, data: { "turbolinks": false } do %>
-                    <i class="far fa-window-close"></i>
-                  <% end %>
-                <% else %>
-                  <%= link_to admins_categories_path(id: category), local: true, method: :get do %>
-                    <i class="far fa-edit"></i>
-                  <% end %>
-                <% end %>
-              </td>
-            </tr>
-          <% end %>
-        <% end %>
-      </tbody>
-    </table>
   </div>
 </div>
 

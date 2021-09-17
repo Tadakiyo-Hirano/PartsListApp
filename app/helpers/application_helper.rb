@@ -7,4 +7,12 @@ module ApplicationHelper
       user&.email
     end
   end
+
+  def submit_text
+    if controller.action_name == 'new'
+      '登録'
+    elsif controller.action_name == 'edit'
+      '更新'
+    end
+  end
 end

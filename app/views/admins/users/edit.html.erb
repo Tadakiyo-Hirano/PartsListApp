@@ -1,26 +1,39 @@
-<h5><%= user_name(@user) %></h5>
+<div class="card card-dark">
+  <div class="card-header">
+    <h3 class="card-title">
+      <i class="fas fa-users nav-icon"></i>
+      &nbsp;
+      名前変更 : <%= user_name(@user) %>
+    </h3>
+  </div>
+  <div class="card-body">
 
-<div class="col col-md-8 offset-md-2">
-  <%= form_with model: @user, url: admins_user_path, method: :patch, local: true do |f|  %>
-    <table class="table table-sm table-bordered">
-      <tbody>
-        <tr>
-          <th width="25%"><%= User.human_attribute_name :id %></th>
-          <td><%= @user.id %></td>
-        </tr>
-        <tr>
-          <th><%= User.human_attribute_name :name %></th>
-          <td><%= f.text_field :name, required: true, class: "form-control-sm form-control" %></td>
-        </tr>
-        <tr>
-          <th><%= User.human_attribute_name :email %></th>
-          <td><%= @user.email %></td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="col col-md-12">
+      <%= form_with model: @user, url: admins_user_path, method: :patch, local: true do |f|  %>
+        <table class="table table-sm table-bordered">
+          <tbody>
+            <tr>
+              <th width="25%"><%= User.human_attribute_name :id %></th>
+              <td><%= @user.id %></td>
+            </tr>
+            <tr>
+              <th><%= User.human_attribute_name :name %></th>
+              <td><%= f.text_field :name, required: true, class: "form-control-sm form-control" %></td>
+            </tr>
+            <tr>
+              <th><%= User.human_attribute_name :email %></th>
+              <td><%= @user.email %></td>
+            </tr>
+          </tbody>
+        </table>
 
-    <div class="field">
-      <%= f.submit submit_text, class: "btn btn-navy w-100", data: { disable_with: '送信中' } %>
+        <div class="field">
+          <%= f.submit submit_text, class: "btn btn-sm btn-primary w-100px", data: { disable_with: '送信中' } %>
+          <%= link_to '前画面に戻る', admins_user_path(@user), class: "btn btn-sm btn-secondary" %>
+          <%= link_to '一覧に戻る', admins_users_path, class: "btn btn-sm btn-secondary" %>
+        </div>
+      <% end %>
     </div>
-  <% end %>
+
+  </div>
 </div>
