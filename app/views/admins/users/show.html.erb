@@ -1,6 +1,10 @@
 <div class="card card-dark">
   <div class="card-header">
-    <h3 class="card-title"><%= user_name(@user) %></h3>
+    <h3 class="card-title">
+      <i class="fas fa-users nav-icon"></i>
+      &nbsp;
+      登録情報 : <%= user_name(@user) %>
+    </h3>
   </div>
   <div class="card-body">
 
@@ -54,7 +58,7 @@
       </table>
     </div>
 
-    <div class="col col-md-8 offset-md-2">
+    <div class="field">
       <%= link_to '名前変更', edit_admins_user_path, class: "btn btn-sm btn-primary" %>
       <%= link_to '一覧に戻る', admins_users_path, class: "btn btn-sm btn-secondary" %>
     </div>

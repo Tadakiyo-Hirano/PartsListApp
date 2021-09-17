@@ -1,66 +1,77 @@
-<div class="row">
-  <div class="col-md-6 offset-md-3">
-    <h5><%= Brand.human_attribute_name :name %>登録</h5>
-    <div class="new-brand-btn">
-      <div class="new-brand-item-left" data-toggle="modal" data-target="#new-brand-modal">
-        <%= new_brand_btn %>
-      </div>
-      <div class="new-brand-item-left">
-        <%= delete_brand_btn %>
-      </div>
-      <div class="new-brand-item-right">
-        <%= link_to '並べ替え', index_sort_admins_brands_path, class: "btn btn-sm btn-primary", data: { "turbolinks": false } %>
+<div class="card card-dark">
+  <div class="card-header">
+    <h3 class="card-title">
+      <i class="far fa-copyright nav-icon"></i>
+      <%= Brand.human_attribute_name :name %>一覧
+    </h3>
+  </div>
+  <div class="card-body">
+
+    <div class="row">
+      <div class="col-md-8 offset-md-2">
+        <div class="new-brand-btn">
+          <div class="new-brand-item-left" data-toggle="modal" data-target="#new-brand-modal">
+            <%= new_brand_btn %>
+          </div>
+          <div class="new-brand-item-left">
+            <%= delete_brand_btn %>
+          </div>
+          <div class="new-brand-item-right">
+            <%= link_to '並べ替え', index_sort_admins_brands_path, class: "btn btn-sm btn-primary", data: { "turbolinks": false } %>
+          </div>
+        </div>
+    
+        <table class="table table-sm table-striped">
+          <thead class="table-dark">
+            <tr w-auto>
+              <th></th>
+              <th>No.</th>
+              <th><%= Brand.human_attribute_name :name %></th>
+              <th>編集</th>
+            </tr>
+          </thead>
+    
+          <tbody>
+            <% unless params[:id] %>
+              <%= form_tag({ controller: :brands, action: :destroy_all }, id: "delete-brand", method: 'delete') do %>
+                <% @brands.each do |brand| %>
+                  <tr>
+                    <td><%= brand_check_box(brand.id) %></td>
+                    <td class="table-number"><%= @heading_number += 1 %>&emsp;</td>
+                    <td><%= brand.name %></td>
+                    <td>
+                      <%= link_to admins_brands_path(id: brand), local: true, method: :get do %>
+                        <i class="far fa-edit"></i>
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+              <% end %>
+            <% else %>
+              <% @brands.each do |brand| %>
+                <tr>
+                  <td><%= check_box_tag '', 'true', false, disabled: true %></td>
+                    <td class="table-number"><%= @heading_number += 1 %>&emsp;</td>
+                    <td><%= edit_brand_form(brand) %></td>
+                  <td>
+                    <% if @brand.id == brand.id %>
+                      <%= link_to admins_brands_path, data: { "turbolinks": false } do %>
+                        <i class="far fa-window-close"></i>
+                      <% end %>
+                    <% else %>
+                      <%= link_to admins_brands_path(id: brand), local: true, method: :get do %>
+                        <i class="far fa-edit"></i>
+                      <% end %>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            <% end %>
+          </tbody>
+        </table>
       </div>
     </div>
 
-    <table class="table table-sm table-striped">
-      <thead class="table-dark">
-        <tr w-auto>
-          <th></th>
-          <th>No.</th>
-          <th><%= Brand.human_attribute_name :name %></th>
-          <th>編集</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <% unless params[:id] %>
-          <%= form_tag({ controller: :brands, action: :destroy_all }, id: "delete-brand", method: 'delete') do %>
-            <% @brands.each do |brand| %>
-              <tr>
-                <td><%= brand_check_box(brand.id) %></td>
-                <td class="table-number"><%= @heading_number += 1 %>&emsp;</td>
-                <td><%= brand.name %></td>
-                <td>
-                  <%= link_to admins_brands_path(id: brand), local: true, method: :get do %>
-                    <i class="far fa-edit"></i>
-                  <% end %>
-                </td>
-              </tr>
-            <% end %>
-          <% end %>
-        <% else %>
-          <% @brands.each do |brand| %>
-            <tr>
-              <td><%= check_box_tag '', 'true', false, disabled: true %></td>
-                <td class="table-number"><%= @heading_number += 1 %>&emsp;</td>
-                <td><%= edit_brand_form(brand) %></td>
-              <td>
-                <% if @brand.id == brand.id %>
-                  <%= link_to admins_brands_path, data: { "turbolinks": false } do %>
-                    <i class="far fa-window-close"></i>
-                  <% end %>
-                <% else %>
-                  <%= link_to admins_brands_path(id: brand), local: true, method: :get do %>
-                    <i class="far fa-edit"></i>
-                  <% end %>
-                <% end %>
-              </td>
-            </tr>
-          <% end %>
-        <% end %>
-      </tbody>
-    </table>
   </div>
 </div>
 

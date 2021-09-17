@@ -10,11 +10,11 @@
           </div>
           <div class="card-body">
             <h6 class="card-title">パーツリスト</h6>
-            <p class="card-text">登録件数: <%= Product.count %>件 / ストレージ容量: <%= sprintf("%.2f", (@storage_size.sum.to_f / 1000000000)) %>GB</p>
+            <p class="card-text">登録件数: <%= Product.count %> 件 / ストレージ容量: <%= sprintf("%.2f", (@storage_size.sum.to_f / 1000000000)) %> GB</p>
             <h6 class="card-title"><%= Brand.human_attribute_name :name %></h6>
-            <p class="card-text">登録件数: <%= Brand.count %>件</p>
+            <p class="card-text">登録件数: <%= Brand.count %> 件</p>
             <h6 class="card-title"><%= Category.human_attribute_name :name %></h6>
-            <p class="card-text">登録件数: <%= Category.count %>件</p>
+            <p class="card-text">登録件数: <%= Category.count %> 件</p>
             <a href="<%= admins_products_path %>" class="btn btn-sm btn-primary">パーツリスト</a>
             <a href="<%= admins_brands_path %>" class="btn btn-sm btn-info"><%= Brand.human_attribute_name :name %></a>
             <a href="<%= admins_categories_path %>" class="btn btn-sm btn-info"><%= Category.human_attribute_name :name %></a>
@@ -29,7 +29,7 @@
           </div>
           <div class="card-body">
             <h6 class="card-title">ユーザー</h6>
-            <p class="card-text">登録件数: <%= User.count %>件 (一般: 00件 / プレミアム: 00件)</p>
+            <p class="card-text">登録件数: <%= User.count %> 件 (一般: 00 件 / プレミアム: 00 件)</p>
             <a href="<%= admins_users_path %>" class="btn btn-sm btn-primary">ユーザー</a>
           </div>
         </div>
@@ -42,7 +42,7 @@
           </div>
           <div class="card-body">
             <h6 class="card-title">お知らせ</h6>
-            <p class="card-text">登録件数: 00件</p>
+            <p class="card-text">登録件数: 00 件</p>
             <a href="<%= admins_users_path %>" class="btn btn-sm btn-primary">お知らせ</a>
           </div>
         </div>
