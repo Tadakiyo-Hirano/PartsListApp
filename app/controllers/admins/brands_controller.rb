@@ -31,7 +31,7 @@ class Admins::BrandsController < ApplicationController
   def create
     @brand = Brand.new(brand_params)
     if @brand.save
-      redirect_to admins_brands_url, flash: { success: "カテゴリー【#{@brand.name}】を登録しました。" }
+      redirect_to admins_brands_url, flash: { success: "#{Brand.human_attribute_name :name}【#{@brand.name}】を登録しました。" }
     else
       redirect_to admins_brands_url, flash: { danger: @brand.errors.full_messages.join }
     end
@@ -44,7 +44,7 @@ class Admins::BrandsController < ApplicationController
     @brand_updated_at = @brand.updated_at
     if @brand.update(brand_params)
       if @brand_updated_at != @brand.updated_at
-        flash[:success] = "ブランド【#{@brand.name}】を更新しました。"
+        flash[:success] = "#{Brand.human_attribute_name :name}【#{@brand.name}】を更新しました。"
       else
         flash[:info] = "変更はありません。"
       end
@@ -57,15 +57,15 @@ class Admins::BrandsController < ApplicationController
   def destroy_all
     @brands = Brand.where(id: params[:brands])
     if @brands.blank?
-      redirect_to admins_brands_url, flash: { warning: '削除するブランドを選択してください。' }
+      redirect_to admins_brands_url, flash: { warning: "削除する#{Brand.human_attribute_name :name}を選択してください。" }
     else
       delete_count = @brands.map { |brand| }.count
       @brands.destroy_all
-      flash[:danger] = "ブランドを#{delete_count}件削除しました。"
+      flash[:danger] = "#{Brand.human_attribute_name :name}を#{delete_count}件削除しました。"
       redirect_to admins_brands_url
     end
   rescue ActiveRecord::InvalidForeignKey
-    redirect_to admins_brands_url, flash: { danger: 'パーツリストへ使用中のブランドは削除できません。' }
+    redirect_to admins_brands_url, flash: { danger: "パーツリストへ使用中の#{Brand.human_attribute_name :name}は削除できません。" }
   end
 
   private

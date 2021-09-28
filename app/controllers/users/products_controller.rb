@@ -15,7 +15,10 @@ class Users::ProductsController < ApplicationController
     @user = current_user
     @brands = Brand.all.rank(:row_order)
     @categories = Category.rank(:row_order)
+    @q = Product.ransack(params[:q])
+    @products = @q.result.includes(:brand, :category).page(params[:page]).per(20).order(model: :ASC)
     # @q = @user.favorited_products.ransack(params[:q])
+
     @products = @user.favorited_products.includes(:brand, :category).page(params[:page]).per(20).order(model: :ASC)
     @heading_number = 0
     

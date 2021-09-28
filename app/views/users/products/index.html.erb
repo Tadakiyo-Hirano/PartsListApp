@@ -1,67 +1,70 @@
-<div class="row">
-  <div class="col-md-8 offset-md-2">
-    <h5>パーツリスト</h5>
-  <div class="new-product-btn">
-    <div class="new-product-item-left">
-    </div>
+<div class="card card-navy">
+  <div class="card-header">
+    <h3 class="card-title">パーツリスト</h3>
   </div>
-
-  <%= search_form_for @q, url: user_products_path(@user) do |f| %>
-    <div class="product-search-flexbox">
-      <div class="product-search-flexbox-item">
-        <%= f.search_field :model_cont, placeholder: "型式", class: "form-control form-control-sm" %>
-      </div>
-
-      <div class="product-search-flexbox-item">
-        <%= f.collection_select :category_id_eq, @categories, :id, :name, { include_blank: '機種選択' }, { class: "form-control form-control-sm" } %>
-      </div>
-
-      <div class="product-search-flexbox-item">
-        <%= f.collection_select :brand_id_eq, @brands, :id, :name, { include_blank: 'メーカー選択' }, { class: "form-control form-control-sm" } %>
-      </div>
-
-      <div class="product-search-flexbox-item">
-        <%= f.submit '検索', class: "btn btn-sm btn-navy" %>
-        <%= link_to 'リセット', user_products_path(@user), class: "btn btn-sm btn-secondary" if params[:q].present? %>
-      </div>
-    </div>
-  <% end %>
-
-  <div class="favorite-btn">
-    <% if @user.favorited_products.present? %>
-    <%= link_to 'ブックマーク一覧', favorites_user_products_path(@user), class: "btn btn-sm btn-navy" %>
-    <% else %>
-      <span style="font-size: small;">☆クリックで、ブックマーク登録･解除ができます。</span>
-    <% end %>
-  </div>
-
-
-  <table id="table-navy" class="table table-sm table-striped">
-    <thead class="bg-navy" style="color: #fff;">
-      <tr>
-        <th></th>
-        <th class="aaa"><%= Product.human_attribute_name :model %></th>
-        <th><%= Category.human_attribute_name :name %></th>
-        <th><%= Brand.human_attribute_name :name %></th>
-      </tr>
-    </thead>  
-    
-    <tbody>
-      <% @products.each do |product| %>
-        <tr>
-          <td>
-            <!-- < if @favorites.present? %> -->
-            <div id="favorite_<%= product.id %>" class="favorite-star">
-              <%= render "users/favorites/index", product: product %>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-12">
+        <%= search_form_for @q, url: user_products_path(@user) do |f| %>
+          <div class="product-search-flexbox">
+            <div class="product-search-flexbox-item">
+              <%= f.search_field :model_cont, placeholder: "型式", class: "form-control form-control-sm" %>
             </div>
-            <!-- < end %> -->
-          </td>
-          <td class="model-link"><%= link_to product.model, rails_blob_path(product.document), target: :_blank, rel: "noopener noreferrer"  %></td>
-          <td><%= Category.find(product.category_id).name %></td>
-          <td><%= Brand.find(product.brand_id).name %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-  <div><%= paginate @products %></div>
+    
+            <div class="product-search-flexbox-item">
+              <%= f.collection_select :category_id_eq, @categories, :id, :name, { include_blank: '機種選択' }, { class: "form-control form-control-sm" } %>
+            </div>
+    
+            <div class="product-search-flexbox-item">
+              <%= f.collection_select :brand_id_eq, @brands, :id, :name, { include_blank: 'メーカー選択' }, { class: "form-control form-control-sm" } %>
+            </div>
+    
+            <div class="product-search-flexbox-item">
+              <%= f.submit '検索', class: "btn btn-sm btn-original shadow" %>
+              <%= link_to 'リセット', user_products_path(@user), class: "btn btn-sm btn-secondary" if params[:q].present? %>
+            </div>
+          </div>
+        <% end %>
+  
+        <div class="favorite-btn">
+          <% if @user.favorited_products.present? %>
+          <%= link_to 'ブックマーク一覧', favorites_user_products_path(@user), class: "btn btn-sm btn-original shadow" %>
+          <% else %>
+            <span style="font-size: small;">☆クリックで、ブックマーク登録･解除ができます。</span>
+          <% end %>
+        </div>
+    
+  
+        <table id="table-original" class="table table-sm table-striped">
+          <thead style="color: #fff; background-color: #001f3f;">
+            <tr>
+              <th></th>
+              <th class="aaa"><%= Product.human_attribute_name :model %></th>
+              <th><%= Category.human_attribute_name :name %></th>
+              <th><%= Brand.human_attribute_name :name %></th>
+            </tr>
+          </thead>  
+          
+          <tbody>
+            <% @products.each do |product| %>
+              <tr>
+                <td>
+                  <!-- < if @favorites.present? %> -->
+                  <div id="favorite_<%= product.id %>" class="favorite-star">
+                    <%= render "users/favorites/index", product: product %>
+                  </div>
+                  <!-- < end %> -->
+                </td>
+                <td class="model-link"><%= link_to product.model, rails_blob_path(product.document), target: :_blank, rel: "noopener noreferrer"  %></td>
+                <td><%= Category.find(product.category_id).name %></td>
+                <td><%= Brand.find(product.brand_id).name %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <div><%= paginate @products %></div>
+      </div>
+    </div>
+
+  </div>  
 </div>

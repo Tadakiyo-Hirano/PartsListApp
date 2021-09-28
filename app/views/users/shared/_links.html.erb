@@ -1,7 +1,7 @@
 <%- if devise_mapping.omniauthable? %>
   <%- resource_class.omniauth_providers.each do |provider| %>
     <!-- <%= link_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider) %><br /> -->
-    <%= link_to user_google_oauth2_omniauth_authorize_path, class: "btn btn-sm btn-danger btn-block", method: :post do %>
+    <%= link_to user_google_oauth2_omniauth_authorize_path, class: "btn btn-sm btn-danger btn-block shadow", method: :post do %>
       <i class="fab fa-google"></i>&emsp;Googleでログイン
     <% end %><br />
   <% end %>
@@ -12,7 +12,7 @@
 <% end %>
 
 <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
-  <%= link_to "アカウント登録", new_registration_path(resource_name), class: "btn btn-primary btn-sm btn-block" %><br />
+  <%= link_to "アカウント登録", new_registration_path(resource_name), class: "btn btn-original btn-sm btn-block shadow" %><br />
 <% end %>
 
 <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>

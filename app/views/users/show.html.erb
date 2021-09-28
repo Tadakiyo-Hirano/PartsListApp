@@ -1,20 +1,30 @@
-<h5>アカウント情報</h5>
+<div class="card card-navy">
+  <div class="card-header">
+    <h3 class="card-title">アカウント情報</h3>
+  </div>
+  <div class="card-body">
 
-<div class="col col-md-8 offset-md-2">
-  <table class="table table-sm table-bordered">
-    <tbody>
-      <tr>
-        <th>Email</th>
-        <td><%= @user.email %></td>
-      </tr>
-      <tr>
-        <th>名前</th>
-        <td><%= @user.name %></td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+    <div class="col col-md-8 offset-md-2">
+      <table class="table table-sm table-bordered">
+        <tbody>
+          <tr>
+            <th><%= User.human_attribute_name :email %></th>
+            <td><%= @user.email %></td>
+          </tr>
+          <tr>
+            <th><%= User.human_attribute_name :name %></th>
+            <td><%= @user.name %></td>
+          </tr>
+          <tr>
+            <th>Account Lv.</th>
+            <td>  </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-<div class="col col-md-8 offset-md-2">
-  <%= link_to 'アカウント情報編集', edit_user_registration_path, class: "btn btn-sm btn-navy" %>
+    <div class="col col-md-8 offset-md-2">
+      <%= link_to 'アカウント情報編集', edit_user_registration_path, class: "btn btn-sm btn-original" %>
+    </div>
+  </div>
 </div>

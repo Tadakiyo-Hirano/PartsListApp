@@ -25,7 +25,7 @@
             </div>
     
             <div class="product-search-flexbox-item">
-              <%= f.submit "検索", class: "btn btn-sm btn-primary" %>
+              <%= f.submit "検索", class: "btn btn-sm btn-original shadow" %>
               <%= link_to 'リセット', admins_products_path, class: "btn btn-sm btn-secondary" if params[:q].present? %>
             </div>
           </div>
@@ -33,7 +33,7 @@
         
         <div class="new-product-btn">
           <div class="new-product-item">
-            <%= link_to '新規登録', new_admins_product_path, remote: true, class: "btn btn-sm btn-primary" %>
+            <%= link_to '新規登録', new_admins_product_path, remote: true, class: "btn btn-sm btn-original shadow" %>
           </div>
           <div class="new-product-item size-text">
             <%= "ストレージ使用量 : #{sprintf("%.2f", (@storage_size.sum.to_f / 1000000000))} GB" %>
