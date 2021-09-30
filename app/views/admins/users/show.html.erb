@@ -20,12 +20,28 @@
             <td><%= @user.name %></td>
           </tr>
           <tr>
+            <th><%= User.human_attribute_name :company_name %></th>
+            <td><%= @user.company_name %></td>
+          </tr>
+          <tr>
             <th><%= User.human_attribute_name :email %></th>
             <td><%= @user.email %></td>
           </tr>
           <tr>
+            <th><%= User.human_attribute_name :account_level %></th>
+            <td><%= @user.account_level_before_type_cast %></td>
+          </tr>
+          <tr>
             <th><%= User.human_attribute_name :sign_in_count  %></th>
             <td><%= @user.sign_in_count  %>&nbsp;回</td>
+          </tr>
+          <tr>
+            <th><%= User.human_attribute_name :created_at  %></th>
+            <td><%= user_created_at(@user)  %></td>
+          </tr>
+          <tr>
+            <th><%= User.human_attribute_name :updated_at  %></th>
+            <td><%= user_updated_at(@user)  %></td>
           </tr>
           <tr>
             <th><%= User.human_attribute_name :current_sign_in_at %></th>
@@ -59,8 +75,8 @@
     </div>
 
     <div class="field">
-      <%= link_to '名前変更', edit_admins_user_path, class: "btn btn-sm btn-primary" %>
-      <%= link_to '一覧に戻る', admins_users_path, class: "btn btn-sm btn-secondary" %>
+      <%= link_to '名前変更', edit_admins_user_path, class: "btn btn-sm btn-original shadow" %>
+      <%= link_to '一覧に戻る', admins_users_path, class: "btn btn-sm btn-secondary shadow" %>
     </div>
 
   </div>

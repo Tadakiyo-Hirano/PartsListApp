@@ -15,6 +15,11 @@
           </div>
 
           <div class="field">
+            <%= f.label :company_name %><br />
+            <%= f.text_field :company_name, autofocus: true, autocomplete: "name", class: "form-control-sm form-control" %>
+          </div>
+
+          <div class="field">
             <%= f.label :email %><br />
             <%= f.email_field :email, autocomplete: "email", class: "form-control-sm form-control" %>
           </div>

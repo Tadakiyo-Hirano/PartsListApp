@@ -21,16 +21,24 @@
               <td><%= f.text_field :name, required: true, class: "form-control-sm form-control" %></td>
             </tr>
             <tr>
+              <th><%= User.human_attribute_name :company_name %></th>
+              <td><%= f.text_field :company_name, class: "form-control-sm form-control" %></td>
+            </tr>
+            <tr>
               <th><%= User.human_attribute_name :email %></th>
               <td><%= @user.email %></td>
+            </tr>
+            <tr>
+              <th><%= User.human_attribute_name :account_level %></th>
+              <td><%= f.select :account_level, User.account_levels.keys.map { |k| [k, k] }, {}, { class: "form-control-sm form-control" } %></td>
             </tr>
           </tbody>
         </table>
 
         <div class="field">
-          <%= f.submit submit_text, class: "btn btn-sm btn-primary w-100px", data: { disable_with: '送信中' } %>
-          <%= link_to '前画面に戻る', admins_user_path(@user), class: "btn btn-sm btn-secondary" %>
-          <%= link_to '一覧に戻る', admins_users_path, class: "btn btn-sm btn-secondary" %>
+          <%= f.submit submit_text, class: "btn btn-sm btn-original shadow w-100px", data: { disable_with: '送信中' } %>
+          <%= link_to '前画面に戻る', admins_user_path(@user), class: "btn btn-sm btn-secondary shadow" %>
+          <%= link_to '一覧に戻る', admins_users_path, class: "btn btn-sm btn-secondary shadow" %>
         </div>
       <% end %>
     </div>

@@ -25,6 +25,8 @@ ja:
       user:
         id: ID
         name: 名前
+        company_name: 会社名
+        account_level: アカウントLv
         email: メールアドレス
         password: パスワード
         password_confirmation: 確認用パスワード
@@ -36,4 +38,3 @@ ja:
         last_sign_in_ip: 前回ログインIP
         created_at: 登録日
         updated_at: 更新日
-

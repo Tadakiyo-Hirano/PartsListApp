@@ -1,4 +1,12 @@
 ja:
+  enums:
+    user:
+      account_level:
+        '1': ★
+        '2': ★★
+        '3': ★★★
+        '4': ★★★★
+        '5': ★★★★★
   activerecord:
     errors:
       messages:
