@@ -9,6 +9,9 @@ class User < ApplicationRecord
           :omniauthable, omniauth_providers: [:google_oauth2]
 
   validates :name, length: { maximum: 20 }
+  validates :company_name, length: { maximum: 50 }
+  validates :account_level, presence: true
+  enum account_level: { '1': 1, '2': 2, '3': 3, '4': 4, '5': 5 }
 
   # def favorite(product)
   #   favorites.find_or_create_by(product_id: product.id)

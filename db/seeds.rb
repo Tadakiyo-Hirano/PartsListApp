@@ -13,15 +13,15 @@ Admin.create!(
 
 puts 'admin created!'
 
-10.times do |n|
-  User.create!(
-    name: "Test User#{n + 1}",
-    email: "sample#{n + 1}@email.com",
-    password: 'password'
-  )
-end
+# 10.times do |n|
+#   User.create!(
+#     name: "Test User#{n + 1}",
+#     email: "sample#{n + 1}@email.com",
+#     password: 'password'
+#   )
+# end
 
-puts 'user created!'
+# puts 'user created!'
 
 10.times do |n|
   Category.create!(

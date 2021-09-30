@@ -8,16 +8,20 @@
       <table class="table table-sm table-bordered">
         <tbody>
           <tr>
-            <th><%= User.human_attribute_name :email %></th>
-            <td><%= @user.email %></td>
-          </tr>
-          <tr>
             <th><%= User.human_attribute_name :name %></th>
             <td><%= @user.name %></td>
           </tr>
           <tr>
-            <th>Account Lv.</th>
-            <td>  </td>
+            <th><%= User.human_attribute_name :company_name %></th>
+            <td><%= @user.company_name %></td>
+          </tr>
+          <tr>
+            <th><%= User.human_attribute_name :email %></th>
+            <td><%= @user.email %></td>
+          </tr>
+          <tr>
+            <th><%= User.human_attribute_name :account_level %>.<%= @user.account_level %></th>
+            <td><%= @user.account_level_i18n %></td>
           </tr>
         </tbody>
       </table>
