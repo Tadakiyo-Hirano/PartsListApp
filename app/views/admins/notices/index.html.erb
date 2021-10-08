@@ -1,0 +1,55 @@
+<div class="card card-dark">
+  <div class="card-header">
+    <h3 class="card-title">
+      <i class="far fa-comment-dots nav-icon"></i>
+      &nbsp;
+      お知らせ
+    </h3>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="new-notice-btn">
+          <div class="new-notice-item">
+            <%= link_to '新規登録', new_admins_notice_path, remote: true, class: "btn btn-sm btn-original shadow" %>
+          </div>
+        </div>
+
+        <table class="table table-sm table-bordered table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th><%= Notice.human_attribute_name :posted_at %></th>
+              <th><%= Notice.human_attribute_name :text %></th>
+              <th></th>
+              <th class="center">修正</th>
+              <th class="center">削除</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @notices.each do |notice| %>
+              <tr class=<%= display_off_bg_color(notice) %>>
+                <td><%= notice.posted_at.strftime("%Y年%-m月%-d日") %></td>
+                <td><%= notice.text %></td>
+                <td class="center"><%= notice.display ? '' : '非表示' %></td>
+                <td class="center">
+                  <%= link_to edit_admins_notice_path(notice), remote: true do %>
+                    <i class="fas fa-pencil-alt"></i>
+                  <% end %>
+                </td>
+                <td class="center">
+                  <%= link_to admins_notice_path(notice), method: :delete, data: { disable_with: "送信中", confirm: "本当に削除しますか？" } do %>
+                    <i class="fas fa-trash-alt"></i>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="new-notice-modal" class="modal fade" data-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true"></div>
+<div id="edit-notice-modal" class="modal fade" data-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true"></div>

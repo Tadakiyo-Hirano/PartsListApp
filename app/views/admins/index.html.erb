@@ -42,8 +42,8 @@
           </div>
           <div class="card-body">
             <h6 class="card-title">お知らせ</h6>
-            <p class="card-text">登録件数: 00 件</p>
-            <a href="<%= admins_users_path %>" class="btn btn-sm btn-original shadow">お知らせ</a>
+            <p class="card-text">登録件数: <%= Notice.count %> 件</p>
+            <a href="<%= admins_notices_path %>" class="btn btn-sm btn-original shadow">お知らせ</a>
           </div>
         </div>
       </div>

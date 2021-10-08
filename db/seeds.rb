@@ -33,7 +33,7 @@ puts 'sample category created!'
 
 10.times do |n|
   Brand.create!(
-    name: "sample brand#{n +1}"
+    name: "sample brand#{n + 1}"
   )
 end
 
@@ -50,3 +50,12 @@ puts 'sample brand created!'
 end
 
 puts 'sample product created!'
+
+10.times do |n|
+  Notice.create!(
+    posted_at: DateTime.current + (n+1).day,
+    text: "テスト文章、テスト文章、テスト文章#{n+1}"
+  )
+end
+
+puts 'sample notice created!'

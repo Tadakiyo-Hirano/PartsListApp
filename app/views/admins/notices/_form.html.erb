@@ -1,0 +1,34 @@
+<div class="form-group">
+  <div class="field">
+    <%= f.label :posted_at %>
+    <%= f.date_field :posted_at, value: posted_date, class: "form-control-sm form-control" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :text %>&emsp;
+    <span id="inputlength">0文字</span>
+    <%= f.text_area :text, placeholder: "300文字以内",
+                            rows: "5",
+                            required: true,
+                            maxlength: "300",
+                            onkeyup: "ShowLength(value);",
+                            class: "form-control-sm form-control"
+    %>
+  </div>
+
+  <div class="field">
+    <%= f.label :display %>
+    <%= f.check_box :display %>
+    <p style="font-size: small;">チェックボックスを外すと非表示になります。</p>
+  </div>
+  
+  <div class="field">
+    <%= f.submit submit_text, class: "btn btn-sm btn-original shadow w-100", data: { disable_with: '送信中' } %>
+  </div>
+</div>
+
+<script>
+  function ShowLength( str ) {
+    document.getElementById("inputlength").innerHTML = str.length + "文字";
+}
+</script>

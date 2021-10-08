@@ -1,0 +1,14 @@
+.new-notice-btn {
+  margin-bottom: 10px;
+  display: flex;
+}
+
+.new-notice-item {
+  display: inline-block;
+  margin-right: 3px;
+}
+
+.new-notice-item:last-child {
+  // margin-left: auto;
+  margin-right: 3px;
+}

@@ -1,6 +1,20 @@
+<% if Notice.where(display: true).present? %>
+  <div class="info-box">
+    <span class="info-box-icon bg-secondary"><i class="far fa-comment-dots"></i></span>
+    <div class="info-box-content">
+      <span class="info-box-text"><%= @last_notice.posted_at.strftime("%Y年%-m月%-d日") %> - お知らせ</span>
+      <span class="info-box-number"><%= @last_notice.text %></span>
+    </div>
+  </div>
+<% end %>
+
 <div class="card card-navy">
   <div class="card-header">
-    <h3 class="card-title">パーツリスト</h3>
+    <h3 class="card-title">
+      <i class="far fa-file"></i>
+      &nbsp;
+      パーツリスト
+    </h3>
   </div>
   <div class="card-body">
     <div class="row">
@@ -68,3 +82,7 @@
 
   </div>  
 </div>
+
+<script>
+  setTimeout("$('.flash_messages').fadeOut('slow')", 9000);
+</script>
