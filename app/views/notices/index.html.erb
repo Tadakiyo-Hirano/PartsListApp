@@ -1,0 +1,20 @@
+<div class="info-box">
+  <!-- <span class="info-box-icon bg-secondary"><i class="far fa-comment-dots"></i></span> -->
+  <div class="info-box-content">
+    <span class="info-box-number">
+      <h3>お知らせ</h3>
+    </span>
+  </div>
+</div>
+
+<% @notices.each do |notice| %>
+  <div class="info-box">
+    <!-- <span class="info-box-icon bg-secondary"><i class="far fa-comment-dots"></i></span> -->
+    <div class="info-box-content">
+      <span class="info-box-text"><%= notice.posted_at.strftime("%Y年%-m月%-d日") %></span>
+      <span class="info-box-number"><%= notice.text %></span>
+    </div>
+  </div>
+<% end %>
+
+<div><%= paginate @notices %></div>

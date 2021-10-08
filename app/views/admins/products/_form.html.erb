@@ -1,16 +1,16 @@
 <div class="form-group">
   <div class="field">
-    <%= f.label :model, '型式' %>
+    <%= f.label :model %>
     <%= f.text_field :model, placeholder: "50文字以内", required: true, maxlength: "50", class: "form-control-sm form-control" %>
   </div>
 
   <div class="field">
-    <%= f.label :category_id, '機種' %>
+    <%= f.label Category.human_attribute_name :name %>
     <%= f.select :category_id, Category.rank(:row_order).map { |category| [category.name, category.id] }, {}, { required: true, class: "form-control-sm form-control" } %>
   </div>
   
   <div class="field">
-    <%= f.label :brand_id, 'メーカーブランド' %>
+    <%= f.label Brand.human_attribute_name :name %>
     <%= f.select :brand_id, Brand.rank(:row_order).map { |brand| [brand.name, brand.id] }, {}, { required: true, class: "form-control-sm form-control" } %>
   </div>
 

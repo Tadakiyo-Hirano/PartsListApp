@@ -34,6 +34,7 @@ Rails.application.routes.draw do
       get 'favorite'
     end
     resources :products
+    resources :notices
   end
 
   # rootをログイン画面に設定
@@ -58,4 +59,5 @@ Rails.application.routes.draw do
 
   resources :admins, only: %i(index)
   resources :products
+  resources :notices, only: %i(index)
 end

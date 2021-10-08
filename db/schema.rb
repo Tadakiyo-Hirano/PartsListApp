@@ -81,6 +81,7 @@ ActiveRecord::Schema.define(version: 2021_09_30_062229) do
   create_table "notices", force: :cascade do |t|
     t.datetime "posted_at", precision: 6, null: false
     t.text "text"
+    t.boolean "display", default: true, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

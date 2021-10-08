@@ -10,6 +10,8 @@ class Users::ProductsController < ApplicationController
     @q = Product.ransack(params[:q])
     @products = @q.result.includes(:brand, :category).page(params[:page]).per(20).order(model: :ASC)
     @heading_number = 0
+    @notices = Notice.where(display: true).order(posted_at: :DESC)
+    @last_notice = Notice.where(display: true).order(posted_at: :DESC).first
   end
 
   def favorites

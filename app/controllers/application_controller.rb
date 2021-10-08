@@ -31,6 +31,14 @@ class ApplicationController < ActionController::Base
       @user = current_user if user_signed_in?
     end
 
+    def user_or_admin_signed_in?
+      if user_signed_in? || admin_signed_in?
+        return
+      else
+        redirect_to new_user_session_path
+      end
+    end
+
   protected
 
     def configure_permitted_parameters

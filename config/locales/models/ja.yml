@@ -3,24 +3,31 @@ ja:
     models:
       brand:
       category:
+      notice:
       product:
       user:
     attributes:
       brand:
         id: ID
         name: メーカー
-        created_at: 作成日
+        created_at: 登録日
         updated_at: 更新日
       category:
         id: ID
         name: 機種
-        created_at: 作成日
+        created_at: 登録日
+        updated_at: 更新日
+      notice:
+        posted_at: 投稿日
+        text: お知らせ内容
+        display: 表示
+        created_at: 登録日
         updated_at: 更新日
       product:
         id: ID
         model: 型式
         document: 添付ファイル
-        created_at: 作成日
+        created_at: 登録日
         updated_at: 更新日
       user:
         id: ID
