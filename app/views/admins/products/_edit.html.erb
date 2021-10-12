@@ -12,13 +12,14 @@
     </div>
 
     <div class="modal-body">
-      <%= form_with model: @product, url: admins_product_path(@product), method: :patch, remote: true do |f|  %>
+      <%= form_with model: @product, url: admins_product_path(@product), id: "product-edit-btn", method: :patch, remote: true do |f|  %>
         <%= render 'form', f: f %>
       <% end %>
     </div>
 
     <div class="modal-footer">
-      <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">閉じる</button>
+      <button type="button" class="btn btn-sm btn-secondary w-25" data-dismiss="modal">閉じる</button>
+      <%= button_tag submit_text, class: "btn btn-sm btn-original shadow w-25", form: "product-edit-btn", data: { disable_with: '送信中' } %>
     </div>
   </div>
 </div>

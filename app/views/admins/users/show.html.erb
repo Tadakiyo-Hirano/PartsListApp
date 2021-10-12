@@ -75,7 +75,7 @@
     </div>
 
     <div class="field">
-      <%= link_to '名前変更', edit_admins_user_path, class: "btn btn-sm btn-original shadow" %>
+      <%= link_to '修正', edit_admins_user_path, remote: true, class: "btn btn-sm btn-original shadow w-100px" %>
       <%= link_to '一覧に戻る', admins_users_path, class: "btn btn-sm btn-secondary shadow" %>
     </div>
 
@@ -83,3 +83,4 @@
 </div>
 
 <div id="favorite-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+<div id="edit-user-modal" class="modal fade" data-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true"></div>
