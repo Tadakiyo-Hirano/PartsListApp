@@ -28,14 +28,14 @@ RSpec.describe Product, type: :model do
         expect(@product.errors[:model]).to include('を入力してください')
       end
       
-      it '文字数が50文字以内であれば有効であること' do
+      it '文字数が50文字以内であれば有効な状態であること' do
         @product.model = '12345678901234567890123456789012345678901234567890'
 
         @product.valid?
         expect(@product).to be_valid
       end
 
-      it '文字数が50文字以上であれば無効であること' do
+      it '文字数が50文字以上であれば無効な状態であること' do
         @product.model = '123456789012345678901234567890123456789012345678901'
         
         @product.valid?
@@ -43,7 +43,7 @@ RSpec.describe Product, type: :model do
       end
     end
 
-    context "category_idの" do
+    context 'category_idの' do
       it '存在がなければ無効な状態であること' do
         @product.category_id = nil
 
