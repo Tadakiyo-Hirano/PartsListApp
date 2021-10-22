@@ -70,5 +70,20 @@ RSpec.describe User, type: :model do
         expect(user.errors[:company_name]).to include('は50文字以内で入力してください')  
       end
     end
+
+    context "account_level" do
+      it 'が1の時有効でな状態であること' do
+        user = FactoryBot.build(:user, account_level: 1)
+        user.valid?
+        expect(user).to be_valid
+      end
+
+      it 'が5の時有効でな状態であること' do
+        user = FactoryBot.build(:user, account_level: 5)
+        user.valid?
+        expect(user).to be_valid
+      end
+    end
+    
   end
 end

@@ -21,8 +21,12 @@ class ApplicationController < ActionController::Base
     if resource_or_scope == :admin
       admin_session_url
     else
-      user_session_url
+      root_url
     end
+  end
+
+  def new_notice
+    @last_notice = Notice.where(display: true).order(posted_at: :DESC).first
   end
 
   private

@@ -1,3 +1,4 @@
+<!--
 <% if Notice.where(display: true).present? %>
   <div class="info-box">
     <span class="info-box-icon bg-secondary"><i class="far fa-comment-dots"></i></span>
@@ -7,6 +8,7 @@
     </div>
   </div>
 <% end %>
+-->
 
 <div class="card card-navy">
   <div class="card-header">
@@ -69,7 +71,7 @@
                   </div>
                   <!-- < end %> -->
                 </td>
-                <td class="model-link"><%= link_to product.model, rails_blob_path(product.document), target: :_blank, rel: "noopener noreferrer"  %></td>
+                <td class="model-link"><%= link_to product.model, rails_blob_path(product.document), expires_in: 10.minutes, target: :_blank, rel: "noopener noreferrer"  %></td>
                 <td><%= Category.find(product.category_id).name %></td>
                 <td><%= Brand.find(product.brand_id).name %></td>
               </tr>

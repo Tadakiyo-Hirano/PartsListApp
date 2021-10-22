@@ -1,26 +1,33 @@
 <div id="pageBase">
   <div class="login">
-    <h1 class="logo"><img src="/top_logo.png" alt="PARTS LIST"></h1>
+    <h1 class="logo">
+      <%= link_to image_tag("/top_logo.png", alt: "PARTS LIST", class: "title-logo"), "/" %>
+    </h1>
   </div>
 </div>
 
-<div class="row center">
-  <div class="user-confirmation-form col col-md-6 offset-md-3">
+
+
+<div class="center">
+  <div class="user-confirmation-form">
     <div class="field-group">
-      <h2>確認メールの再送信</h2>
+      <div class="user-confirmation-field">
+        <h6 class="left">確認メールの再送信</h6><br/>
 
-      <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
-        <%= render "users/shared/error_messages", resource: resource %>
+        <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
+          <!-- <= render "users/shared/error_messages", resource: resource %> -->
+          <%= devise_error_messages %>
 
-        <div class="field">
-          <%= f.label :email %><br />
-          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email) %>
-        </div>
+          <div class="field left">
+            <%= f.label :email %><br />
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", required: "required", class: "form-control form-control-sm", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email) %>
+          </div>
 
-        <div class="actions">
-          <%= f.submit "確認メールを送信する", class: "btn btn-navy btn-block" %>
-        </div>
-      <% end %>
+          <div class="actions">
+            <%= f.submit "確認メールを送信する", class: "btn btn-sm btn-original btn-block" %>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
