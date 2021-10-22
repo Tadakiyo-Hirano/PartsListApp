@@ -1,36 +1,35 @@
 <div id="pageBase">
   <div class="login">
-    <h1 class="logo"><img src="/top_logo.png" alt="PARTS LIST"></h1>
+    <h1 class="logo">
+      <%= link_to image_tag("/top_logo.png", alt: "PARTS LIST", class: "title-logo"), "/" %>
+    </h1>
   </div>
 </div>
 
-<div class="row center">
-  <div class="user-password-form col col-md-6 offset-md-3">
+<div class="center">
+  <div class="user-password-form">
     <div class="field-group">
-      <h2>パスワード再設定</h2>
-      <br/>
-      <p>
-        以下の欄に登録したメールアドレスを入力してください。<br>
-        パスワード再設定について、メールで連絡いたします。
-      </p>
+      <div class="user-password-field">
+        <h6 class="left">パスワード再設定</h6><br/>
+        <p>
+          以下の欄に登録したメールアドレスを入力してください。<br>
+          パスワード再設定通知が送信されます。
+        </p>
 
-      <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-        <%= render "users/shared/error_messages", resource: resource %>
+        <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+          <!-- <= render "users/shared/error_messages", resource: resource %> -->
+          <%= devise_error_messages %>
 
-        <div class="field">
-          <%= f.label :email %><br />
-          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
-        </div>
+          <div class="field left">
+            <%= f.label :email %><br />
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", required: "required", class: "form-control form-control-sm" %>
+          </div>
 
-        <div class="actions">
-          <%= f.submit "パスワード再設定メールを送る", class: "btn btn-block btn-navy", data: { disable_with: '送信中' } %>
-        </div>
-      <% end %>
-
-      <div class="shared-links">
-        <%= render "users/shared/links" %>
+          <div class="actions">
+            <%= f.submit "パスワード再設定メールを送る", class: "btn btn-sm btn-block btn-original", data: { disable_with: '送信中' } %>
+          </div>
+        <% end %>
       </div>
-
     </div>
   </div>
 </div>

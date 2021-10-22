@@ -1,44 +1,45 @@
 <div id="pageBase">
   <div class="login">
-    <h1 class="logo"><img src="/top_logo.png" alt="PARTS LIST"></h1>
+    <h1 class="logo">
+      <%= link_to image_tag("/top_logo.png", alt: "PARTS LIST", class: "title-logo"), "/" %>
+    </h1>
   </div>
 </div>
 
-<div class="row center">
-  <div class="user-registration-form col col-md-6 offset-md-3">
+<div class="center">
+  <div class="user-registration-form">
     <div class="field-group">
-      <h5>アカウント登録</h5>
+      <div class="user-registration-field">
+        <h6 class="left">アカウント登録</h6><br/>
 
-      <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-      <%= render "users/shared/error_messages", resource: resource %>
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <!-- <= render "users/shared/error_messages", resource: resource %> -->
+        <%= devise_error_messages %>
 
-        <div class="field">
-          <%= f.label :email %><br />
-          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
-        </div>
 
-        <div class="field">
-          <%= f.label :password %>
-          <% if @minimum_password_length %>
-          <em>(<%= @minimum_password_length %> 文字以上)</em>
-          <% end %><br />
-          <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
-        </div>
+          <div class="field left">
+            <%= f.label :email %><br />
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", required: "required", class: "form-control form-control-sm" %>
+          </div>
 
-        <div class="field">
-          <%= f.label :password_confirmation %><br />
-          <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
-        </div>
+          <div class="field left">
+            <%= f.label :password %>
+            <% if @minimum_password_length %>
+            <em>(<%= @minimum_password_length %> 文字以上)</em>
+            <% end %><br />
+            <%= f.password_field :password, autocomplete: "new-password", required: "required", class: "form-control form-control-sm" %>
+          </div>
 
-        <div class="actions">
-          <%= f.submit "アカウント登録", class: "btn btn-block btn-original" %>
-        </div>
-      <% end %>
+          <div class="field left">
+            <%= f.label :password_confirmation %><br />
+            <%= f.password_field :password_confirmation, autocomplete: "new-password", required: "required", class: "form-control form-control-sm" %>
+          </div>
 
-      <div class="shared-links">
-        <%= render "users/shared/links" %>
+          <div class="actions">
+            <%= f.submit "アカウント登録", class: "btn btn-sm btn-block btn-original" %>
+          </div><br/>
+        <% end %>
       </div>
-
     </div>
   </div>
 </div>

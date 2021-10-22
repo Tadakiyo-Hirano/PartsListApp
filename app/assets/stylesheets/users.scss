@@ -2,22 +2,60 @@
   .user-login-form {
     display: inline-block;
     vertical-align: top;
-    // margin: 0 0.5em 0 0.5em;
     width: 25%;
   }
 
   .user-registration-form {
-    margin: 1em;
+    text-align: center;
+    display: inline-block;
+    width: 50%;
+  }
+
+  .user-password-form {
+    text-align: center;
+    display: inline-block;
+    width: 50%;
+  }
+
+  .user-confirmation-form {
+    text-align: center;
+    display: inline-block;
+    width: 50%;
   }
   
-
   .user-login-field-group {
     text-align: left;
-    // background-color: #f4f4f4;
     border: solid 1px #47619c;
     border-radius: 10px;  
     padding: 1em;
     height: 250px;
+  }
+
+  .user-registration-field {
+    font-size: smaller;
+    font-weight: nomal;
+    text-align: left;
+    border: solid 1px #47619c;
+    border-radius: 10px;  
+    padding: 1em;
+  }
+
+  .user-password-field {
+    font-size: smaller;
+    font-weight: nomal;
+    text-align: left;
+    border: solid 1px #47619c;
+    border-radius: 10px;  
+    padding: 1em;
+  }
+
+  .user-confirmation-field {
+    font-size: smaller;
+    font-weight: nomal;
+    text-align: left;
+    border: solid 1px #47619c;
+    border-radius: 10px;  
+    padding: 1em;
   }
 }
 
@@ -30,14 +68,39 @@
     margin-bottom: 1em;
   }
 
-  .user-registration-form {
-    margin: 1em;
-    width: 100%;
-  }
+  // .user-registration-form {
+  //   margin: 1em;
+  // }
 
   .user-login-field-group {
     text-align: left;
-    // background-color: #f4f4f4;
+    border: solid 1px #47619c;
+    border-radius: 10px;  
+    padding: 1em;
+  }
+
+  .user-registration-field {
+    font-size: smaller;
+    font-weight: nomal;
+    text-align: left;
+    border: solid 1px #47619c;
+    border-radius: 10px;  
+    padding: 1em;
+  }
+
+  .user-password-field {
+    font-size: smaller;
+    font-weight: nomal;
+    text-align: left;
+    border: solid 1px #47619c;
+    border-radius: 10px;  
+    padding: 1em;
+  }
+
+  .user-confirmation-field {
+    font-size: smaller;
+    font-weight: nomal;
+    text-align: left;
     border: solid 1px #47619c;
     border-radius: 10px;  
     padding: 1em;

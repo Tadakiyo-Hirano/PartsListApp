@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
 
-  root 'home#index'
-  # get 'users/show'
+  # root 'home#index'
   
   # devise_for :admins, controllers: {
   #   sessions: 'admins/sessions'
@@ -38,9 +37,9 @@ Rails.application.routes.draw do
   end
 
   # rootをログイン画面に設定
-  # devise_scope :user do
-  #   root "users/sessions#new"
-  # end
+  devise_scope :user do
+    root "users/sessions#new"
+  end
 
   devise_for :users, controllers: {
     sessions: 'users/sessions',
@@ -60,4 +59,33 @@ Rails.application.routes.draw do
   resources :admins, only: %i(index)
   resources :products
   resources :notices, only: %i(index)
+
+  # Active StorageのURLを期限付きにする
+  # https://github.com/rails/rails/blob/v6.1.3.2/activestorage/config/routes.rb#L60-L81
+  # を元に`expires_in`オプションを受け付けるように定義しなおしています
+  direct :app_blob do |model, options|
+    # 1.hourはデフォルトの有効期限
+    expires_in = options.delete(:expires_in) { 1.hour }
+
+    if model.respond_to?(:signed_id)
+      route_for(
+        :rails_service_blob,
+        model.signed_id(expires_in: expires_in),
+        model.filename,
+        options
+      )
+    else
+      signed_blob_id = model.blob.signed_id(expires_in: expires_in)
+      variation_key  = model.variation.key
+      filename       = model.blob.filename
+
+      route_for(
+        :rails_blob_representation,
+        signed_blob_id,
+        variation_key,
+        filename,
+        options
+      )
+    end
+  end
 end

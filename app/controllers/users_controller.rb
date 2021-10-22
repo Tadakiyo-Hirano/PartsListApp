@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :correct_user
   before_action :set_user, only: %i(show)
+  before_action :new_notice
 
   def show
   end
