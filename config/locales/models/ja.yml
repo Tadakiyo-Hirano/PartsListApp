@@ -10,6 +10,7 @@ ja:
       brand:
         id: ID
         name: メーカー
+        public_level: 公開レベル
         created_at: 登録日
         updated_at: 更新日
       category:

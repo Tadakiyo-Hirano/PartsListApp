@@ -10,8 +10,7 @@ class Admin < ApplicationRecord
   private
 
     def registerable_count
-      if Admin.present?
-        errors.add(:base, "Don't increase it!")
+      if Admin.count == 1
         throw(:abort)
       end
     end

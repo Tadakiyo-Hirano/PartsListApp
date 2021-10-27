@@ -31,7 +31,7 @@ module BrandsHelper
 
   def brand_check_box(brand)
     if Product.where(brand_id: brand).first
-      check_box_tag '', 'true', false, disabled: true
+      check_box_tag '', true, false, disabled: true
     else
       check_box_tag 'brands[]',brand
     end

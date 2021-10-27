@@ -28,18 +28,16 @@
             <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
           <% end %>
 
+          <br/>
+
           <div class="field">
             <%= f.label :password %> <i>(変更しない場合は空欄にしてください。)</i><br />
-            <%= f.password_field :password, autocomplete: "new-password", class: "form-control-sm form-control" %>
-            <% if @minimum_password_length %>
-              <br />
-              <em><%= @minimum_password_length %> 文字以上</em>
-            <% end %>
+            <%= f.password_field :password, autocomplete: "new-password", placeholder: "6文字以上", class: "form-control-sm form-control" %>
           </div>
 
           <div class="field">
             <%= f.label :password_confirmation %><br />
-            <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control-sm form-control" %>
+            <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "6文字以上", class: "form-control-sm form-control" %>
           </div>
 
           <!-- <div class="field">
@@ -47,9 +45,9 @@
             <%= f.password_field :current_password, autocomplete: "current-password", class: "form-control" %>
           </div> -->
 
-          <div class="actions">
-            <%= f.submit "編集", class: "btn btn-block btn-sm btn-original shadow", data: { disable_with: '送信中' } %>
-            <%= link_to "戻る", :back, class: "btn btn-block btn-sm btn-secondary shadow" %>
+          <div class="actions right">
+            <%= link_to "戻る", :back, class: "btn btn-sm btn-secondary shadow w-25" %>
+            <%= f.submit submit_text, class: "btn btn-sm btn-original shadow w-25", data: { disable_with: '送信中' } %>
           </div>
         <% end %>
       </div>
@@ -77,7 +75,7 @@
       <div>   
         <%= button_to "退会する", registration_path(resource_name),
                                   class: "btn btn-danger shadow",
-                                  data: { confirm: "本当に退会しますか?", disable_with: '送信中' },
+                                  data: { confirm: "退会するとアカウントが削除されます。本当に退会しますか?", disable_with: '送信中' },
                                   method: :delete %>
       </div>
       <br>
