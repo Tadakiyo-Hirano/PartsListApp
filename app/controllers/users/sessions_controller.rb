@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Users::SessionsController < Devise::SessionsController
+  before_action :admin_loged_in?
   # before_action :configure_sign_in_params, only: [:create]
 
   # GET /resource/sign_in
@@ -18,7 +19,11 @@ class Users::SessionsController < Devise::SessionsController
   #   super
   # end
 
-  # protected
+  protected
+
+    def admin_loged_in?
+      redirect_to admins_products_path if admin_signed_in?
+    end
 
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_sign_in_params
