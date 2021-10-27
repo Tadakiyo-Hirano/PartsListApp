@@ -15,4 +15,15 @@ module UsersHelper
   def  user_updated_at(user)
     user.updated_at.strftime("%Y/%m/%d") unless user.current_sign_in_at == nil
   end
+
+  def account_level_color(account_level)
+    case account_level
+    when "3" then
+      "bronze_color"
+    when "4" then
+      "silver_color"
+    when "5" then
+      "gold_color"
+    end
+  end
 end

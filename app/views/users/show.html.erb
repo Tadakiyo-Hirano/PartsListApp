@@ -25,7 +25,7 @@
           </tr>
           <tr>
             <th><%= User.human_attribute_name :account_level %>.<%= @user.account_level %></th>
-            <td><%= @user.account_level_i18n %></td>
+            <td class="<%= account_level_color(@user.account_level) %>"><%= @user.account_level_i18n %></td>
           </tr>
         </tbody>
       </table>

@@ -15,7 +15,13 @@
         <%= form_with model: @brand, url: admins_brands_path, method: :post, remote: true do |f|  %>
           <div class="form-group">
             <div class="field">
+              <%= f.label :name %>
               <%= f.text_field :name, placeholder: "20文字以内", required: true, maxlength: "20", class: "form-control form-control-sm" %>
+            </div>
+
+            <div class="field">
+              <%= f.label :public_level %>
+              <%= f.select :public_level, Brand.public_levels.keys.map { |k| [k, k] }, {}, { class: "form-control-sm form-control" } %>
             </div>
 
             <div class="field">

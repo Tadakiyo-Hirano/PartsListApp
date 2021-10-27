@@ -7,7 +7,7 @@ class Users::ProductsController < ApplicationController
 
   def index
     @q = Product.ransack(params[:q])
-    @products = @q.result.includes(:brand, :category).page(params[:page]).per(20).order(model: :ASC)
+    @products = @q.result.includes(:brand, :category).public_parts_list(@user).page(params[:page]).per(20).order(model: :ASC)
     @heading_number = 0
     # @notices = Notice.where(display: true).order(posted_at: :DESC)
     # @last_notice = Notice.where(display: true).order(posted_at: :DESC).first
@@ -18,7 +18,7 @@ class Users::ProductsController < ApplicationController
     # @products = @q.result.includes(:brand, :category).page(params[:page]).per(20).order(model: :ASC)
     # @q = @user.favorited_products.ransack(params[:q])
 
-    @products = @user.favorited_products.includes(:brand, :category).page(params[:page]).per(20).order(model: :ASC)
+    @products = @user.favorited_products.includes(:brand, :category).public_parts_list(@user).page(params[:page]).per(20).order(model: :ASC)
     @heading_number = 0
     
   end

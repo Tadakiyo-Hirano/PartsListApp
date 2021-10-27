@@ -26,8 +26,8 @@
             <tr w-auto>
               <th></th>
               <th>No.</th>
-              <th><%= Brand.human_attribute_name :name %></th>
-              <th>編集</th>
+              <th><%= Brand.human_attribute_name :name %>【<%= Brand.human_attribute_name :public_level %>】</th>
+              <th class="center">編集</th>
             </tr>
           </thead>
     
@@ -38,8 +38,8 @@
                   <tr>
                     <td><%= brand_check_box(brand.id) %></td>
                     <td class="table-number"><%= @heading_number += 1 %>&emsp;</td>
-                    <td><%= brand.name %></td>
-                    <td>
+                    <td><%= brand.name %>【<%= brand.public_level %>】</td>
+                    <td class="center">
                       <%= link_to admins_brands_path(id: brand), local: true, method: :get do %>
                         <i class="far fa-edit"></i>
                       <% end %>
@@ -51,9 +51,9 @@
               <% @brands.each do |brand| %>
                 <tr>
                   <td><%= check_box_tag '', 'true', false, disabled: true %></td>
-                    <td class="table-number"><%= @heading_number += 1 %>&emsp;</td>
-                    <td><%= edit_brand_form(brand) %></td>
-                  <td>
+                  <td class="table-number"><%= @heading_number += 1 %>&emsp;</td>
+                  <td><%= edit_brand_form(brand) %></td>
+                  <td class="center">
                     <% if @brand.id == brand.id %>
                       <%= link_to admins_brands_path, data: { "turbolinks": false } do %>
                         <i class="far fa-window-close"></i>

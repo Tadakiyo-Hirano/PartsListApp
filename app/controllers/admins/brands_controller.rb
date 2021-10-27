@@ -75,6 +75,6 @@ class Admins::BrandsController < ApplicationController
     end
 
     def brand_params
-      params.require(:brand).permit(:name, :row_order_position)
+      params.require(:brand).permit(:name, :public_level, :row_order_position)
     end
 end

@@ -12,4 +12,6 @@ class Product < ApplicationRecord
   validates :document, attached: true,
                         content_type: { in: 'application/pdf', message: 'の形式が正しくありません' },
                         size: { less_than: 10.megabytes , message: 'のサイズは10MBまでにしてください' }
+
+  scope :public_parts_list, -> (user) { joins(:brand).where("brands.public_level <= #{user.account_level}") }
 end
