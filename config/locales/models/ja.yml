@@ -3,6 +3,7 @@ ja:
     models:
       brand:
       category:
+      contact:
       notice:
       product:
       user:
@@ -18,6 +19,9 @@ ja:
         name: 機種
         created_at: 登録日
         updated_at: 更新日
+      contact:
+        name: 名前
+        content: お問い合わせ内容
       notice:
         posted_at: 投稿日
         text: お知らせ内容

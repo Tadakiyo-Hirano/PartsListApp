@@ -27,12 +27,12 @@ RSpec.describe Brand, type: :model do
 
     context 'ブランド名の文字数が' do
       it '20文字以内であれば有効であること' do
-        brand = FactoryBot.build(:brand, name: '12345678901234567890')
+        brand = FactoryBot.build(:brand, name: 'a' * 20)
         expect(brand).to be_valid
       end
 
       it '20文字以上であれば無効であること' do
-        brand = FactoryBot.build(:brand, name: '123456789012345678901')
+        brand = FactoryBot.build(:brand, name: 'a' * 21)
         brand.valid?
         expect(brand.errors[:name]).to include('は20文字以内で入力してください')
       end

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 
   # root 'home#index'
   
@@ -34,6 +35,7 @@ Rails.application.routes.draw do
     end
     resources :products
     resources :notices
+    resources :contacts
   end
 
   # rootをログイン画面に設定

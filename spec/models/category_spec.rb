@@ -27,12 +27,12 @@ RSpec.describe Category, type: :model do
 
     context 'カテゴリー名の文字数が' do
       it '20文字以内であれば有効であること' do
-        category = FactoryBot.build(:category, name: '12345678901234567890')
+        category = FactoryBot.build(:category, name: 'a' * 20)
         expect(category).to be_valid
       end
 
       it '20文字以上であれば無効であること' do
-        category = FactoryBot.build(:category, name: '123456789012345678901')
+        category = FactoryBot.build(:category, name: 'a' * 21)
         category.valid?
         expect(category.errors[:name]).to include('は20文字以内で入力してください')
       end
