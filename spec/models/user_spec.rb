@@ -45,13 +45,13 @@ RSpec.describe User, type: :model do
 
     context 'name' do
       it 'の文字数が20文字以内であれば有効な状態であること' do
-        user = FactoryBot.build(:user, name: '12345678901234567890')
+        user = FactoryBot.build(:user, name: 'a' * 20)
         user.valid?
         expect(user).to be_valid
       end
 
       it 'の文字数が21文字以上であれば無効な状態であること' do
-        user = FactoryBot.build(:user, name: '123456789012345678901')
+        user = FactoryBot.build(:user, name: 'a' * 21)
         user.valid?
         expect(user.errors[:name]).to include('は20文字以内で入力してください')
       end
@@ -59,13 +59,13 @@ RSpec.describe User, type: :model do
 
     context 'company_name' do
       it 'の文字数が50文字以内であれば有効な状態であること' do
-        user = FactoryBot.build(:user, company_name: '12345678901234567890123456789012345678901234567890')
+        user = FactoryBot.build(:user, company_name: 'a' * 50)
         user.valid?
         expect(user).to be_valid  
       end
 
       it 'の文字数が51文字以上であれば無効な状態であること' do
-        user = FactoryBot.build(:user, company_name: '123456789012345678901234567890123456789012345678901')
+        user = FactoryBot.build(:user, company_name: 'a' * 51)
         user.valid?
         expect(user.errors[:company_name]).to include('は50文字以内で入力してください')  
       end

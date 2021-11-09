@@ -60,6 +60,7 @@ group :development do
   gem 'spring-commands-rspec'
   gem 'rexml', '~> 3.2', '>= 3.2.4'
   gem 'dotenv-rails'
+  gem 'letter_opener_web'
 end
 
 group :test do

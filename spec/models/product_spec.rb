@@ -29,14 +29,14 @@ RSpec.describe Product, type: :model do
       end
       
       it '文字数が50文字以内であれば有効な状態であること' do
-        @product.model = '12345678901234567890123456789012345678901234567890'
+        @product.model = 'a' * 50
 
         @product.valid?
         expect(@product).to be_valid
       end
 
       it '文字数が50文字以上であれば無効な状態であること' do
-        @product.model = '123456789012345678901234567890123456789012345678901'
+        @product.model = 'a' * 51
         
         @product.valid?
         expect(@product.errors[:model]).to include('は50文字以内で入力してください')
