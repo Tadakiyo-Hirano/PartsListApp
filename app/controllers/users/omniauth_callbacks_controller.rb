@@ -9,8 +9,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     @user = User.from_omniauth(request.env['omniauth.auth'])
 
     # 以下の2行追加で、新規認証時のメール確認をスキップできる。
-    @user.skip_confirmation!
-    @user.save!
+    # @user.skip_confirmation!
+    # @user.save!
 
     if @user.persisted?
       flash[:notice] = I18n.t 'devise.omniauth_callbacks.success', kind: 'Google'

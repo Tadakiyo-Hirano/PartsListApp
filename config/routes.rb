@@ -1,4 +1,4 @@
-Rails.application.routes.draw do
+Rails.application.routes.draw do  
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 
   # root 'home#index'
@@ -35,7 +35,6 @@ Rails.application.routes.draw do
     end
     resources :products
     resources :notices
-    resources :contacts
   end
 
   # rootをログイン画面に設定
@@ -61,6 +60,7 @@ Rails.application.routes.draw do
   resources :admins, only: %i(index)
   resources :products
   resources :notices, only: %i(index)
+  resources :contacts
 
   # Active StorageのURLを期限付きにする
   # https://github.com/rails/rails/blob/v6.1.3.2/activestorage/config/routes.rb#L60-L81
